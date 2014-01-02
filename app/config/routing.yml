@@ -1,0 +1,4 @@
+rov_blog:
+    resource: "@ROVBlogBundle/Resources/config/routing.yml"
+    prefix:   /
+

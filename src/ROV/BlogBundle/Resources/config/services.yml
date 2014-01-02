@@ -1,0 +1,7 @@
+parameters:
+#    rov_blog.example.class: ROV\BlogBundle\Example
+
+services:
+#    rov_blog.example:
+#        class: %rov_blog.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
