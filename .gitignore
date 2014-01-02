@@ -9,3 +9,7 @@
 /vendor/
 /bin/
 /composer.phar
+
+# sublimetext
+/*.sublime-project
+*.sublime-workspace
