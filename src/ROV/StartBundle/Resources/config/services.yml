@@ -1,0 +1,7 @@
+parameters:
+#    rov_start.example.class: ROV\StartBundle\Example
+
+services:
+#    rov_start.example:
+#        class: %rov_start.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

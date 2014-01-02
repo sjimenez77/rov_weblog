@@ -1,0 +1,7 @@
+parameters:
+#    rov_users.example.class: ROV\UsersBundle\Example
+
+services:
+#    rov_users.example:
+#        class: %rov_users.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,4 +1,24 @@
+rov_users:
+    resource: "@ROVUsersBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/user
+
 rov_blog:
     resource: "@ROVBlogBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /{_locale}/blog
 
+rovstart:
+    resource: "@ROVStartBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}
+    requirements:
+        _locale: en|es
+
+# Pattern of the homesite
+home:
+    pattern: /{_locale}
+    defaults: { _controller: ROVStartBundle:Default:home }
+    requirements:
+        _locale: en|es
+
+_home:
+    pattern: /
+    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: home, _locale: es}
