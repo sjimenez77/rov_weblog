@@ -7,18 +7,51 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
+        chain_provider:
+            chain:
+                providers: [in_memory, user_db]
         in_memory:
             memory:
                 users:
+                    santos: { password: Cornell1, roles: [ 'ROLE_SUPER_ADMIN' ] }
                     raquel: { password: Bongiovi1, roles: [ 'ROLE_ADMIN' ] }
+        user_db:
+            entity: { class: ROV\UsersBundle\Entity\User, property: email }
 
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        login_firewall:
-            pattern:    ^/login$
-            anonymous:  ~
+        frontend:
+            pattern:        ^/*
+            anonymous:      ~
+            form_login:  
+                login_path: user_login
+                check_path: user_login_check
+            logout:
+                path:       user_logout
+                target:     home
+                invalidate_session: false
+            remember_me:
+                key:        rovwebloguser2014
+                lifetime:   86400   # 86.400 = 60 * 60 * 24 = 1 day
+                path:       /
+                domain:     ~       # Defaults to the current domain from $_SERVER
+        admin:
+            pattern:        ^/admin*
+            provider:       in_memory
+            form_login:  
+                login_path: user_login
+                check_path: user_login_check
+            logout:
+                path:       user_logout
+                target:     home
+                invalidate_session: false
+            remember_me:
+                key:        rovweblogadmin2014
+                lifetime:   86400   # 86.400 = 60 * 60 * 24 = 1 day
+                path:       /
+                domain:     ~       # Defaults to the current domain from $_SERVER
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

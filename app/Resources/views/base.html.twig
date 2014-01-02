@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="{% block lang %}{% endblock %}">
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block meta %}{% endblock %}
+        <title id="{% block title_id %}{% endblock %}">De vinos | {% block title %}{% endblock %}</title>
+        {% block meta %}{% endblock %}
         {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block js_head %}{% endblock %}
+        {% block ie %}{% endblock %}
+        {% block icons %}<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />{% endblock %}        
     </head>
-    <body>
+    <body id="{% block id '' %}" class="{% block class '' %}">
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

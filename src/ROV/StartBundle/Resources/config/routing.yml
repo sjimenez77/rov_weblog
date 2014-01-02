@@ -1,3 +1,11 @@
 rov_start_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ROVStartBundle:Default:index }
+    pattern:  /home
+    defaults: { _controller: ROVStartBundle:Default:home }
+
+rov_contact:
+    pattern: /contact
+    defaults: { _controller: ROVStartBundle:Default:contact }
+
+rov_static:
+    pattern:  /site/{page}
+    defaults: { _controller: ROVStartBundle:Site:static }
