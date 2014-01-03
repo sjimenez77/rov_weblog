@@ -12,8 +12,8 @@
 
 {% block stylesheets %}
     <link href="{{ asset('bundles/rovstart/css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/rovstart/css/main.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/rovstart/css/bootstrap-responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/rovstart/css/modern-business.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/rovstart/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block ie %}
@@ -26,26 +26,15 @@
 
 {% block icons %}
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('bundles/rovstart/ico/apple-touch-icon-144-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('bundles/rovstart/ico/apple-touch-icon-114-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bundles/rovstart/ico/apple-touch-icon-72-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/rovstart/ico/apple-touch-icon-57-precomposed.png') }}">
-    <link rel="shortcut icon" href="{{ asset('bundles/rovstart/ico/favicon.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
 {% endblock %}
 
 {% block body %}{% endblock %}
     
-{% block javascripts %}
-    <!-- load jQuery -->
+{% block js %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="{{ asset('bundles/rovstart/js/bootstrap.min.js') }}"></script>
-    <script>
-      !function ($) {
-        $(function(){
-          // carousel demo
-          $('#myCarousel').carousel()
-        })
-      }(window.jQuery)
-    </script>
-	<script src="{{ asset('bundles/rovstart/js/holder.js') }}"></script>
+	<script src="{{ asset('bundles/rovstart/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('bundles/rovstart/js/modern-business.js') }}"></script>
+    <script src="{{ asset('bundles/rovstart/js/holder.js') }}"></script>
 {% endblock %}

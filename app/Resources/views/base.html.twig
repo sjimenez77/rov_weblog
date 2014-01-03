@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="{% block lang %}{% endblock %}">
     <head>
-        <title id="{% block title_id %}{% endblock %}">De vinos | {% block title %}{% endblock %}</title>
+        <title id="{% block title_id %}{% endblock %}">Vinos y más | {% block title %}{% endblock %}</title>
         {% block meta %}{% endblock %}
         {% block stylesheets %}{% endblock %}
         {% block js_head %}{% endblock %}
         {% block ie %}{% endblock %}
-        {% block icons %}<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />{% endblock %}        
+        {% block icons %}{% endblock %}        
     </head>
     <body id="{% block id '' %}" class="{% block class '' %}">
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block js %}{% endblock %}
     </body>
 </html>
