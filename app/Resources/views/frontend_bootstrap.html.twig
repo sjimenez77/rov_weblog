@@ -30,8 +30,15 @@
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
 {% endblock %}
 
-{% block body %}{% endblock %}
-    
+{% block body %}
+    {% include '::navbar.html.twig' %}
+    {% include '::carousel.html.twig' %}
+{% endblock %}
+
+{% block footer %}
+    {% include '::footer.html.twig' %}
+{% endblock %}
+
 {% block js %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="{{ asset('bundles/rovstart/js/bootstrap.js') }}"></script>

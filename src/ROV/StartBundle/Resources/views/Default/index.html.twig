@@ -1,8 +1,7 @@
 {% extends '::frontend_bootstrap.html.twig' %}
 
 {% block body %}
-	{% include '::navbar.html.twig' %}
-	{% include '::carousel.html.twig' %}
+	{{ parent() }}
 	<div class="section">
 
 	  <div class="container">
@@ -144,19 +143,4 @@
 	  </div><!-- /.row -->
 
 	</div><!-- /.container -->
-
-	<div class="container">
-
-	  <hr>
-
-	  <footer>
-	    <div class="row">
-	      <div class="col-lg-12">
-	        <p>Copyright &copy; Company 2013</p>
-	      </div>
-	    </div>
-	  </footer>
-
-	</div><!-- /.container -->
-
 {% endblock %}
