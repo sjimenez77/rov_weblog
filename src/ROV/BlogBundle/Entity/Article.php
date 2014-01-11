@@ -5,12 +5,12 @@ namespace ROV\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Blog
+ * Article
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Blog
+class Article
 {
     /**
      * @var integer
@@ -50,9 +50,17 @@ class Blog
     private $content;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(name="tags", type="array")
+     * @var integer
+     * 
+     * @ORM\ManyToOne(targetEntity="ROV\BlogBundle\Entity\Category", inversedBy="articles")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
+
+    /**
+     * @var integer
+     * 
+     * @ORM\ManyToMany(targetEntity="ROV\BlogBundle\Entity\Tag", inversedBy="articles")
      */
     private $tags;
 
@@ -270,5 +278,58 @@ class Blog
     public function getUpdated()
     {
         return $this->updated;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set category
+     *
+     * @param \ROV\BlogBundle\Entity\Category $category
+     * @return Blog
+     */
+    public function setCategory(\ROV\BlogBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \ROV\BlogBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param \ROV\BlogBundle\Entity\Tag $tags
+     * @return Blog
+     */
+    public function addTag(\ROV\BlogBundle\Entity\Tag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \ROV\BlogBundle\Entity\Tag $tags
+     */
+    public function removeTag(\ROV\BlogBundle\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
     }
 }
