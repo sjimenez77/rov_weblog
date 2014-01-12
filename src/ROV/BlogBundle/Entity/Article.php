@@ -65,9 +65,9 @@ class Article
     private $tags;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="comments", type="string", length=255)
+     * @var integer
+     * 
+     * @ORM\OneToMany(targetEntity="ROV\BlogBundle\Entity\Comment", mappedBy="articles")
      */
     private $comments;
 
@@ -331,5 +331,28 @@ class Article
     public function removeTag(\ROV\BlogBundle\Entity\Tag $tags)
     {
         $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \ROV\BlogBundle\Entity\Comment $comments
+     * @return Article
+     */
+    public function addComment(\ROV\BlogBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \ROV\BlogBundle\Entity\Comment $comments
+     */
+    public function removeComment(\ROV\BlogBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
     }
 }
