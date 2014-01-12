@@ -30,6 +30,15 @@ class Comment
     private $user;
 
     /**
+     * The number of comment for this article
+     * 
+     * @var integer
+     *
+     * @ORM\Column(name="number", type="integer")
+     */
+    private $number;
+
+    /**
      * @var integer
      * 
      * @ORM\ManyToOne(targetEntity="ROV\BlogBundle\Entity\Article", inversedBy="comments")
@@ -43,6 +52,13 @@ class Comment
      * @ORM\Column(name="content", type="text")
      */
     private $content;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
 
 
     /**
@@ -122,5 +138,51 @@ class Comment
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set number
+     *
+     * @param integer $number
+     * @return Comment
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return integer 
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Comment
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

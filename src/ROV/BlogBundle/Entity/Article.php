@@ -67,7 +67,7 @@ class Article
     /**
      * @var integer
      * 
-     * @ORM\OneToMany(targetEntity="ROV\BlogBundle\Entity\Comment", mappedBy="articles")
+     * @ORM\OneToMany(targetEntity="ROV\BlogBundle\Entity\Comment", mappedBy="article")
      */
     private $comments;
 
@@ -85,6 +85,13 @@ class Article
      */
     private $updated;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -278,13 +285,6 @@ class Article
     public function getUpdated()
     {
         return $this->updated;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

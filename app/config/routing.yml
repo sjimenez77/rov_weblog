@@ -1,10 +1,14 @@
 rov_users:
     resource: "@ROVUsersBundle/Resources/config/routing.yml"
     prefix:   /{_locale}/user
+    requirements:
+        _locale: en|es
 
 rov_blog:
     resource: "@ROVBlogBundle/Resources/config/routing.yml"
     prefix:   /{_locale}/blog
+    requirements:
+        _locale: en|es
 
 rov_start:
     resource: "@ROVStartBundle/Resources/config/routing.yml"
