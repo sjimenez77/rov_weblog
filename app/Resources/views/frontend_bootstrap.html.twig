@@ -12,7 +12,7 @@
 
 {% block stylesheets %}
     {# Assetic #}
-    {% stylesheets 
+    {% stylesheets filter='?uglifycss' 
         'bundles/rovstart/css/bootstrap.css'
         'bundles/rovstart/css/modern-business.css'
         'bundles/rovstart/font-awesome/css/font-awesome.min.css'
@@ -46,7 +46,7 @@
 
 {% block js %}
     {# Assetic #}
-    {% javascripts 
+    {% javascripts filter='?uglifyjs2' 
         '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'
         '@ROVStartBundle/Resources/public/js/bootstrap.js' 
         '@ROVStartBundle/Resources/public/js/modern-business.js' 
