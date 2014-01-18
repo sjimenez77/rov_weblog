@@ -17,6 +17,9 @@ class DefaultController extends Controller
         	0
         );
 
+        // View $lastArticles with ladyBug
+        $this->get('ladybug')->log($lastArticles);
+
         return $this->render('ROVStartBundle:Default:home.html.twig', array(
         	'articles' => $lastArticles
         ));
