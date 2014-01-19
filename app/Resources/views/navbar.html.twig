@@ -16,7 +16,44 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="about.html">Sobre mi</a></li>
                 <li><a href="{{ path('rov_blog_homepage') }}">Blog</a></li>
-                <li><a href="contact.php">Contacto</a></li>
+                <li><a href="{{ path('rov_start_contact') }}">Contacto</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if app.user %}<i class="icon-user icon-white"></i> {{ app.user.name|e }} {% else %} <i class="icon-lock icon-white"></i> {{ 'Entrar'|trans }} {% endif %}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        {% if app.user %}
+                        <li class="dropdown-header">{{ 'Hola'|trans }} {{ app.user.name }}</li>
+                        <li><a href="{{ path('user_home') }}"><i class="icon-star icon-white"></i> {{ 'Perfil'|trans }}</a></li>
+                        {% else %}
+                        <li class="dropdown-header">{{ 'Introduzca sus datos'|trans }}</li>
+                        {% if error %}
+                        <li style="margin:0px 12px"><div class="alert alert-error">{{ error.message|trans }}</div></li>
+                        {% endif %}
+                        <li>
+                            <div style="padding:0px 12px">
+                                <form role="form" action="{{ path('rov_users_login_check') }}" method="post">
+                                    <div class="form-group">
+                                        <input class="form-control" id="username" name="_username" type="text" placeholder="{{ 'Email'|trans }}" value="{{ last_username | default('') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" id="password" name="_password" type="password" placeholder="{{ 'Contraseña'|trans }}">
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="remember_me" name="_remember_me"> {{ 'Recuérdame'|trans }}
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block">{{ 'Entrar'|trans }}</button><br>
+                                    {######### Target route after login #########}
+                                    {% if page is defined and page != 'home' %}
+                                        <input type="hidden" name="_target_path" value="{{ path(app.request.attributes.get('_route'), { '_locale': app.request.locale, 'page': page }) }}" />
+                                    {% else %}
+                                        <input type="hidden" name="_target_path" value="{{ path(app.request.attributes.get('_route'), { '_locale': app.request.locale }) }}" />
+                                    {% endif %}             
+                                </form>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -24,6 +61,7 @@
                         <li><a href="portfolio-2-col.html">Ver usuarios registrados</a></li>
                     </ul>
                 </li>
+                {% endif %}
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->

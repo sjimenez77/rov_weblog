@@ -1,6 +1,13 @@
 security:
     encoders:
-        ROV\UsersBundle\Entity\User: { algorithm: sha512, iterations: 10 }
+        ROV\UsersBundle\Entity\User:
+            algorithm: sha512
+            iterations: 10
+            encode_as_base64: true
+        Symfony\Component\Security\Core\User\User:
+            algorithm: sha1
+            iterations: 1
+            encode_as_base64: false
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -13,8 +20,8 @@ security:
         in_memory:
             memory:
                 users:
-                    santos: { password: Cornell1, roles: [ 'ROLE_SUPER_ADMIN' ] }
-                    raquel: { password: Bongiovi1, roles: [ 'ROLE_ADMIN' ] }
+                    santos: { password: b8a4634ede88c061f6e85125870897fd29b3e46f, roles: [ 'ROLE_SUPER_ADMIN' ] }
+                    raquel: { password: 370a7287c1504d83be04f11b1565818f31271c04, roles: [ 'ROLE_ADMIN' ] }
         user_db:
             entity: { class: ROV\UsersBundle\Entity\User, property: email }
 
@@ -26,10 +33,10 @@ security:
             pattern:        ^/*
             anonymous:      ~
             form_login:  
-                login_path: user_login
-                check_path: user_login_check
+                login_path: rov_users_login
+                check_path: rov_users_login_check
             logout:
-                path:       user_logout
+                path:       rov_users_logout
                 target:     home
                 invalidate_session: false
             remember_me:
@@ -54,5 +61,6 @@ security:
                 domain:     ~       # Defaults to the current domain from $_SERVER
 
     access_control:
-        - { path: '^/[a-z]{2}/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/[a-z]{2}/user/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/[a-z]{2}/user/register', roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/[a-z]{2}/admin', roles: ROLE_ADMIN }

@@ -3,6 +3,7 @@
 namespace ROV\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\SecurityContext;
 
 class DefaultController extends Controller
 {
@@ -10,7 +11,15 @@ class DefaultController extends Controller
     {
     	$numberPosts = 3;
 
-    	$em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
 
     	$lastArticles = $em->getRepository('ROVBlogBundle:Article')->findBy(
     		array(),
@@ -20,7 +29,9 @@ class DefaultController extends Controller
     	);
 
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
-        	'articles' => $lastArticles
+        	'articles' => $lastArticles,
+            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+            'error'         => $error
         ));
     }
 }

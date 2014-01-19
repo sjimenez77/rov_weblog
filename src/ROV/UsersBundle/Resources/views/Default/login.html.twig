@@ -1,0 +1,47 @@
+{% extends '::frontend_bootstrap.html.twig' %}
+
+{% block title %}Portada{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	
+	<div class="container">
+    	<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Blog <small>Portada del blog</small></h1>
+				<ol class="breadcrumb">
+					<li><a href="{{ path('home') }}">{{ 'Portada'|trans }}</a></li>
+					<li class="active">Entrada</li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-lg-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">{{ 'Introduzca su email y su contraseña para entrar'|trans }}</div>
+					<div class="panel-body">
+						<form role="form">
+							<div class="form-group">
+								<label for="username">{{ 'Dirección de correo electrónico'|trans }}</label>
+								<input type="email" class="form-control" id="username" name="_username" placeholder="{{ 'Escriba su email'|trans }}">
+							</div>
+							<div class="form-group">
+								<label for="password">{{ 'Contraseña'|trans }}</label>
+								<input type="password" class="form-control" id="password" name="_password" placeholder="{{ 'Escriba su contraseña'|trans }}">
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" id="remember_me" name="_remember_me"> {{ 'Recuérdame'|trans }}
+								</label>
+							</div>
+							<button type="submit" class="btn btn-default">{{ 'Entrar'|trans }}</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+{% endblock %}

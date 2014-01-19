@@ -2,10 +2,10 @@ rov_start_homepage:
     pattern:  /home
     defaults: { _controller: ROVStartBundle:Default:home }
 
-rov_contact:
-    pattern: /contact
+rov_start_contact:
+    pattern:  /contact
     defaults: { _controller: ROVStartBundle:Default:contact }
 
-rov_static:
+rov_start_static:
     pattern:  /site/{page}
     defaults: { _controller: ROVStartBundle:Site:static }
