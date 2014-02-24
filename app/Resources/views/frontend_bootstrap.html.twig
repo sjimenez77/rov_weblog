@@ -6,8 +6,8 @@
 {% block meta %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="description" content="Rainbow Cloud es un generador de aplicaciones en la nube">
-    <meta name="author" content="Logic Computers y Abada Soft">
+    <meta name="description" content="Blog dedicado a la cultura del vino y a otras cosas interesantes">
+    <meta name="author" content="Raquel Olivas Verdejo y Santos Jiménez Linares">
 {% endblock %}
 
 {% block stylesheets %}
@@ -54,4 +54,24 @@
         output='js/compiled/main.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <script type="text/javascript">
+        // *** Eventos **************************************************************************
+        $(function () {
+            var amplia_footer = function() {
+                // Ampliamos el alto del footer hasta el fondo de la página en el caso
+                // de que el contenido sea demasiado pequeño y el footer se quede por 
+                // encima del mismo
+                var diferencia = $(window).height() - ($('footer').height() + $('footer').offset().top);
+                if (diferencia > 0) {
+                    var altura_footer = $('footer').height();
+                    $('footer').height(altura_footer + diferencia - 50);
+                } else {
+                    $('footer').height('auto');
+                }
+                return true;
+            }
+            $(window).on('resize', function() {amplia_footer()} );
+            $(window).on('ready', function() {setTimeout(function(){amplia_footer()},50)} );
+        });
+    </script>
 {% endblock %}
