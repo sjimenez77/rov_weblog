@@ -7,9 +7,9 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    public function profileAction()
     {
-        return $this->render('ROVUsersBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('ROVUsersBundle:Default:profile.html.twig');
     }
 
     /**

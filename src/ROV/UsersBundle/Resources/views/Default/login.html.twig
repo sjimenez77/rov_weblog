@@ -8,7 +8,7 @@
 	<div class="container">
     	<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Blog <small>Portada del blog</small></h1>
+				<h1 class="page-header">Blog <small>Entrada</small></h1>
 				<ol class="breadcrumb">
 					<li><a href="{{ path('home') }}">{{ 'Portada'|trans }}</a></li>
 					<li class="active">Entrada</li>
@@ -22,7 +22,10 @@
 				<div class="panel panel-primary">
 					<div class="panel-heading">{{ 'Introduzca su email y su contraseña para entrar'|trans }}</div>
 					<div class="panel-body">
-						<form role="form">
+						<form role="form" action="{{ path('rov_users_login_check') }}" method="post">
+							{% if error %}
+							<div class="alert alert-danger">{{ error.message|trans }}</div>
+							{% endif %}
 							<div class="form-group">
 								<label for="username">{{ 'Dirección de correo electrónico'|trans }}</label>
 								<input type="email" class="form-control" id="username" name="_username" placeholder="{{ 'Escriba su email'|trans }}">

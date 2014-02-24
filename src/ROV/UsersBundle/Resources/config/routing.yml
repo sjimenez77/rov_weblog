@@ -1,6 +1,6 @@
 rov_users_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ROVUsersBundle:Default:index }
+    pattern:  /
+    defaults: { _controller: ROVUsersBundle:Default:profile }
 
 rov_users_login:
     pattern:  /login

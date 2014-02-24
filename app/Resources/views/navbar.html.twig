@@ -18,15 +18,15 @@
                 <li><a href="{{ path('rov_blog_homepage') }}">Blog</a></li>
                 <li><a href="{{ path('rov_start_contact') }}">Contacto</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if app.user %}<i class="icon-user icon-white"></i> {{ app.user.name|e }} {% else %} <i class="icon-lock icon-white"></i> {{ 'Entrar'|trans }} {% endif %}<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if app.user %}<i class="icon-user icon-white"></i> {{ app.user.username|e }} {% else %} <i class="icon-lock icon-white"></i> {{ 'Entrar'|trans }} {% endif %}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         {% if app.user %}
-                        <li class="dropdown-header">{{ 'Hola'|trans }} {{ app.user.name }}</li>
-                        <li><a href="{{ path('user_home') }}"><i class="icon-star icon-white"></i> {{ 'Perfil'|trans }}</a></li>
+                        <li class="dropdown-header">{{ 'Hola'|trans }} {{ app.user.username }}</li>
+                        <li><a href="{{ path('rov_users_homepage') }}"><i class="icon-star icon-white"></i> {{ 'Perfil'|trans }}</a></li>
                         {% else %}
                         <li class="dropdown-header">{{ 'Introduzca sus datos'|trans }}</li>
                         {% if error %}
-                        <li style="margin:0px 12px"><div class="alert alert-error">{{ error.message|trans }}</div></li>
+                        <li style="margin:0px 12px"><div class="alert alert-danger">{{ error.message|trans }}</div></li>
                         {% endif %}
                         <li>
                             <div style="padding:0px 12px">

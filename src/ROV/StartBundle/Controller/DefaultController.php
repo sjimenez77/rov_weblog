@@ -58,7 +58,12 @@ class DefaultController extends Controller
             $session->get(SecurityContext::AUTHENTICATION_ERROR)
         );
 
-        if ($this->get('security.context')->isGranted('ROLE_USER')) 
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN'))
+        {
+            // Admin go home!!
+            return $this->redirect($this->generateUrl('rov_start_homepage'));
+        }
+        elseif ($this->get('security.context')->isGranted('ROLE_USER')) 
         {
             // Load user name and surname into the form
             $user = $this->get('security.context')->getToken()->getUser();
