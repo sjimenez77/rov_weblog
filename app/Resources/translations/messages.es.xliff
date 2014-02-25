@@ -16,7 +16,7 @@
 			</trans-unit>
 			<trans-unit id="4">
 				<source>Allows email</source>
-				<target>Permite el envío de emails</target>
+				<target>Permite notificaciones</target>
 			</trans-unit>
 			<trans-unit id="5">
 				<source>Name</source>
@@ -68,7 +68,7 @@
 			</trans-unit>
 			<trans-unit id="17">
 				<source>The field "Allows email" indicates that you wish to receive notifications, emails and any kind of information from this website</source>
-				<target>El campo "Permite el envío de emails" indica que desea recibir notificaciones, correos y cualquier tipo de información de este sitio web</target>
+				<target>El campo "Permite notificaciones" indica que desea recibir notificaciones, correos y cualquier tipo de información de este sitio web</target>
 			</trans-unit>
 			<trans-unit id="18">
 				<source>Sign up now</source>
@@ -119,56 +119,56 @@
 				<target>Cerrar sesión</target>
 			</trans-unit>
 			<trans-unit id="30">
-				<source></source>
-				<target></target>
+				<source>Congratulations! You have been registered successfully</source>
+				<target>¡Felicidades! Se ha registrado correctamente</target>
 			</trans-unit>
 			<trans-unit id="31">
-				<source></source>
-				<target></target>
+				<source>Profile data has been updated successfully</source>
+				<target>Los datos de su perfil han sido actualizados correctamente</target>
 			</trans-unit>
 			<trans-unit id="32">
-				<source></source>
-				<target></target>
+				<source>Please type in your email to confirm</source>
+				<target>Por favor, introduzca su email para confirmar</target>
 			</trans-unit>
 			<trans-unit id="33">
-				<source></source>
-				<target></target>
+				<source>Your email here to confirm</source>
+				<target>Su email aquí para confirmar</target>
 			</trans-unit>
 			<trans-unit id="34">
-				<source></source>
-				<target></target>
+				<source>In order to delete your account, you must sign in first</source>
+				<target>Para borrar su cuenta debe entrar primero</target>
 			</trans-unit>
 			<trans-unit id="35">
-				<source></source>
-				<target></target>
+				<source>Warning</source>
+				<target>Atención</target>
 			</trans-unit>
 			<trans-unit id="36">
-				<source></source>
-				<target></target>
+				<source>Subject</source>
+				<target>Asunto</target>
 			</trans-unit>
 			<trans-unit id="37">
-				<source></source>
-				<target></target>
+				<source>Message</source>
+				<target>Mensaje</target>
 			</trans-unit>
 			<trans-unit id="38">
-				<source></source>
-				<target></target>
+				<source>Please fill out this form in order to cantact with me</source>
+				<target>Por favor rellene el siguiente formulario para contactar conmigo</target>
 			</trans-unit>
 			<trans-unit id="39">
-				<source></source>
-				<target></target>
+				<source>Type in your name</source>
+				<target>Escriba su nombre</target>
 			</trans-unit>
 			<trans-unit id="40">
-				<source></source>
-				<target></target>
+				<source>Type in your surname</source>
+				<target>Escriba sus apellidos</target>
 			</trans-unit>
 			<trans-unit id="41">
-				<source></source>
-				<target></target>
+				<source>Type in your email</source>
+				<target>Escriba su email</target>
 			</trans-unit>
 			<trans-unit id="42">
-				<source></source>
-				<target></target>
+				<source>Type in the subject</source>
+				<target>Escriba el asunto</target>
 			</trans-unit>
 			<trans-unit id="43">
 				<source></source>

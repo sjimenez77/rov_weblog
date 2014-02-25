@@ -90,10 +90,16 @@ class DefaultController extends Controller
                         )
                     ))
                 ->add('Subject', 'text', array(
-                    'attr' => array('class' => 'form-control')
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Type in the subject'
+                        )
                     ))
                 ->add('Message', 'textarea', array(
-                    'attr' => array('class' => 'form-control')
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'rows'  => '5'
+                        )
                     ))
             ->getForm();
         } 
@@ -101,19 +107,34 @@ class DefaultController extends Controller
         {
             $contact_form = $this->createFormBuilder()
                 ->add('Name', 'text', array(
-                    'attr' => array('class' => 'form-control')
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Type in your name'
+                        )
                     ))
                 ->add('Surname', 'text', array(
-                    'attr' => array('class' => 'form-control')
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Type in your surname'
+                        )
                     ))
                 ->add('Email', 'email', array(
-                    'attr' => array('class' => 'form-control')
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Type in your email'
+                        )
                     ))
                 ->add('Subject', 'text', array(
-                    'attr' => array('class' => 'form-control')
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Type in the subject'
+                        )
                     ))
                 ->add('Message', 'textarea', array(
-                    'attr' => array('class' => 'form-control')
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'rows'  => '5'
+                        )
                     ))
             ->getForm();
         }

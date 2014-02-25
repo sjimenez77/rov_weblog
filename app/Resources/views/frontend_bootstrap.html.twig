@@ -72,6 +72,7 @@
             }
             $(window).on('resize', function() {amplia_footer()} );
             $(window).on('ready', function() {setTimeout(function(){amplia_footer()},50)} );
+            $('button.close').on('click', function() {setTimeout(function(){amplia_footer()},50)} );
         });
     </script>
 {% endblock %}

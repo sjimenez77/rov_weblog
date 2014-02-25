@@ -23,7 +23,10 @@
 					<div class="panel-body">
 						<form role="form" action="{{ path('rov_users_login_check') }}" method="post">
 							{% if error %}
-							<div class="alert alert-danger">{{ error.message|trans }}</div>
+							<div class="alert alert-danger">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+								<strong>{{ 'Warning'|trans }}:</strong> {{ error.message|trans }}
+							</div>
 							{% endif %}
 							<div class="form-group">
 								<label for="username">{{ 'Dirección de correo electrónico'|trans }}</label>

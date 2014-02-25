@@ -44,7 +44,7 @@ class UserType extends AbstractType
                 ))
             ->add('allowsEmail', 'checkbox', array(
                 'label' => 'Allows email',
-                'attr' => array('style' => 'margin: 5px'),
+                'attr' => array('style' => 'margin-left: 5px'),
                 'required' => false
                 ))
             ->add('locale', 'choice', array(
