@@ -1,6 +1,6 @@
 {% extends '::frontend_bootstrap.html.twig' %}
 
-{% block title %}Portada{% endblock %}
+{% block title %}{{ 'Contact'|trans }}{% endblock %}
 
 {% block body %}
 	{{ parent() }}
@@ -8,17 +8,17 @@
 	<div class="container">
     	<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Blog <small>Contacto</small></h1>
+				<h1 class="page-header">Blog <small>{{ 'Contact'|trans }}</small></h1>
 				<ol class="breadcrumb">
-					<li><a href="{{ path('home') }}">{{ 'Portada'|trans }}</a></li>
-					<li class="active">Contacto</li>
+					<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
+					<li class="active">{{ 'Contact'|trans }}</li>
 				</ol>
 			</div>
 		</div>
 
 		<div class="row">
 
-			<div class="col-lg-12">
+			<div class="col-sm-8">
 				<div class="panel panel-primary">
 					{# Flashbag session success messages #}
 					{% for message in app.session.flashbag.get('error') %}
@@ -30,8 +30,27 @@
 					<div class="panel-heading">{{ 'Please fill out this form in order to cantact with me'|trans }}</div>
 					<div class="panel-body">
 						{{ form_widget(contact_form) }}
+						<br>
+						<button class="btn btn-primary" type="submit"/><i class="icon-share icon-white"></i> {{ 'Send'|trans }}</button>
+						<button type="button" class="btn">{{ 'Cancel'|trans }}</button>
 					</div>
 				</div>
+			</div>
+			<div class="col-sm-4">
+				<h3>Raquel Olivas Verdejo</h3>
+				<h4>Dra. en Ciencia e Ingeniería Agrarias<br>Licenciada en Enología<br>Experta en comercialización de vinos</h4>
+				<p>
+					Cuenca 9, 2K<br>
+					02002 Albacete<br>
+					{{ 'Spain'|trans }}
+				</p>
+				<p><i class="fa fa-envelope-o"></i> <abbr title="Email">E</abbr>: <a href="mailto:raqueloverdejo@gmail.com">raqueloverdejo@gmail.com</a></p>
+				<ul class="list-unstyled list-inline list-social-icons">
+					<li class="tooltip-social facebook-link"><a href="#facebook-page" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+					<li class="tooltip-social linkedin-link"><a href="http://es.linkedin.com/in/raquelolivasverdejo" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
+					<li class="tooltip-social twitter-link"><a href="https://twitter.com/racheverdejo" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+					<li class="tooltip-social google-plus-link"><a href="https://profiles.google.com/u/0/116471812367206623209/about" data-toggle="tooltip" data-placement="top" title="Google+"><i class="fa fa-google-plus-square fa-2x"></i></a></li>
+				</ul>
 			</div>
 		</div>
 	</div>

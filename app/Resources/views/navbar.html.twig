@@ -18,14 +18,14 @@
                 <li><a href="{{ path('rov_blog_homepage') }}">Blog</a></li>
                 <li><a href="{{ path('rov_start_contact') }}">{{ 'Contact'|trans }}</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if app.user %}<i class="icon-user icon-white"></i> {{ app.user.name|e }} {% else %} <i class="icon-lock icon-white"></i> {{ 'Entrar'|trans }} {% endif %}<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if app.user %}<i class="icon-user icon-white"></i> {{ app.user.name|e }} {% else %} <i class="icon-lock icon-white"></i> {{ 'Sign in'|trans }} {% endif %}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         {% if app.user %}
                         <li class="dropdown-header">{{ 'Hello'|trans }} {{ app.user.name }}</li>
                         <li><a href="{{ path('rov_users_homepage') }}">{{ 'Profile'|trans }}</a></li>
                         <li><a href="{{ path('rov_users_logout') }}">{{ 'Sign out'|trans }}</a></li>
                         {% else %}
-                        <li class="dropdown-header">{{ 'Introduzca sus datos'|trans }}</li>
+                        <li class="dropdown-header">{{ 'Please sign in'|trans }}</li>
                         {% if error %}
                         <li style="margin:0px 12px"><div class="alert alert-danger">{{ error.message|trans }}</div></li>
                         {% endif %}
@@ -66,6 +66,29 @@
                     </ul>
                 </li>
                 {% endif %}
+                {######## Target route on change language ########}
+                {% if page is defined and page != 'home' and page != 'contact' %}
+                
+                    {% if locale == 'es' %}
+                    <li><a href="{{ path(app.request.attributes.get('_route'), { '_locale': 'en', 'page': page }) }}"><img src="{{ asset('bundles/rovstart/images/uk.png') }}" alt="English"></a></li>
+                    <li class="active"><a href="#"><img src="{{ asset('bundles/rovstart/images/spain.png') }}" alt="Spanish"></a></li>
+                    {% elseif locale == 'en' %}
+                    <li class="active"><a href="#"><img src="{{ asset('bundles/rovstart/images/uk.png') }}" alt="English"></a></li>
+                    <li><a href="{{ path(app.request.attributes.get('_route'), { '_locale': 'es', 'page': page }) }}"><img src="{{ asset('bundles/rovstart/images/spain.png') }}" alt="Spanish"></a></li>
+                    {% endif %}
+                    
+                {% else %}
+                    
+                    {% if locale == 'es' %}
+                    <li><a href="{{ path(app.request.attributes.get('_route'), { '_locale': 'en' }) }}"><img src="{{ asset('bundles/rovstart/images/uk.png') }}" alt="English"></a></li>
+                    <li class="active"><a href="#"><img src="{{ asset('bundles/rovstart/images/spain.png') }}" alt="Spanish"></a></li>
+                    {% elseif locale == 'en' %}
+                    <li class="active"><a href="#"><img src="{{ asset('bundles/rovstart/images/uk.png') }}" alt="English"></a></li>
+                    <li><a href="{{ path(app.request.attributes.get('_route'), { '_locale': 'es' }) }}"><img src="{{ asset('bundles/rovstart/images/spain.png') }}" alt="Spanish"></a></li>
+                    {% endif %}
+
+                {% endif %}
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->

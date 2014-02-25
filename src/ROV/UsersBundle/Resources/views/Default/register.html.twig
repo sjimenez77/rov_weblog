@@ -3,16 +3,15 @@
 {% block title %}{{ 'Entrada'|trans }}{% endblock %}
 
 {% block body %}
-	{% set locale = app.request.locale %}
 	{{ parent() }}
 
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Blog <small>Registro</small></h1>
+			<h1 class="page-header">Blog <small>{{ 'Sign up'|trans }}</small></h1>
 			<ol class="breadcrumb">
-				<li><a href="{{ path('home') }}">{{ 'Registro'|trans }}</a></li>
-				<li class="active">Registro</li>
+				<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
+				<li class="active">{{ 'Sign up'|trans }}</li>
 			</ol>
 		</div>
 	</div>
@@ -24,7 +23,7 @@
 				{% for message in app.session.flashbag.get('error') %}
 				<div class="alert alert-danger">{{ message|trans }}</div>
 				{% endfor %}
-				<div class="panel-heading">{{ 'Rellene los siguientes campos para registrarse'|trans }}</div>
+				<div class="panel-heading">{{ 'Sign up form'|trans }}</div>
 				<div class="panel-body">
 					<form action="{{ path('rov_users_register') }}" method="post" {{ form_enctype(sign_up_form) }} autocomplete="off">
 						{# form_widget(sign_up_form) #}
@@ -32,15 +31,16 @@
 						<div class="row">
 							<div class="col-md-4">
 								<fieldset>
-									<legend>{{ 'Datos de acceso'|trans }}</legend>
+									<legend>{{ 'Access info'|trans }}</legend>
 									{{ form_row(sign_up_form.email) }}
 									{{ form_row(sign_up_form.password) }}
 									{{ form_row(sign_up_form.allowsEmail) }}
 								</fieldset>
 							</div>
+							<br class="visible-xs visible-sm">
 							<div class="col-md-4">
 								<fieldset>
-									<legend>{{ 'Datos personales'|trans }}</legend>
+									<legend>{{ 'Personal info'|trans }}</legend>
 									{{ form_row(sign_up_form.name) }}
 									{{ form_row(sign_up_form.surname) }}
 									{{ form_row(sign_up_form.address) }}
@@ -51,11 +51,21 @@
 									{{ form_rest(sign_up_form) }}
 								</fieldset>
 							</div>
+							<br class="visible-xs visible-sm">
 							<div class="col-md-4">
 								<legend>{{ 'Help'|trans }}</legend>
-								<div class="alert alert-warning">{{ 'All the access fields are required'|trans}}.</div>
-								<div class="alert alert-success">{{ 'The password must have 8 characters or more'|trans}}. <br>{{ 'The password fields must match'|trans }}.</div>
-								<div class="alert alert-info">{{ 'The field "Allows email" indicates that you wish to receive notifications, emails and any kind of information from this website'|trans}}.</div>
+								<div class="alert alert-warning">
+									<h4>{{ 'Required fields'|trans }}</h4>
+									<p>{{ 'All the access fields, the name and surname are required'|trans}}.</p>
+								</div>
+								<div class="alert alert-success">
+									<h4>{{ 'Password requirements'|trans }}</h4>
+									<p>{{ 'The password must have 8 characters or more'|trans}}. <br>{{ 'The password fields must match'|trans }}.</p>
+								</div>
+								<div class="alert alert-info">
+									<h4>{{ 'Allows email'|trans }}</h4>
+									<p>{{ 'The field "Allows email" indicates that you wish to receive notifications, emails and any kind of information from this website'|trans}}.</p>
+								</div>
 							</div>
 						</div>
 						<hr>

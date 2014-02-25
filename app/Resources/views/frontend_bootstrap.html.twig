@@ -1,5 +1,6 @@
 {% extends '::base.html.twig' %}
 
+{% set locale = app.request.locale %}
 {% block lang %}{{ app.request.locale }}{% endblock %}
 {% block title %}{% endblock %}
 

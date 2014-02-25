@@ -55,8 +55,8 @@
 				<target>Ayuda</target>
 			</trans-unit>
 			<trans-unit id="14">
-				<source>All the access fields are required</source>
-				<target>Todos los campos de acceso son obligatorios</target>
+				<source>All the access fields, the name and surname are required</source>
+				<target>Todos los campos de acceso, el nombre y los apellidos son obligatorios</target>
 			</trans-unit>
 			<trans-unit id="15">
 				<source>The password must have 8 characters or more</source>
@@ -171,44 +171,44 @@
 				<target>Escriba el asunto</target>
 			</trans-unit>
 			<trans-unit id="43">
-				<source></source>
-				<target></target>
+				<source>Sign up</source>
+				<target>Registro</target>
 			</trans-unit>
 			<trans-unit id="44">
-				<source></source>
-				<target></target>
+				<source>Home</source>
+				<target>Portada</target>
 			</trans-unit>
 			<trans-unit id="45">
-				<source></source>
-				<target></target>
+				<source>Sign up form</source>
+				<target>Formulario de registro</target>
 			</trans-unit>
 			<trans-unit id="46">
-				<source></source>
-				<target></target>
+				<source>Access info</source>
+				<target>Información de acceso</target>
 			</trans-unit>
 			<trans-unit id="47">
-				<source></source>
-				<target></target>
+				<source>Personal info</source>
+				<target>Información personal</target>
 			</trans-unit>
 			<trans-unit id="48">
-				<source></source>
-				<target></target>
+				<source>Please sign in</source>
+				<target>Entre por favor</target>
 			</trans-unit>
 			<trans-unit id="49">
-				<source></source>
-				<target></target>
+				<source>Send</source>
+				<target>Enviar</target>
 			</trans-unit>
 			<trans-unit id="50">
-				<source></source>
-				<target></target>
+				<source>Spain</source>
+				<target>España</target>
 			</trans-unit>
 			<trans-unit id="51">
-				<source></source>
-				<target></target>
+				<source>Required fields</source>
+				<target>Campos obligatorios</target>
 			</trans-unit>
 			<trans-unit id="52">
-				<source></source>
-				<target></target>
+				<source>Password requirements</source>
+				<target>Requisitos de la contraseña</target>
 			</trans-unit>
 			<trans-unit id="53">
 				<source></source>

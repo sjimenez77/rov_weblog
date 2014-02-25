@@ -1,6 +1,6 @@
 {% extends '::frontend_bootstrap.html.twig' %}
 
-{% block title %}{{ 'Entrada'|trans }}{% endblock %}
+{% block title %}{{ 'Sign in'|trans }}{% endblock %}
 
 {% block body %}
 	{{ parent() }}
@@ -8,10 +8,10 @@
 	<div class="container">
     	<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Blog <small>Entrada</small></h1>
+				<h1 class="page-header">Blog <small>{{ 'Sign in'|trans }}</small></h1>
 				<ol class="breadcrumb">
-					<li><a href="{{ path('home') }}">{{ 'Entrada'|trans }}</a></li>
-					<li class="active">Entrada</li>
+					<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
+					<li class="active">{{ 'Sign in'|trans }}</li>
 				</ol>
 			</div>
 		</div>
