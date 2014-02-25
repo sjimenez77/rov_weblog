@@ -70,30 +70,30 @@ class DefaultController extends Controller
             $contact_form = $this->createFormBuilder()
                 ->add('Name', 'text', array(
                     'attr' => array(
-                        'class' => 'span8',
+                        'class' => 'form-control',
                         'readonly' => 'readonly',
                         'value' => $user->getName()
                         )
                     ))
                 ->add('Surname', 'text', array(
                     'attr' => array(
-                        'class' => 'span8',
+                        'class' => 'form-control',
                         'readonly' => 'readonly',
                         'value' => $user->getSurname()
                         )
                     ))
                 ->add('Email', 'email', array(
                     'attr' => array(
-                        'class' => 'span8',
+                        'class' => 'form-control',
                         'readonly' => 'readonly',
                         'value' => $user->getUsername()
                         )
                     ))
                 ->add('Subject', 'text', array(
-                    'attr' => array('class' => 'span8')
+                    'attr' => array('class' => 'form-control')
                     ))
                 ->add('Message', 'textarea', array(
-                    'attr' => array('class' => 'span8')
+                    'attr' => array('class' => 'form-control')
                     ))
             ->getForm();
         } 
@@ -101,19 +101,19 @@ class DefaultController extends Controller
         {
             $contact_form = $this->createFormBuilder()
                 ->add('Name', 'text', array(
-                    'attr' => array('class' => 'span8')
+                    'attr' => array('class' => 'form-control')
                     ))
                 ->add('Surname', 'text', array(
-                    'attr' => array('class' => 'span8')
+                    'attr' => array('class' => 'form-control')
                     ))
                 ->add('Email', 'email', array(
-                    'attr' => array('class' => 'span8')
+                    'attr' => array('class' => 'form-control')
                     ))
                 ->add('Subject', 'text', array(
-                    'attr' => array('class' => 'span8')
+                    'attr' => array('class' => 'form-control')
                     ))
                 ->add('Message', 'textarea', array(
-                    'attr' => array('class' => 'span8')
+                    'attr' => array('class' => 'form-control')
                     ))
             ->getForm();
         }

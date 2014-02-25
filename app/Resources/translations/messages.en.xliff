@@ -1,122 +1,122 @@
 <?xml version="1.0"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="file.ext">
+	<file source-language="es" datatype="plaintext" original="file.ext">
 		<body>
 			<trans-unit id="1">
-				<source>Bad credentials</source>
-				<target>Credenciales incorrectas</target>
+				<source>Rellene el siguiente formulario de contacto</source>
+				<target>Fill in the next contact form</target>
 			</trans-unit>
 			<trans-unit id="2">
-				<source>Repeat Password</source>
-				<target>Repita la contraseña</target>
+				<source>Perfil</source>
+				<target>Profile</target>
 			</trans-unit>
 			<trans-unit id="3">
-				<source>Password</source>
-				<target>Contraseña</target>
+				<source>Cerrar sesión</source>
+				<target>Sign out</target>
 			</trans-unit>
 			<trans-unit id="4">
-				<source>Allows email</source>
-				<target>Permite el envío de emails</target>
+				<source>Hola</source>
+				<target>Hello</target>
 			</trans-unit>
 			<trans-unit id="5">
-				<source>Name</source>
-				<target>Nombre</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="6">
-				<source>Surname</source>
-				<target>Apellidos</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="7">
-				<source>Address</source>
-				<target>Dirección</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="8">
-				<source>City</source>
-				<target>Ciudad</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="9">
-				<source>Country</source>
-				<target>País</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="10">
-				<source>Language</source>
-				<target>Idioma</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="11">
-				<source>Company</source>
-				<target>Empresa</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="12">
-				<source>Job</source>
-				<target>Cargo</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="13">
-				<source>Help</source>
-				<target>Ayuda</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="14">
-				<source>All the access fields are required</source>
-				<target>Todos los campos de acceso son obligatorios</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="15">
-				<source>The password must have 8 characters or more</source>
-				<target>La contraseña debe tener 8 caracteres o más</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="16">
-				<source>The password fields must match</source>
-				<target>Los campos de contraseña deben coincidir</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="17">
-				<source>The field "Allows email" indicates that you wish to receive notifications, emails and any kind of information from this website</source>
-				<target>El campo "Permite el envío de emails" indica que desea recibir notificaciones, correos y cualquier tipo de información de este sitio web</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="18">
-				<source>Sign up now</source>
-				<target>Regístrese ahora</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="19">
-				<source>Cancel</source>
-				<target>Cancelar</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="20">
-				<source>Hello</source>
-				<target>Hola</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="21">
-				<source>Sign in</source>
-				<target>Entrar</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="22">
-				<source>Remember me</source>
-				<target>Recuérdame</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="23">
-				<source>Not a user yet?</source>
-				<target>¿Todavía no es usuario?</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="24">
-				<source>Administration</source>
-				<target>Administración</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="25">
-				<source>Contact</source>
-				<target>Contacto</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="26">
-				<source>About me</source>
-				<target>Sobre mi</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="27">
-				<source>About wine and other things</source>
-				<target>Sobre el vino y otras cosas</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="28">
-				<source>Profile</source>
-				<target>Perfil</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="29">
-				<source>Sign out</source>
-				<target>Cerrar sesión</target>
+				<source></source>
+				<target></target>
 			</trans-unit>
 			<trans-unit id="30">
 				<source></source>

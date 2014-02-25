@@ -1,0 +1,74 @@
+{% extends '::frontend_bootstrap.html.twig' %}
+
+{% block title %}{{ 'Entrada'|trans }}{% endblock %}
+
+{% block body %}
+	{% set locale = app.request.locale %}
+	{{ parent() }}
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Blog <small>Registro</small></h1>
+			<ol class="breadcrumb">
+				<li><a href="{{ path('home') }}">{{ 'Registro'|trans }}</a></li>
+				<li class="active">Registro</li>
+			</ol>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">{{ 'Rellene los siguientes campos para registrarse'|trans }}</div>
+				<div class="panel-body">
+					<form action="{{ path('rov_users_register') }}" method="post" {{ form_enctype(sign_up_form) }} autocomplete="off">
+						{# Flashbag session success messages #}
+						{% for message in app.session.flashbag.get('error') %}
+						<div class="alert alert-danger">{{ message|trans }}</div>
+						{% endfor %}
+						{% for message in app.session.flashbag.get('success') %}
+						<div class="alert alert-success">{{ message|trans }}</div>
+						{% endfor %}
+						{# form_widget(sign_up_form) #}
+						<h3>{{ form_errors(sign_up_form) }}</h3>
+						<div class="row">
+							<div class="col-md-4">
+								<fieldset>
+									<legend>{{ 'Datos de acceso'|trans }}</legend>
+									{{ form_row(sign_up_form.email) }}
+									{{ form_row(sign_up_form.password) }}
+									{{ form_row(sign_up_form.allowsEmail) }}
+								</fieldset>
+							</div>
+							<div class="col-md-4">
+								<fieldset>
+									<legend>{{ 'Datos personales'|trans }}</legend>
+									{{ form_row(sign_up_form.name) }}
+									{{ form_row(sign_up_form.surname) }}
+									{{ form_row(sign_up_form.address) }}
+									{{ form_row(sign_up_form.city) }}
+									{{ form_row(sign_up_form.country) }}
+									{{ form_row(sign_up_form.locale) }}
+									{# Necesario para CSRF #}
+									{{ form_rest(sign_up_form) }}
+								</fieldset>
+							</div>
+							<div class="col-md-4">
+								<legend>{{ 'Help'|trans }}</legend>
+								<div class="alert alert-warning">{{ 'All the access fields are required'|trans}}.</div>
+								<div class="alert alert-success">{{ 'The password must have 8 characters or more'|trans}}. <br>{{ 'The password fields must match'|trans }}.</div>
+								<div class="alert alert-info">{{ 'The field "Allows email" indicates that you wish to receive notifications, emails and any kind of information from this website'|trans}}.</div>
+							</div>
+						</div>
+						<hr>
+						<input class="btn btn-primary" type="submit" value="{{ 'Sign up now'|trans }}" />
+						<button type="button" class="btn">{{ 'Cancel'|trans }}</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

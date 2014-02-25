@@ -29,6 +29,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=50)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -36,13 +37,15 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="surname", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $surname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\Email(checkMX=true)
      */
     private $email;
 
@@ -50,6 +53,8 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\NotBlank(groups={"signout"})
+     * @Assert\Length(min = 8, groups={"signout"})
      */
     private $password;
 
@@ -66,6 +71,27 @@ class User implements UserInterface
      * @ORM\Column(name="roles", type="string", length=255)
      */
     private $roles;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="text")
+     */
+    private $address;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="allows_email", type="boolean")
+     */
+    private $allowsEmail;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="register_date", type="datetime")
+     */
+    private $registerDate;
 
     /**
      * @var string
@@ -102,6 +128,13 @@ class User implements UserInterface
      */
     private $locale;
 
+    /**
+     * Construct
+     */
+    public function __construct()
+    {
+        $this->registerDate = new \DateTime();
+    }
 
     /**
      * Get id
@@ -239,6 +272,75 @@ class User implements UserInterface
         $this->roles = $roles;
 
         return $this;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return User
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set allowsEmail
+     *
+     * @param boolean $allowsEmail
+     * @return User
+     */
+    public function setAllowsEmail($allowsEmail)
+    {
+        $this->allowsEmail = $allowsEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get allowsEmail
+     *
+     * @return boolean 
+     */
+    public function getAllowsEmail()
+    {
+        return $this->allowsEmail;
+    }
+
+    /**
+     * Set registerDate
+     *
+     * @param \DateTime $registerDate
+     * @return User
+     */
+    public function setRegisterDate($registerDate)
+    {
+        $this->registerDate = $registerDate;
+
+        return $this;
+    }
+
+    /**
+     * Get registerDate
+     *
+     * @return \DateTime 
+     */
+    public function getRegisterDate()
+    {
+        return $this->registerDate;
     }
 
     /**

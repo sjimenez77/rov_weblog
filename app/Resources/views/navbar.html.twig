@@ -8,21 +8,22 @@
                 <span class="icon-bar"></span>
             </button>
             <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
-            <a class="navbar-brand" href="{{ path('home') }}"><img src="{{ asset('bundles/rovstart/images/wine-glass.png') }}" alt="Sobre vinos y otras cosas" style="padding: 0; margin: -15px 0 -10px; height: 35px">Sobre vinos y otras cosas</a>
+            <a class="navbar-brand" href="{{ path('home') }}"><img src="{{ asset('bundles/rovstart/images/wine-glass.png') }}" alt="{{ 'About wine and other things'|trans }}" style="padding: 0; margin: -15px 0 -10px; height: 35px">{{ 'About wine and other things'|trans }}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="about.html">Sobre mi</a></li>
+                <li><a href="about.html">{{ 'About me'|trans }}</a></li>
                 <li><a href="{{ path('rov_blog_homepage') }}">Blog</a></li>
-                <li><a href="{{ path('rov_start_contact') }}">Contacto</a></li>
+                <li><a href="{{ path('rov_start_contact') }}">{{ 'Contact'|trans }}</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if app.user %}<i class="icon-user icon-white"></i> {{ app.user.username|e }} {% else %} <i class="icon-lock icon-white"></i> {{ 'Entrar'|trans }} {% endif %}<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if app.user %}<i class="icon-user icon-white"></i> {{ app.user.name|e }} {% else %} <i class="icon-lock icon-white"></i> {{ 'Entrar'|trans }} {% endif %}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         {% if app.user %}
-                        <li class="dropdown-header">{{ 'Hola'|trans }} {{ app.user.username }}</li>
-                        <li><a href="{{ path('rov_users_homepage') }}"><i class="icon-star icon-white"></i> {{ 'Perfil'|trans }}</a></li>
+                        <li class="dropdown-header">{{ 'Hello'|trans }} {{ app.user.name }}</li>
+                        <li><a href="{{ path('rov_users_homepage') }}">{{ 'Profile'|trans }}</a></li>
+                        <li><a href="{{ path('rov_users_logout') }}">{{ 'Sign out'|trans }}</a></li>
                         {% else %}
                         <li class="dropdown-header">{{ 'Introduzca sus datos'|trans }}</li>
                         {% if error %}
@@ -35,12 +36,12 @@
                                         <input class="form-control" id="username" name="_username" type="text" placeholder="{{ 'Email'|trans }}" value="{{ last_username | default('') }}">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" id="password" name="_password" type="password" placeholder="{{ 'Contraseña'|trans }}">
+                                        <input class="form-control" id="password" name="_password" type="password" placeholder="{{ 'Password'|trans }}">
                                     </div>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="remember_me" name="_remember_me"> {{ 'Recuérdame'|trans }}
+                                        <input type="checkbox" id="remember_me" name="_remember_me"> {{ 'Remember me'|trans }}
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-block">{{ 'Entrar'|trans }}</button><br>
+                                    <button type="submit" class="btn btn-primary btn-block">{{ 'Sign in'|trans }}</button>
                                     {######### Target route after login #########}
                                     {% if page is defined and page != 'home' %}
                                         <input type="hidden" name="_target_path" value="{{ path(app.request.attributes.get('_route'), { '_locale': app.request.locale, 'page': page }) }}" />
@@ -50,12 +51,15 @@
                                 </form>
                             </div>
                         </li>
+                        <li role="presentation" class="divider"></li>
+                        <li class="dropdown-header">{{ 'Not a user yet?'|trans }}</li>
+                        <li><a href="{{ path('rov_users_register')}}">{{ 'Sign up now'|trans }}</a></li>
                         {% endif %}
                     </ul>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'Administration'|trans }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="portfolio-1-col.html">Escribir en el blog</a></li>
                         <li><a href="portfolio-2-col.html">Ver usuarios registrados</a></li>
