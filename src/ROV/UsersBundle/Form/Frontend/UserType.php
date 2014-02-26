@@ -33,13 +33,13 @@ class UserType extends AbstractType
             ->add('country', 'text', array(
                 'attr' => array('class' => 'form-control')
                 ))
-            ->add('address', 'textarea', array(
+            ->add('address', 'text', array(
                 'attr' => array('class' => 'form-control')
                 ))
             ->add('company', 'text', array(
                 'attr' => array('class' => 'form-control')
                 ))
-            ->add('job', 'textarea', array(
+            ->add('job', 'text', array(
                 'attr' => array('class' => 'form-control')
                 ))
             ->add('allowsEmail', 'checkbox', array(
