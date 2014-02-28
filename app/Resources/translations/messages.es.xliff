@@ -211,52 +211,52 @@
 				<target>Requisitos de la contraseña</target>
 			</trans-unit>
 			<trans-unit id="53">
-				<source></source>
-				<target></target>
+				<source>If you wish to change your password, write it twice. In other case left the fields empty.</source>
+				<target>Si desea cambiar su contraseña, escríbala dos veces. En cualquier otro caso deje los campos en blanco.</target>
 			</trans-unit>
 			<trans-unit id="54">
-				<source></source>
-				<target></target>
+				<source>User profile</source>
+				<target>Perfil de usuario</target>
 			</trans-unit>
 			<trans-unit id="55">
-				<source></source>
-				<target></target>
+				<source>Save changes</source>
+				<target>Guardar los cambios</target>
 			</trans-unit>
 			<trans-unit id="56">
-				<source></source>
-				<target></target>
+				<source>Profile data has been updated successfully</source>
+				<target>Los datos de perfil han sido actualizados correctamente</target>
 			</trans-unit>
 			<trans-unit id="57">
-				<source></source>
-				<target></target>
+				<source>Write a new post</source>
+				<target>Escribir una nueva entrada</target>
 			</trans-unit>
 			<trans-unit id="58">
-				<source></source>
-				<target></target>
+				<source>Registered users</source>
+				<target>Usuarios registrados</target>
 			</trans-unit>
 			<trans-unit id="59">
-				<source></source>
-				<target></target>
+				<source>Delete account</source>
+				<target>Borrar cuenta</target>
 			</trans-unit>
 			<trans-unit id="60">
-				<source></source>
-				<target></target>
+				<source>In order to delete your account, you must sign in first</source>
+				<target>Para borrar su cuenta, debe entrar primero</target>
 			</trans-unit>
 			<trans-unit id="61">
-				<source></source>
-				<target></target>
+				<source>This action will delete your account and your posts. This process cannot be reversed.</source>
+				<target>Esta acción borrará su cuenta y sus entradas. Este proceso no se puede deshacer.</target>
 			</trans-unit>
 			<trans-unit id="62">
-				<source></source>
-				<target></target>
+				<source>Are you sure?</source>
+				<target>¿Seguro que quiere hacer esto?</target>
 			</trans-unit>
 			<trans-unit id="63">
-				<source></source>
-				<target></target>
+				<source>Yes, I understand</source>
+				<target>Sí, lo he entendido</target>
 			</trans-unit>
 			<trans-unit id="64">
-				<source></source>
-				<target></target>
+				<source>Close</source>
+				<target>Cerrar</target>
 			</trans-unit>
 			<trans-unit id="65">
 				<source></source>

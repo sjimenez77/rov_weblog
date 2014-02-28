@@ -12,11 +12,6 @@ use ROV\UsersBundle\Form\Frontend\UserType;
 
 class DefaultController extends Controller
 {
-    public function profileAction()
-    {
-        return $this->render('ROVUsersBundle:Default:profile.html.twig');
-    }
-
     /**
      * Login form
      */
@@ -116,7 +111,7 @@ class DefaultController extends Controller
     /**
      * User edit form. Delete account button and modal.
      */
-    public function settingsAction()
+    public function profileAction()
     {
         $request = $this->getRequest();
         $user = $this->get('security.context')->getToken()->getUser();
@@ -128,10 +123,10 @@ class DefaultController extends Controller
                 'label' => 'Please type in your email to confirm',
                 'attr' => array(
                     'id' => 'inputWarning',
+                    'class' => 'form-control',
                     'placeholder' => 'Your email here to confirm')
                 ))
             ->getForm();
-
 
         $oldpassword = $form->getData()->getPassword();
         // New in version 2.3: The handleRequest() method was added in Symfony 2.3. 
@@ -167,7 +162,7 @@ class DefaultController extends Controller
                 'Profile data has been updated successfully'
             );
  
-            return $this->redirect($this->generateUrl('user_home', array(
+            return $this->redirect($this->generateUrl('rov_users_profile', array(
                 '_locale' => $newLocale
                 )
             ));
@@ -206,12 +201,12 @@ class DefaultController extends Controller
                     return $this->redirect($this->generateUrl('rov_users_login'));
                 }
 
-                $this->get('request')->getSession()->invalidate();
-                $this->get('security.context')->setToken(null);
-
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($user);
                 $em->flush();
+                // Automatic logout
+                $this->get('request')->getSession()->invalidate();
+                $this->get('security.context')->setToken(null);
             } 
             else 
             {
@@ -219,7 +214,7 @@ class DefaultController extends Controller
                     'Email incorrect. Your account has not been deleted.'
                     );
 
-                return $this->redirect($this->generateUrl('user_settings'));
+                return $this->redirect($this->generateUrl('rov_users_profile'));
             }
 
         }

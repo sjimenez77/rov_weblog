@@ -1,0 +1,114 @@
+{% extends '::frontend_bootstrap.html.twig' %}
+
+{% block title %}{{ 'Profile'|trans }}{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Blog <small>{{ 'Profile'|trans }}</small></h1>
+			<ol class="breadcrumb">
+				<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
+				<li class="active">{{ 'Profile'|trans }}</li>
+			</ol>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">{{ 'User profile'|trans }}</div>
+				<div class="panel-body">
+					{# Flashbag session success messages #}
+					{% for message in app.session.flashbag.get('error') %}
+					<div class="alert alert-danger">{{ message|trans }}</div>
+					{% endfor %}
+					{% for message in app.session.flashbag.get('success') %}
+					<div class="alert alert-success">{{ message|trans }}</div>
+					{% endfor %}
+					<form action="{{ path('rov_users_profile') }}" method="post" {{ form_enctype(settings_form) }} autocomplete="off">
+						{# form_widget(settings_form) #}
+						<h3>{{ form_errors(settings_form) }}</h3>
+						<div class="row">
+							<div class="col-md-4">
+								<fieldset>
+									<legend>{{ 'Access info'|trans }}</legend>
+									{{ form_row(settings_form.email) }}
+									{{ form_row(settings_form.password) }}
+									<br><div class="alert alert-info">{{ 'If you wish to change your password, write it twice. In other case left the fields empty.'|trans }}</div>
+									{{ form_row(settings_form.allowsEmail) }}
+								</fieldset>
+							</div>
+							<br class="visible-xs visible-sm">
+							<div class="col-md-4">
+								<fieldset>
+									<legend>{{ 'Personal info'|trans }}</legend>
+									{{ form_row(settings_form.name) }}
+									{{ form_row(settings_form.surname) }}
+									{{ form_row(settings_form.address) }}
+									{{ form_row(settings_form.city) }}
+									{{ form_row(settings_form.country) }}
+									{{ form_row(settings_form.locale) }}
+									{# Necesario para CSRF #}
+									{{ form_rest(settings_form) }}
+								</fieldset>
+							</div>
+							<br class="visible-xs visible-sm">
+							<div class="col-md-4">
+								<legend>{{ 'Help'|trans }}</legend>
+								<div class="alert alert-warning">
+									<h4>{{ 'Required fields'|trans }}</h4>
+									<p>{{ 'All the access fields, the name and surname are required'|trans}}.</p>
+								</div>
+								<div class="alert alert-success">
+									<h4>{{ 'Password requirements'|trans }}</h4>
+									<p>{{ 'The password must have 8 characters or more'|trans}}. <br>{{ 'The password fields must match'|trans }}.</p>
+								</div>
+								<div class="alert alert-info">
+									<h4>{{ 'Allows email'|trans }}</h4>
+									<p>{{ 'The field "Allows email" indicates that you wish to receive notifications, emails and any kind of information from this website'|trans}}.</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<button type="submit" class="btn btn-primary">{{ 'Save changes'|trans }}</button>
+						<button type="button" class="btn">{{ 'Cancel'|trans }}</button>
+						<button type="button" data-toggle="modal" class="btn btn-danger pull-right" data-target="#sure"><i class="icon-trash icon-white"></i> {{ 'Delete account'|trans }}</button>
+					</form>
+					<div id="sure" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<form action="{{ path('rov_users_delete') }}" method="post" {{ form_enctype(delete_user_form) }}>
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h3 id="myModalLabel">{{'Are you sure?'|trans }}</h3>
+									</div>
+									<div class="modal-body">
+										<div class="alert alert-danger">
+											<div class="controls controls-row">
+												{{ form_row(delete_user_form.username_confirm) }}
+											</div>
+										</div>
+										<blockquote>
+											<p class="text-danger">{{ 'This action will delete your account and your posts. This process cannot be reversed.'|trans }}</p>
+										</blockquote>
+									</div>
+									<div class="modal-footer">
+										{# Required against CSRF #}
+										{{ form_rest(delete_user_form) }}
+										<button class="btn" data-dismiss="modal" aria-hidden="true">{{ 'Close'|trans }}</button>
+										<button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i> {{ 'Yes, I understand'|trans }}</a>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

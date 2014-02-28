@@ -22,7 +22,7 @@
                     <ul class="dropdown-menu">
                         {% if app.user %}
                         <li class="dropdown-header">{{ 'Hello'|trans }} {{ app.user.name }}</li>
-                        <li><a href="{{ path('rov_users_homepage') }}">{{ 'Profile'|trans }}</a></li>
+                        <li><a href="{{ path('rov_users_profile') }}">{{ 'Profile'|trans }}</a></li>
                         <li><a href="{{ path('rov_users_logout') }}">{{ 'Sign out'|trans }}</a></li>
                         {% else %}
                         <li class="dropdown-header">{{ 'Please sign in'|trans }}</li>
@@ -61,8 +61,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'Administration'|trans }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="portfolio-1-col.html">Escribir en el blog</a></li>
-                        <li><a href="portfolio-2-col.html">Ver usuarios registrados</a></li>
+                        <li><a href="#">{{ 'Write a new post'|trans }}</a></li>
+                        <li><a href="#">{{ 'Registered users'|trans }}</a></li>
                     </ul>
                 </li>
                 {% endif %}
