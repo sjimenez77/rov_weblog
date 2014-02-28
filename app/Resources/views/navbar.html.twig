@@ -18,7 +18,7 @@
                 <li><a href="{{ path('rov_blog_homepage') }}">Blog</a></li>
                 <li><a href="{{ path('rov_start_contact') }}">{{ 'Contact'|trans }}</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if app.user %}<i class="icon-user icon-white"></i> {{ app.user.name|e }} {% else %} <i class="icon-lock icon-white"></i> {{ 'Sign in'|trans }} {% endif %}<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if app.user %}<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{ app.user.name|e }} {% else %} <i class="fa fa-sign-in"></i>&nbsp;&nbsp;{{ 'Sign in'|trans }} {% endif %}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         {% if app.user %}
                         <li class="dropdown-header">{{ 'Hello'|trans }} {{ app.user.name }}</li>
@@ -41,7 +41,7 @@
                                     <div class="checkbox">
                                         <input type="checkbox" id="remember_me" name="_remember_me"> {{ 'Remember me'|trans }}
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-block">{{ 'Sign in'|trans }}</button>
+                                    <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;{{ 'Sign in'|trans }}</button>
                                     {######### Target route after login #########}
                                     {% if page is defined and page != 'home' %}
                                         <input type="hidden" name="_target_path" value="{{ path(app.request.attributes.get('_route'), { '_locale': app.request.locale, 'page': page }) }}" />
@@ -59,10 +59,11 @@
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'Administration'|trans }} <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;{{ 'Administration'|trans }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
+                        <li class="dropdown-header">{{ 'Administrator options'|trans }}</li>
                         <li><a href="#">{{ 'Write a new post'|trans }}</a></li>
-                        <li><a href="#">{{ 'Registered users'|trans }}</a></li>
+                        <li><a href="#">{{ 'Registered users control'|trans }}</a></li>
                     </ul>
                 </li>
                 {% endif %}

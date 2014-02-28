@@ -231,8 +231,8 @@
 				<target>Escribir una nueva entrada</target>
 			</trans-unit>
 			<trans-unit id="58">
-				<source>Registered users</source>
-				<target>Usuarios registrados</target>
+				<source>Registered users control</source>
+				<target>Control de suarios registrados</target>
 			</trans-unit>
 			<trans-unit id="59">
 				<source>Delete account</source>
@@ -259,8 +259,8 @@
 				<target>Cerrar</target>
 			</trans-unit>
 			<trans-unit id="65">
-				<source></source>
-				<target></target>
+				<source>Administrator options</source>
+				<target>Opciones de adminstrador</target>
 			</trans-unit>
 			<trans-unit id="66">
 				<source></source>

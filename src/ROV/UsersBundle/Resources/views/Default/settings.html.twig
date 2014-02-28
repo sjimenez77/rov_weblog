@@ -73,9 +73,9 @@
 							</div>
 						</div>
 						<hr>
-						<button type="submit" class="btn btn-primary">{{ 'Save changes'|trans }}</button>
+						<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;{{ 'Save changes'|trans }}</button>
 						<button type="button" class="btn">{{ 'Cancel'|trans }}</button>
-						<button type="button" data-toggle="modal" class="btn btn-danger pull-right" data-target="#sure"><i class="icon-trash icon-white"></i> {{ 'Delete account'|trans }}</button>
+						<button type="button" data-toggle="modal" class="btn btn-danger pull-right" data-target="#sure"><i class="icon-trash icon-white"></i><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;{{ 'Delete account'|trans }}</button>
 					</form>
 					<div id="sure" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
@@ -99,7 +99,7 @@
 										{# Required against CSRF #}
 										{{ form_rest(delete_user_form) }}
 										<button class="btn" data-dismiss="modal" aria-hidden="true">{{ 'Close'|trans }}</button>
-										<button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i> {{ 'Yes, I understand'|trans }}</a>
+										<button type="submit" class="btn btn-danger">{{ 'Yes, I understand'|trans }}</a>
 									</div>
 								</form>
 							</div>
