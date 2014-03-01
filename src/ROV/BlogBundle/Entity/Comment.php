@@ -3,6 +3,7 @@
 namespace ROV\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -42,7 +43,7 @@ class Comment
      * @var integer
      * 
      * @ORM\ManyToOne(targetEntity="ROV\BlogBundle\Entity\Article", inversedBy="comments")
-     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $article;
 

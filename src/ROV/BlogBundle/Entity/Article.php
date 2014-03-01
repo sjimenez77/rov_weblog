@@ -3,6 +3,7 @@
 namespace ROV\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Article
@@ -38,7 +39,8 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="author", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="ROV\UsersBundle\Entity\User")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $author;
 
@@ -86,11 +88,21 @@ class Article
     private $updated;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="published", type="boolean")
+     */
+    private $published;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->published = false;
+        $this->created = new \DateTime();
+        $this->updated = new \DateTime();
     }
 
     /**
@@ -311,48 +323,72 @@ class Article
     }
 
     /**
-     * Add tags
+     * Add tag
      *
-     * @param \ROV\BlogBundle\Entity\Tag $tags
+     * @param \ROV\BlogBundle\Entity\Tag $tag
      * @return Blog
      */
-    public function addTag(\ROV\BlogBundle\Entity\Tag $tags)
+    public function addTag(\ROV\BlogBundle\Entity\Tag $tag)
     {
-        $this->tags[] = $tags;
+        $tag->addArticle($this); // synchronously updating inverse side
+        $this->tags[] = $tag;
 
         return $this;
     }
 
     /**
-     * Remove tags
+     * Remove tag
      *
-     * @param \ROV\BlogBundle\Entity\Tag $tags
+     * @param \ROV\BlogBundle\Entity\Tag $tag
      */
-    public function removeTag(\ROV\BlogBundle\Entity\Tag $tags)
+    public function removeTag(\ROV\BlogBundle\Entity\Tag $tag)
     {
-        $this->tags->removeElement($tags);
+        $this->tags->removeElement($tag);
     }
 
     /**
-     * Add comments
+     * Add comment
      *
-     * @param \ROV\BlogBundle\Entity\Comment $comments
+     * @param \ROV\BlogBundle\Entity\Comment $comment
      * @return Article
      */
-    public function addComment(\ROV\BlogBundle\Entity\Comment $comments)
+    public function addComment(\ROV\BlogBundle\Entity\Comment $comment)
     {
-        $this->comments[] = $comments;
+        $this->comments[] = $comment;
 
         return $this;
     }
 
     /**
-     * Remove comments
+     * Remove comment
      *
-     * @param \ROV\BlogBundle\Entity\Comment $comments
+     * @param \ROV\BlogBundle\Entity\Comment $comment
      */
-    public function removeComment(\ROV\BlogBundle\Entity\Comment $comments)
+    public function removeComment(\ROV\BlogBundle\Entity\Comment $comment)
     {
-        $this->comments->removeElement($comments);
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     * @return Article
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean 
+     */
+    public function getPublished()
+    {
+        return $this->published;
     }
 }
