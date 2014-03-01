@@ -271,8 +271,8 @@
 				<target>Escriba su contraseña otra vez</target>
 			</trans-unit>
 			<trans-unit id="68">
-				<source></source>
-				<target></target>
+				<source>Select a country</source>
+				<target>Seleccione un país</target>
 			</trans-unit>
 			<trans-unit id="69">
 				<source></source>

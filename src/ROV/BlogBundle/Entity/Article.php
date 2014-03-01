@@ -32,6 +32,13 @@ class Article
     /**
      * @var string
      *
+     * @ORM\Column(name="subtitle", type="string", length=255)
+     */
+    private $subtitle;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
@@ -136,6 +143,29 @@ class Article
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set subtitle
+     *
+     * @param string $subtitle
+     * @return Article
+     */
+    public function setSubtitle($subtitle)
+    {
+        $this->subtitle = $subtitle;
+
+        return $this;
+    }
+
+    /**
+     * Get subtitle
+     *
+     * @return string 
+     */
+    public function getSubtitle()
+    {
+        return $this->subtitle;
     }
 
     /**

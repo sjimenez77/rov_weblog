@@ -112,3 +112,13 @@
 </div>
 
 {% endblock %}
+{% block js %}
+	{# Select2 creation #}
+	{{ parent() }}
+	<script>
+		$('#rov_usersbundle_usertype_country').select2({
+			placeholder: "{{ 'Select a country'|trans }}"
+		});
+		$('#rov_usersbundle_usertype_locale').select2();
+	</script>
+{% endblock %}

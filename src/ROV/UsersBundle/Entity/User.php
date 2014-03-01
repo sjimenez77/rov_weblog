@@ -117,7 +117,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=255)
+     * @ORM\Column(name="country", type="string", length=2)
      */
     private $country;
 
