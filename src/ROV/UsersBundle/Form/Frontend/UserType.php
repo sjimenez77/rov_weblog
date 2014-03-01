@@ -54,7 +54,8 @@ class UserType extends AbstractType
                 'attr' => array('class' => 'form-control')
                 ))
             ->add('country', 'country', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'empty_value' => ''
                 ))
             ->add('address', 'text', array(
                 'attr' => array('class' => 'form-control')
