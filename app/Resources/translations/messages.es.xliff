@@ -263,12 +263,12 @@
 				<target>Opciones de adminstrador</target>
 			</trans-unit>
 			<trans-unit id="66">
-				<source></source>
-				<target></target>
+				<source>Type in your password</source>
+				<target>Escriba su contraseña</target>
 			</trans-unit>
 			<trans-unit id="67">
-				<source></source>
-				<target></target>
+				<source>Type in your password once more</source>
+				<target>Escriba su contraseña otra vez</target>
 			</trans-unit>
 			<trans-unit id="68">
 				<source></source>

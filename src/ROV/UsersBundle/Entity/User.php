@@ -53,8 +53,8 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\NotBlank(groups={"signout"})
-     * @Assert\Length(min = 8, groups={"signout"})
+     * @Assert\NotBlank(groups={"signup"})
+     * @Assert\Length(min = 8, groups={"signup"})
      */
     private $password;
 

@@ -12,19 +12,42 @@ class UserType extends AbstractType
     {
         $builder
             ->add('name', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type in your name',
+                    'required' => true
+                    )
                 ))
             ->add('surname', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type in your surname',
+                    'required' => true
+                    )
                 ))
             ->add('email', 'email', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type in your email',
+                    'required' => true
+                    )
                 ))
             ->add('password', 'repeated', array(
                 'type' => 'password',
-                'options' => array('attr' => array('class' => 'form-control')),
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
+                'first_options'  => array(
+                    'label' => 'Password',
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Type in your password'
+                        )
+                    ),
+                'second_options' => array(
+                    'label' => 'Repeat Password',
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Type in your password once more'
+                        )
+                    ),
                 'required' => false
                 ))
             ->add('city', 'text', array(
@@ -59,7 +82,7 @@ class UserType extends AbstractType
     {
         $resolve->setDefaults(array(
             'data_class' => 'ROV\UsersBundle\Entity\User',
-            'validation_groups' => array('Default', 'signout')
+            'validation_groups' => array('Default', 'signup')
         ));
     }
  
