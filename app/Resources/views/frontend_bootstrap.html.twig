@@ -14,8 +14,9 @@
 {% block stylesheets %}
     {# Assetic #}
     {% stylesheets filter='?uglifycss' 
-        'bundles/rovstart/css/bootstrap-wysihtml5.css'
         'bundles/rovstart/css/bootstrap.css'
+        'bundles/rovstart/css/bootstrap-wysihtml5.css'
+        'bundles/rovstart/css/bootstrap3-wysiwyg5-color.css'
         'bundles/rovstart/css/modern-business.css'
         'bundles/rovstart/font-awesome/css/font-awesome.min.css'
         'bundles/rovstart/js/select2/select2.css'
@@ -52,11 +53,12 @@
     {# Assetic #}
     {% javascripts filter='?uglifyjs2' 
         '@ROVStartBundle/Resources/public/js/wysihtml5-0.3.0.js' 
-        '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'
+        '//code.jquery.com/jquery-1.11.0.min.js'
+        '//code.jquery.com/jquery-migrate-1.2.1.min.js'
         '@ROVStartBundle/Resources/public/js/bootstrap.js' 
         '@ROVStartBundle/Resources/public/js/modern-business.js' 
         '@ROVStartBundle/Resources/public/js/holder.js'
-        '@ROVStartBundle/Resources/public/js/bootstrap-wysihtml5.js' 
+        '@ROVStartBundle/Resources/public/js/bootstrap3-wysihtml5.js' 
         '@ROVStartBundle/Resources/public/js/select2/select2.js' 
         output='js/compiled/main.js' %}
     <script src="{{ asset_url }}"></script>

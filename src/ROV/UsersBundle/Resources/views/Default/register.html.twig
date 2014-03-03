@@ -23,7 +23,10 @@
 				{% for message in app.session.flashbag.get('error') %}
 				<div class="alert alert-danger">{{ message|trans }}</div>
 				{% endfor %}
-				<div class="panel-heading">{{ 'Sign up form'|trans }}</div>
+				{% for message in app.session.flashbag.get('success') %}
+				<div class="alert alert-success">{{ message|trans }}</div>
+				{% endfor %}
+				<div class="panel-heading"><h4>{{ 'Sign up form'|trans }}</h4></div>
 				<div class="panel-body">
 					<form action="{{ path('rov_users_register') }}" method="post" {{ form_enctype(sign_up_form) }} autocomplete="off">
 						{# form_widget(sign_up_form) #}

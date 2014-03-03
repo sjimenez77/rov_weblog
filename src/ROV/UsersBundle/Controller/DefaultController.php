@@ -5,6 +5,7 @@ namespace ROV\UsersBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\HttpFoundation\Request;
 
 use ROV\UsersBundle\Entity\User;
 use ROV\UsersBundle\Form\Frontend\UserSettingsType;
@@ -14,10 +15,11 @@ class DefaultController extends Controller
 {
     /**
      * Login form
+     * @param  Request $request [description]
+     * @return [object] Twig template
      */
-    public function loginAction()
+    public function loginAction(Request $request)
     {
-        $request = $this->getRequest();
         $session = $request->getSession();
 
         // get the login error if there is one
@@ -36,11 +38,11 @@ class DefaultController extends Controller
 
     /**
      * Register form and action. Automatic login for a new user.
+     * @param  Request $request [description]
+     * @return [object] Twig template
      */
-    public function registerAction()
+    public function registerAction(Request $request)
     {
-        $request = $this->getRequest();
-
         $user = new User();
         $form = $this->createForm(new UserType(), $user);
 
@@ -110,10 +112,11 @@ class DefaultController extends Controller
 
     /**
      * User edit form. Delete account button and modal.
+     * @param  Request $request [description]
+     * @return [object] Twig template
      */
-    public function profileAction()
+    public function profileAction(Request $request)
     {
-        $request = $this->getRequest();
         $user = $this->get('security.context')->getToken()->getUser();
         // Form from UserSettingsType class in order to use a different validation
         $form = $this->createForm(new UserSettingsType(), $user);
@@ -178,6 +181,7 @@ class DefaultController extends Controller
     /**
      * Delete account and everything this user has.
      * This action is not able to be reversed.
+     * @return [object] Twig template
      */
     public function deleteAction()
     {

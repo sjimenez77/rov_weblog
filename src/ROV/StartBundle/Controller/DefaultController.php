@@ -4,16 +4,17 @@ namespace ROV\StartBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
     /**
      * Homepage
+     * @param  Request $request [description]
      * @return [object] Twig template
      */
-    public function homeAction()
+    public function homeAction(Request $request)
     {
-        $request = $this->getRequest();
         $session = $request->getSession();
     	$em = $this->getDoctrine()->getManager();
 
@@ -45,11 +46,11 @@ class DefaultController extends Controller
 
     /**
      * Contact form
+     * @param  Request $request [description]
      * @return [object] Twig template
      */
-    public function contactAction()
+    public function contactAction(Request $request)
     {
-        $request = $this->getRequest();
         $session = $request->getSession();
 
         // Get the login error if there is any
@@ -87,7 +88,7 @@ class DefaultController extends Controller
                 ->add('Subject', 'text', array(
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Type in the subject'
+                        'placeholder' => 'Type the subject'
                         )
                     ))
                 ->add('Message', 'textarea', array(
@@ -104,25 +105,25 @@ class DefaultController extends Controller
                 ->add('Name', 'text', array(
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Type in your name'
+                        'placeholder' => 'Type your name'
                         )
                     ))
                 ->add('Surname', 'text', array(
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Type in your surname'
+                        'placeholder' => 'Type your surname'
                         )
                     ))
                 ->add('Email', 'email', array(
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Type in your email'
+                        'placeholder' => 'Type your email'
                         )
                     ))
                 ->add('Subject', 'text', array(
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Type in the subject'
+                        'placeholder' => 'Type the subject'
                         )
                     ))
                 ->add('Message', 'textarea', array(

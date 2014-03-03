@@ -155,19 +155,19 @@
 				<target>Por favor rellene el siguiente formulario para contactar conmigo</target>
 			</trans-unit>
 			<trans-unit id="39">
-				<source>Type in your name</source>
+				<source>Type your name</source>
 				<target>Escriba su nombre</target>
 			</trans-unit>
 			<trans-unit id="40">
-				<source>Type in your surname</source>
+				<source>Type your surname</source>
 				<target>Escriba sus apellidos</target>
 			</trans-unit>
 			<trans-unit id="41">
-				<source>Type in your email</source>
+				<source>Type your email</source>
 				<target>Escriba su email</target>
 			</trans-unit>
 			<trans-unit id="42">
-				<source>Type in the subject</source>
+				<source>Type the subject</source>
 				<target>Escriba el asunto</target>
 			</trans-unit>
 			<trans-unit id="43">
@@ -263,11 +263,11 @@
 				<target>Opciones de adminstrador</target>
 			</trans-unit>
 			<trans-unit id="66">
-				<source>Type in your password</source>
+				<source>Type your password</source>
 				<target>Escriba su contraseña</target>
 			</trans-unit>
 			<trans-unit id="67">
-				<source>Type in your password once more</source>
+				<source>Type your password once more</source>
 				<target>Escriba su contraseña otra vez</target>
 			</trans-unit>
 			<trans-unit id="68">
@@ -275,60 +275,60 @@
 				<target>Seleccione un país</target>
 			</trans-unit>
 			<trans-unit id="69">
-				<source></source>
-				<target></target>
+				<source>New article</source>
+				<target>Nuevo artículo</target>
 			</trans-unit>
 			<trans-unit id="70">
-				<source></source>
-				<target></target>
+				<source>Edit article</source>
+				<target>Editar artículo</target>
 			</trans-unit>
 			<trans-unit id="71">
-				<source></source>
-				<target></target>
+				<source>Publish article</source>
+				<target>Publicar artículo</target>
 			</trans-unit>
 			<trans-unit id="72">
-				<source></source>
-				<target></target>
+				<source>Write a new article</source>
+				<target>Escriba un nuevo artículo</target>
 			</trans-unit>
 			<trans-unit id="73">
-				<source></source>
-				<target></target>
+				<source>If you wish to attach an image in the heading, type its URL in the next field</source>
+				<target>Si desea adjuntar una imagen en el encabezado, escriba su dirección en el siguente campo</target>
 			</trans-unit>
 			<trans-unit id="74">
-				<source></source>
-				<target></target>
+				<source>Type the title</source>
+				<target>Escriba el título</target>
 			</trans-unit>
 			<trans-unit id="75">
-				<source></source>
-				<target></target>
+				<source>Type the subtitle or summary</source>
+				<target>Escriba el subtítulo o resumen</target>
 			</trans-unit>
 			<trans-unit id="76">
-				<source></source>
-				<target></target>
+				<source>Title</source>
+				<target>Título</target>
 			</trans-unit>
 			<trans-unit id="77">
-				<source></source>
-				<target></target>
+				<source>Subtitle</source>
+				<target>Subtítulo</target>
 			</trans-unit>
 			<trans-unit id="78">
-				<source></source>
-				<target></target>
+				<source>Image</source>
+				<target>Imagen</target>
 			</trans-unit>
 			<trans-unit id="79">
-				<source></source>
-				<target></target>
+				<source>Content</source>
+				<target>Contenido</target>
 			</trans-unit>
 			<trans-unit id="80">
-				<source></source>
-				<target></target>
+				<source>Article main content</source>
+				<target>Contenido principal del artículo</target>
 			</trans-unit>
 			<trans-unit id="81">
-				<source></source>
-				<target></target>
+				<source>Category and tags</source>
+				<target>Categoría y etiquetas</target>
 			</trans-unit>
 			<trans-unit id="82">
-				<source></source>
-				<target></target>
+				<source>Type the image url</source>
+				<target>Escriba la dirección de la imagen</target>
 			</trans-unit>
 			<trans-unit id="83">
 				<source></source>

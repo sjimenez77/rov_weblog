@@ -13,23 +13,36 @@ class ArticleType extends AbstractType
         $builder
             ->add('title', 'text', array(
                 'attr' => array(
-                    'class' => 'form-control input-lg',
-                    'placeholder' => 'Type in your name',
+                    'class' => 'form-control',
+                    'placeholder' => 'Type the title',
                     'required' => true
                     )
                 ))
             ->add('subtitle', 'text', array(
                 'attr' => array(
                     'class' => 'form-control',
-                    'placeholder' => 'Type in your surname',
+                    'placeholder' => 'Type the subtitle or summary',
                     'required' => false
                     )
                 ))
-            ->add('content', 'text', array(
+            ->add('image', 'url', array(
                 'attr' => array(
                     'class' => 'form-control',
+                    'placeholder' => 'Type the image url',
+                    'required' => false
+                    )
+                ))
+            ->add('content', 'textarea', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'rows' => 10,
                     'required' => true
                     )
+                ))
+            ->add('published', 'checkbox', array(
+                'label' => 'Publish article',
+                'attr' => array('style' => 'margin-left: 5px'),
+                'required' => false
                 ))
         ;
     }

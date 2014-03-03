@@ -1,0 +1,82 @@
+{% extends '::frontend_bootstrap.html.twig' %}
+
+{% block title %}{{ 'New article'|trans }}{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Blog <small>{{ 'New article'|trans }}</small></h1>
+			<ol class="breadcrumb">
+				<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
+				<li class="active">{{ 'New article'|trans }}</li>
+			</ol>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4>{{ 'Write a new article'|trans }}</h4>
+				</div>
+				<div class="panel-body">
+					{# Flashbag session success messages #}
+					{% for message in app.session.flashbag.get('error') %}
+					<div class="alert alert-danger">{{ message|trans }}</div>
+					{% endfor %}
+					{% for message in app.session.flashbag.get('success') %}
+					<div class="alert alert-success">{{ message|trans }}</div>
+					{% endfor %}
+					{{ form_start(new_article_form) }}
+						{# form_widget(new_article_form) #}
+						<h3>{{ form_errors(new_article_form) }}</h3>
+						<div class="row">
+							<div class="col-md-8">
+								<fieldset>
+									<legend>{{ 'Article main content'|trans }}</legend>
+									{{ form_row(new_article_form.title) }}
+									{{ form_row(new_article_form.subtitle) }}
+									<br><div class="alert alert-info">{{ 'If you wish to attach an image in the heading, type its URL in the next field'|trans }}</div>
+									{{ form_row(new_article_form.image) }}
+									{{ form_row(new_article_form.content) }}
+									{{ form_row(new_article_form.published) }}
+								</fieldset>
+							</div>
+							<br class="visible-xs visible-sm">
+							<div class="col-md-4">
+								<fieldset>
+									<legend>{{ 'Category and tags'|trans }}</legend>
+								</fieldset>
+							</div>
+						</div>
+						<hr>
+						<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;{{ 'Save changes'|trans }}</button>
+						<button type="button" class="btn">{{ 'Cancel'|trans }}</button>
+					{{ form_end(new_article_form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block js %}
+	{# Select2 and wysihtml5 creation #}
+	{{ parent() }}
+    {% if locale == 'es' %}<script type="text/javascript" src="{{ asset('bundles/rovstart/js/locales/bootstrap-wysihtml5.es-ES.js') }}"></script>{% endif %}
+	<script>
+		$('#rov_blogbundle_articletype_content').wysihtml5({
+			"font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+			"emphasis": true, //Italics, bold, etc. Default true
+			"lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+			"html": true, //Button which allows you to edit the generated HTML. Default false
+			"link": true, //Button to insert a link. Default true
+			"image": true, //Button to insert an image. Default true,
+			"color": false, //Button to change color of font
+			"size": 'sm', //Button size like sm, xs etc.
+			{% if locale == 'es' %}"locale": "es-ES"{% endif %}
+		});
+	</script>
+{% endblock %}

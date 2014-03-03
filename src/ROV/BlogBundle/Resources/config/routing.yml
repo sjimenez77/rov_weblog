@@ -1,14 +1,18 @@
 rov_blog_homepage:
     pattern:  /{page}
-    defaults: { _controller: ROVBlogBundle:Default:index, page: 1 }
+    defaults: { _controller: ROVBlogBundle:Default:blogHome, page: 1 }
     requirements:
         page:  \d+
-
-rov_blog_article:
-    pattern:  /{slug}
-    defaults: { _controller: ROVBlogBundle:Default:article }
 
 rov_blog_search:
     pattern:  /search
     defaults: { _controller: ROVBlogBundle:Default:search }
     methods:  [POST]
+
+rov_blog_article:
+    pattern:  /{slug}
+    defaults: { _controller: ROVBlogBundle:Default:article }
+
+rov_blog_new_article:
+    pattern:  /admin/new
+    defaults: { _controller: ROVBlogBundle:Default:newArticle }
