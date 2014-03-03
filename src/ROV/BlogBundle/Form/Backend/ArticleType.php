@@ -5,6 +5,9 @@ namespace ROV\BlogBundle\Form\Backend;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+use ROV\BlogBundle\Form\Backend\CategoryType;
+use ROV\BlogBundle\Form\Backend\TagType;
  
 class ArticleType extends AbstractType
 {
@@ -13,36 +16,45 @@ class ArticleType extends AbstractType
         $builder
             ->add('title', 'text', array(
                 'attr' => array(
-                    'class' => 'form-control',
-                    'placeholder' => 'Type the title',
-                    'required' => true
+                    'class'         => 'form-control',
+                    'placeholder'   => 'Type the title',
+                    'required'      => true
                     )
                 ))
             ->add('subtitle', 'text', array(
                 'attr' => array(
-                    'class' => 'form-control',
-                    'placeholder' => 'Type the subtitle or summary',
-                    'required' => false
+                    'class'         => 'form-control',
+                    'placeholder'   => 'Type the subtitle or summary',
+                    'required'      => false
                     )
                 ))
             ->add('image', 'url', array(
                 'attr' => array(
-                    'class' => 'form-control',
-                    'placeholder' => 'Type the image url',
-                    'required' => false
+                    'class'         => 'form-control',
+                    'placeholder'   => 'Type the image url',
+                    'required'      => false
                     )
                 ))
             ->add('content', 'textarea', array(
                 'attr' => array(
-                    'class' => 'form-control',
-                    'rows' => 10,
-                    'required' => true
+                    'class'     => 'form-control',
+                    'rows'      => 10,
+                    'required'  => true
                     )
                 ))
             ->add('published', 'checkbox', array(
-                'label' => 'Publish article',
-                'attr' => array('style' => 'margin-left: 5px'),
-                'required' => false
+                'label'     => 'Publish article',
+                'attr'      => array('style' => 'margin-left: 5px'),
+                'required'  => false
+                ))
+            ->add('category', 'collection', array(
+                'label'     => 'Choose a category',
+                'type'      => new CategoryType(),
+                'allow_add' => true
+                ))
+            ->add('tags', 'collection', array(
+                    'type'         => new TagType(),
+                    'allow_add'    => true,
                 ))
         ;
     }

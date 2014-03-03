@@ -331,8 +331,8 @@
 				<target>Escriba la dirección de la imagen</target>
 			</trans-unit>
 			<trans-unit id="83">
-				<source></source>
-				<target></target>
+				<source>Choose a category</source>
+				<target>Elija una categoría</target>
 			</trans-unit>
 			<trans-unit id="84">
 				<source></source>
