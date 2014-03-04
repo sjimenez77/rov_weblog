@@ -151,9 +151,10 @@ class DefaultController extends Controller
     /**
      * Edit article form
      * @param  Request $request [description]
+     * @param  integer $article_id [description]
      * @return object           Twig template
      */
-    public function editArticleAction(Request $request)
+    public function editArticleAction(Request $request, $article_id)
     {
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
@@ -164,7 +165,7 @@ class DefaultController extends Controller
             $session->get(SecurityContext::AUTHENTICATION_ERROR)
         );
 
-        // $article = new Article();
+        $article = $em->getRepository('ROVBlogBundle:Article')->find($article_id);
         $formEditArticle = $this->createForm(new ArticleType(), $article);
         $category = new Category();
         $formNewCategory = $this->createForm(new CategoryType(), $category);
@@ -184,7 +185,7 @@ class DefaultController extends Controller
             $slug = str_replace($some_special_chars, $replacement_chars, $slug);
 
             $article->setSlug($slug);
-            $article->setAuthor($user);
+            $article->setUpdated(new \DateTime());
             $em->persist($article);
             $em->flush();
 
@@ -193,7 +194,8 @@ class DefaultController extends Controller
             );
 
             return $this->render('ROVBlogBundle:Default:editArticle.html.twig', array(
-                'edit_article_form'  => $formEditArticle->createView(),
+                'edit_article_form' => $formEditArticle->createView(),
+                'article_id'        => $article_id,
                 'new_category_form' => $formNewCategory->createView(),
                 'new_tag_form'      => $formNewTag->createView(),
                 'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
@@ -212,7 +214,8 @@ class DefaultController extends Controller
             );
 
             return $this->render('ROVBlogBundle:Default:editArticle.html.twig', array(
-                'edit_article_form'  => $formEditArticle->createView(),
+                'edit_article_form' => $formEditArticle->createView(),
+                'article_id'        => $article_id,
                 'new_category_form' => $formNewCategory->createView(),
                 'new_tag_form'      => $formNewTag->createView(),
                 'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
@@ -231,7 +234,8 @@ class DefaultController extends Controller
             );
 
             return $this->render('ROVBlogBundle:Default:editArticle.html.twig', array(
-                'edit_article_form'  => $formEditArticle->createView(),
+                'edit_article_form' => $formEditArticle->createView(),
+                'article_id'        => $article_id,
                 'new_category_form' => $formNewCategory->createView(),
                 'new_tag_form'      => $formNewTag->createView(),
                 'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
@@ -241,7 +245,55 @@ class DefaultController extends Controller
         }
 
         return $this->render('ROVBlogBundle:Default:editArticle.html.twig', array(
-            'edit_article_form'      => $formEditArticle->createView(),
+            'edit_article_form'     => $formEditArticle->createView(),
+            'article_id'            => $article_id,
+            'new_category_form'     => $formNewCategory->createView(),
+            'new_tag_form'          => $formNewTag->createView(),
+            'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
+            'error'                 => $error
+        ));
+    }
+
+    /**
+     * Manage the articles
+     * @param  Request $request [description]
+     * @return object           Twig template
+     */
+    public function manageArticlesAction(Request $request)
+    {
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $category = new Category();
+        $formNewCategory = $this->createForm(new CategoryType(), $category);
+        $tag = new Tag();
+        $formNewTag = $this->createForm(new TagType(), $tag);
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+        {
+            // Get all the articles
+            $articles = $em->getRepository('ROVBlogBundle:Article')->findBy(
+                array(),
+                array('updated' => 'DESC')
+            );
+        }
+        else
+        {
+            // Get the articles from the author $user
+            $user = $this->get('security.context')->getToken()->getUser();
+            $articles = $em->getRepository('ROVBlogBundle:Article')->findBy(
+                array('author' => $user),
+                array('updated' => 'DESC')
+            );
+        }
+        
+        return $this->render('ROVBlogBundle:Default:manageArticles.html.twig', array(
+            'articles'              => $articles,
             'new_category_form'     => $formNewCategory->createView(),
             'new_tag_form'          => $formNewTag->createView(),
             'last_username'         => $session->get(SecurityContext::LAST_USERNAME),

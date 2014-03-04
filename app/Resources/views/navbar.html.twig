@@ -43,11 +43,7 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;{{ 'Sign in'|trans }}</button>
                                     {######### Target route after login #########}
-                                    {% if page is defined and page != 'home' %}
-                                        <input type="hidden" name="_target_path" value="{{ path(app.request.attributes.get('_route'), { '_locale': app.request.locale, 'page': page }) }}" />
-                                    {% else %}
-                                        <input type="hidden" name="_target_path" value="{{ path(app.request.attributes.get('_route'), { '_locale': app.request.locale }) }}" />
-                                    {% endif %}             
+                                    <input type="hidden" name="_target_path" value="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}" />
                                 </form>
                             </div>
                         </li>
@@ -63,33 +59,19 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">{{ 'Administrator options'|trans }}</li>
                         <li><a href="{{ path('rov_blog_new_article') }}">{{ 'Write a new article'|trans }}</a></li>
+                        <li><a href="{{ path('rov_blog_manage_articles') }}">{{ 'Manage articles'|trans }}</a></li>
                         <li><a href="#">{{ 'Registered users control'|trans }}</a></li>
                     </ul>
                 </li>
                 {% endif %}
                 {######## Target route on change language ########}
-                {% if page is defined and page != 'home' and page != 'contact' %}
-                
-                    {% if locale == 'es' %}
-                    <li><a href="{{ path(app.request.attributes.get('_route'), { '_locale': 'en', 'page': page }) }}"><img src="{{ asset('bundles/rovstart/images/uk.png') }}" alt="English"></a></li>
-                    <li class="active"><a href="#"><img src="{{ asset('bundles/rovstart/images/spain.png') }}" alt="Spanish"></a></li>
-                    {% elseif locale == 'en' %}
-                    <li class="active"><a href="#"><img src="{{ asset('bundles/rovstart/images/uk.png') }}" alt="English"></a></li>
-                    <li><a href="{{ path(app.request.attributes.get('_route'), { '_locale': 'es', 'page': page }) }}"><img src="{{ asset('bundles/rovstart/images/spain.png') }}" alt="Spanish"></a></li>
-                    {% endif %}
-                    
-                {% else %}
-                    
-                    {% if locale == 'es' %}
-                    <li><a href="{{ path(app.request.attributes.get('_route'), { '_locale': 'en' }) }}"><img src="{{ asset('bundles/rovstart/images/uk.png') }}" alt="English"></a></li>
-                    <li class="active"><a href="#"><img src="{{ asset('bundles/rovstart/images/spain.png') }}" alt="Spanish"></a></li>
-                    {% elseif locale == 'en' %}
-                    <li class="active"><a href="#"><img src="{{ asset('bundles/rovstart/images/uk.png') }}" alt="English"></a></li>
-                    <li><a href="{{ path(app.request.attributes.get('_route'), { '_locale': 'es' }) }}"><img src="{{ asset('bundles/rovstart/images/spain.png') }}" alt="Spanish"></a></li>
-                    {% endif %}
-
+                {% if locale == 'es' %}
+                <li><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}"><img src="{{ asset('bundles/rovstart/images/uk.png') }}" alt="English"></a></li>
+                <li class="active"><a href="#"><img src="{{ asset('bundles/rovstart/images/spain.png') }}" alt="Spanish"></a></li>
+                {% elseif locale == 'en' %}
+                <li class="active"><a href="#"><img src="{{ asset('bundles/rovstart/images/uk.png') }}" alt="English"></a></li>
+                <li><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'es'})) }}"><img src="{{ asset('bundles/rovstart/images/spain.png') }}" alt="Spanish"></a></li>
                 {% endif %}
-
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->

@@ -112,7 +112,10 @@
 {% block js %}
 	{# Select2 and wysihtml5 creation #}
 	{{ parent() }}
-    {% if locale == 'es' %}<script type="text/javascript" src="{{ asset('bundles/rovstart/js/locales/bootstrap-wysihtml5.es-ES.js') }}"></script>{% endif %}
+    {% if locale == 'es' %}
+    <script type="text/javascript" src="{{ asset('bundles/rovstart/js/locales/bootstrap-wysihtml5.es-ES.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/rovstart/js/select2/select2_locale_es.js') }}"></script>
+    {% endif %}
 	<script>
 		$('#rov_blogbundle_articletype_content').wysihtml5({
 			"font-styles": true, //Font styling, e.g. h1, h2, etc. Default true

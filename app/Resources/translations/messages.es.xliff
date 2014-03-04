@@ -391,12 +391,12 @@
 				<target>Email enviado por el formulario de contacto del blog</target>
 			</trans-unit>
 			<trans-unit id="98">
-				<source></source>
-				<target></target>
+				<source>Update this article</source>
+				<target>Actualice este artículo</target>
 			</trans-unit>
 			<trans-unit id="99">
-				<source></source>
-				<target></target>
+				<source>Manage articles</source>
+				<target>Gestionar artículos</target>
 			</trans-unit>
 			<trans-unit id="100">
 				<source></source>

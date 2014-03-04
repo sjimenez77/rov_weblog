@@ -20,3 +20,7 @@ rov_blog_new_article:
 rov_blog_edit_article:
     pattern:  /admin/edit/{article_id}
     defaults: { _controller: ROVBlogBundle:Default:editArticle }
+
+rov_blog_manage_articles:
+    pattern:  /admin/manage
+    defaults: { _controller: ROVBlogBundle:Default:manageArticles }
