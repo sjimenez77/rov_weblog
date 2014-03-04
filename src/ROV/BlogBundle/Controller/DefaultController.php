@@ -76,7 +76,13 @@ class DefaultController extends Controller
         $formNewArticle->handleRequest($request);
         if ($formNewArticle->isValid())
         {
-            $article->setSlug(str_replace(" ", "_", trim($article->getTitle())));
+            // Process title and create a valid slug
+            $some_special_chars = array("á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ñ", "Ñ");
+            $replacement_chars  = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "n", "N");
+            $slug = str_replace(" ", "_", trim($article->getTitle()));
+            $slug = str_replace($some_special_chars, $replacement_chars, $slug);
+
+            $article->setSlug($slug);
             $article->setAuthor($user);
             $em->persist($article);
             $em->flush();
@@ -135,6 +141,107 @@ class DefaultController extends Controller
 
         return $this->render('ROVBlogBundle:Default:newArticle.html.twig', array(
             'new_article_form'      => $formNewArticle->createView(),
+            'new_category_form'     => $formNewCategory->createView(),
+            'new_tag_form'          => $formNewTag->createView(),
+            'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
+            'error'                 => $error
+        ));
+    }
+
+    /**
+     * Edit article form
+     * @param  Request $request [description]
+     * @return object           Twig template
+     */
+    public function editArticleAction(Request $request)
+    {
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        // $article = new Article();
+        $formEditArticle = $this->createForm(new ArticleType(), $article);
+        $category = new Category();
+        $formNewCategory = $this->createForm(new CategoryType(), $category);
+        $tag = new Tag();
+        $formNewTag = $this->createForm(new TagType(), $tag);
+
+        // New in version 2.3: The handleRequest() method was added in Symfony 2.3. 
+        // Previously, the $request was passed to the submit method - a strategy which 
+        // is deprecated and will be removed in Symfony 3.0.
+        $formEditArticle->handleRequest($request);
+        if ($formEditArticle->isValid())
+        {
+            // Process title and create a valid slug
+            $some_special_chars = array("á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ñ", "Ñ");
+            $replacement_chars  = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "n", "N");
+            $slug = str_replace(" ", "_", trim($article->getTitle()));
+            $slug = str_replace($some_special_chars, $replacement_chars, $slug);
+
+            $article->setSlug($slug);
+            $article->setAuthor($user);
+            $em->persist($article);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'Article saved'
+            );
+
+            return $this->render('ROVBlogBundle:Default:editArticle.html.twig', array(
+                'edit_article_form'  => $formEditArticle->createView(),
+                'new_category_form' => $formNewCategory->createView(),
+                'new_tag_form'      => $formNewTag->createView(),
+                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+                'error'             => $error
+            ));
+
+        }
+        $formNewCategory->handleRequest($request);
+        if ($formNewCategory->isValid())
+        {
+            $em->persist($category);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'New category added'
+            );
+
+            return $this->render('ROVBlogBundle:Default:editArticle.html.twig', array(
+                'edit_article_form'  => $formEditArticle->createView(),
+                'new_category_form' => $formNewCategory->createView(),
+                'new_tag_form'      => $formNewTag->createView(),
+                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+                'error'             => $error
+            ));
+
+        }
+        $formNewTag->handleRequest($request);
+        if ($formNewTag->isValid())
+        {
+            $em->persist($tag);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'New tag added'
+            );
+
+            return $this->render('ROVBlogBundle:Default:editArticle.html.twig', array(
+                'edit_article_form'  => $formEditArticle->createView(),
+                'new_category_form' => $formNewCategory->createView(),
+                'new_tag_form'      => $formNewTag->createView(),
+                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+                'error'             => $error
+            ));
+
+        }
+
+        return $this->render('ROVBlogBundle:Default:editArticle.html.twig', array(
+            'edit_article_form'      => $formEditArticle->createView(),
             'new_category_form'     => $formNewCategory->createView(),
             'new_tag_form'          => $formNewTag->createView(),
             'last_username'         => $session->get(SecurityContext::LAST_USERNAME),

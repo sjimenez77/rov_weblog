@@ -151,7 +151,7 @@ class DefaultController extends Controller
                         $data['Email'] => $data['Name'].' '.$data['Surname']
                         )
                     )
-                    ->setTo($this->container->getParameter('rainbow_admin_email'))
+                    ->setTo($this->container->getParameter('rov_admin_email'))
                     ->setBody(
                         $this->renderView(
                             '::email_contact.html.twig',

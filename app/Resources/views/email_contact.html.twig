@@ -1,0 +1,7 @@
+{% extends '::frontend_email.html.twig' %}
+
+{% block subject %}{{ subject|e }}{% endblock %}
+{% block message %}{{ message|e }}{% endblock %}
+{% block name %}{{ name }} {{ surname }}{% endblock %}
+{% block email %}{{ email }}{% endblock %}
+{% block emailshow %}{{ email }}{% endblock %}

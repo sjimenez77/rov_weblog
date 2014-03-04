@@ -20,20 +20,26 @@
 
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
-					{# Flashbag session success messages #}
-					{% for message in app.session.flashbag.get('error') %}
-					<div class="alert alert-error">{{ message|trans }}.</div>
-					{% endfor %}
-					{% for message in app.session.flashbag.get('success') %}
-					<div class="alert alert-success">{{ message|trans }}.</div>
-					{% endfor %}
 					<div class="panel-heading">{{ 'Please fill out this form in order to cantact with me'|trans }}</div>
+					{{ form_start(contact_form, {'method': 'POST', 'action': path('rov_start_contact') }) }}
 					<div class="panel-body">
-						{{ form_widget(contact_form) }}
+						{# Flashbag session success messages #}
+						{% for message in app.session.flashbag.get('error') %}
+						<div class="alert alert-error">{{ message|trans }}.</div>
+						{% endfor %}
+						{% for message in app.session.flashbag.get('success') %}
+						<div class="alert alert-success">{{ message|trans }}.</div>
+						{% endfor %}
+						{{ form_row(contact_form.Name) }}
+						{{ form_row(contact_form.Surname) }}
+						{{ form_row(contact_form.Email) }}
+						{{ form_row(contact_form.Subject) }}
+						{{ form_row(contact_form.Message) }}
 						<br>
 						<button class="btn btn-primary" type="submit"/><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;{{ 'Send'|trans }}</button>
 						<button type="button" class="btn">{{ 'Cancel'|trans }}</button>
 					</div>
+					{{ form_end(contact_form) }}
 				</div>
 			</div>
 			<div class="col-sm-4">

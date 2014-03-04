@@ -1,0 +1,45 @@
+{% extends '::base_email.html.twig' %}
+
+{% block content %}
+	{% block header %}
+	<tr>
+        <td class="container-padding" bgcolor="#772953" style="background-color: #772953; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #fff;" align="left">
+        	<br><img src="{{ asset('bundles/rovstart/images/logo_navbar_es.png') }}" alt="Blog">
+		</td>
+	</tr>
+    {% endblock %}
+
+	<tr>
+        <td class="container-padding" bgcolor="#772953" style="background-color: #772953; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #fff;" align="left">
+        	<div style="font-weight: bold; font-size: 18px; line-height: 24px; color: #CCCCCC; border-top: 1px solid #ddd;">
+        		<br>
+        		{##### EMAIL SUBJECT #####}
+        		{% block subject %}{% endblock %}
+        	</div>
+        	<p>{% block message %}{% endblock %}</p>
+            <br>
+		</td>
+	</tr>
+
+	{% block footer %}
+	<tr>
+        <td class="container-padding" bgcolor="#772953" style="background-color: #772953; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #fff;" align="left">
+        	<div style="font-weight: bold; font-size: 18px; line-height: 24px; color: #CCCCCC; border-top: 1px solid #ddd;">
+        		<br>
+        		{##### CONTACT DATA #####}
+        		{{ 'Contact data'|trans }}
+        	</div>
+        	<p>
+        		<strong>{% block name %}{% endblock %}</strong>
+        		<br>
+        		<a style="font-weight: bold; color: #CCCCCC;" href="mailto:{% block email %}{% endblock %}">{% block emailshow %}{% endblock %}</a>
+        	</p>
+        	<div style="font-weight: bold; font-size: 10px; line-height: 24px; color: #CCCCCC; border-top: 1px solid #ddd;">
+        		<br>
+        		{##### EMAIL FOOTER #####}
+        		{{ 'Email sent by the blog contact form'|trans }}
+        	</div>
+		</td>
+	</tr>
+	{% endblock %}
+{% endblock %}

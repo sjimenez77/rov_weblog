@@ -232,7 +232,7 @@
 			</trans-unit>
 			<trans-unit id="58">
 				<source>Registered users control</source>
-				<target>Control de suarios registrados</target>
+				<target>Control de usuarios registrados</target>
 			</trans-unit>
 			<trans-unit id="59">
 				<source>Delete account</source>
@@ -379,16 +379,16 @@
 				<target>Artículo nuevo guardado</target>
 			</trans-unit>
 			<trans-unit id="95">
-				<source></source>
-				<target></target>
+				<source>Article saved</source>
+				<target>Artículo guardado</target>
 			</trans-unit>
 			<trans-unit id="96">
-				<source></source>
-				<target></target>
+				<source>Your message has been sent successfully</source>
+				<target>Su mensaje ha sido enviado correctamente</target>
 			</trans-unit>
 			<trans-unit id="97">
-				<source></source>
-				<target></target>
+				<source>Email sent by the blog contact form</source>
+				<target>Email enviado por el formulario de contacto del blog</target>
 			</trans-unit>
 			<trans-unit id="98">
 				<source></source>
