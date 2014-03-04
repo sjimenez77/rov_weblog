@@ -28,7 +28,7 @@
 				{% endfor %}
 				<div class="panel-heading"><h4>{{ 'Sign up form'|trans }}</h4></div>
 				<div class="panel-body">
-					<form action="{{ path('rov_users_register') }}" method="post" {{ form_enctype(sign_up_form) }} autocomplete="off">
+					{{ form_start(sign_up_form, {'method': 'POST', 'action': path('rov_users_register'), 'attr':{'role': 'form', 'autocomplete': 'off'} }) }}
 						{# form_widget(sign_up_form) #}
 						<h3>{{ form_errors(sign_up_form) }}</h3>
 						<div class="row">
@@ -50,6 +50,8 @@
 									{{ form_row(sign_up_form.city) }}
 									{{ form_row(sign_up_form.country) }}
 									{{ form_row(sign_up_form.locale) }}
+									{{ form_row(sign_up_form.company) }}
+									{{ form_row(sign_up_form.job) }}
 									{# Necesario para CSRF #}
 									{{ form_rest(sign_up_form) }}
 								</fieldset>
@@ -74,7 +76,7 @@
 						<hr>
 						<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;{{ 'Sign up now'|trans }}</button>
 						<button type="button" class="btn">{{ 'Cancel'|trans }}</button>
-					</form>
+					{{ form_end(sign_up_form) }}
 				</div>
 			</div>
 		</div>

@@ -14,7 +14,7 @@ class CategoryType extends AbstractType
             ->add('name', 'text', array(
                 'attr' => array(
                     'class' => 'form-control',
-                    'placeholder' => 'Type the tag name',
+                    'placeholder' => 'Type the category name',
                     'required' => true
                     )
                 ))

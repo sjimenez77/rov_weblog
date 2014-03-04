@@ -14,21 +14,21 @@ class UserType extends AbstractType
             ->add('name', 'text', array(
                 'attr' => array(
                     'class' => 'form-control',
-                    'placeholder' => 'Type your name',
+                    'placeholder' => 'Type in your name',
                     'required' => true
                     )
                 ))
             ->add('surname', 'text', array(
                 'attr' => array(
                     'class' => 'form-control',
-                    'placeholder' => 'Type your surname',
+                    'placeholder' => 'Type in your surname',
                     'required' => true
                     )
                 ))
             ->add('email', 'email', array(
                 'attr' => array(
                     'class' => 'form-control',
-                    'placeholder' => 'Type your email',
+                    'placeholder' => 'Type in your email',
                     'required' => true
                     )
                 ))
@@ -38,14 +38,14 @@ class UserType extends AbstractType
                     'label' => 'Password',
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Type your password'
+                        'placeholder' => 'Type in your password'
                         )
                     ),
                 'second_options' => array(
                     'label' => 'Repeat Password',
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Type your password once more'
+                        'placeholder' => 'Type in your password once more'
                         )
                     ),
                 'required' => false

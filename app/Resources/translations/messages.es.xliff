@@ -227,8 +227,8 @@
 				<target>Los datos de perfil han sido actualizados correctamente</target>
 			</trans-unit>
 			<trans-unit id="57">
-				<source>Write a new post</source>
-				<target>Escribir una nueva entrada</target>
+				<source>Write a new article</source>
+				<target>Escribir un artículo nuevo</target>
 			</trans-unit>
 			<trans-unit id="58">
 				<source>Registered users control</source>
@@ -335,48 +335,48 @@
 				<target>Elija una categoría</target>
 			</trans-unit>
 			<trans-unit id="84">
-				<source></source>
-				<target></target>
+				<source>Choose tags</source>
+				<target>Adjunte etiquetas</target>
 			</trans-unit>
 			<trans-unit id="85">
-				<source></source>
-				<target></target>
+				<source>Create a new category</source>
+				<target>Crear una categoría nueva</target>
 			</trans-unit>
 			<trans-unit id="86">
-				<source></source>
-				<target></target>
+				<source>Create a new tag</source>
+				<target>Crear una etiqueta nueva</target>
 			</trans-unit>
 			<trans-unit id="87">
-				<source></source>
-				<target></target>
+				<source>Tags</source>
+				<target>Etiquetas</target>
 			</trans-unit>
 			<trans-unit id="88">
-				<source></source>
-				<target></target>
+				<source>If you need new tags or a new category for this article, create them first</source>
+				<target>Si necesita etiquetas nuevas o una categoría nueva para este artículo, créelas primero</target>
 			</trans-unit>
 			<trans-unit id="89">
-				<source></source>
-				<target></target>
+				<source>New category added</source>
+				<target>Categoría nueva añadida</target>
 			</trans-unit>
 			<trans-unit id="90">
-				<source></source>
-				<target></target>
+				<source>New tag added</source>
+				<target>Etiqueta nueva añadida</target>
 			</trans-unit>
 			<trans-unit id="91">
-				<source></source>
-				<target></target>
+				<source>Type the category name</source>
+				<target>Escriba el nombre de la categoría</target>
 			</trans-unit>
 			<trans-unit id="92">
-				<source></source>
-				<target></target>
+				<source>Type the tag name</source>
+				<target>Escriba el nombre de la etiqueta</target>
 			</trans-unit>
 			<trans-unit id="93">
-				<source></source>
-				<target></target>
+				<source>News</source>
+				<target>Noticias</target>
 			</trans-unit>
 			<trans-unit id="94">
-				<source></source>
-				<target></target>
+				<source>New article saved</source>
+				<target>Artículo nuevo guardado</target>
 			</trans-unit>
 			<trans-unit id="95">
 				<source></source>

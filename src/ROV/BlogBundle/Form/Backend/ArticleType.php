@@ -38,7 +38,7 @@ class ArticleType extends AbstractType
             ->add('content', 'textarea', array(
                 'attr' => array(
                     'class'     => 'form-control',
-                    'rows'      => 10,
+                    'rows'      => 20,
                     'required'  => true
                     )
                 ))
@@ -47,14 +47,20 @@ class ArticleType extends AbstractType
                 'attr'      => array('style' => 'margin-left: 5px'),
                 'required'  => false
                 ))
-            ->add('category', 'collection', array(
+            ->add('category', 'entity', array(
+                'attr' => array('class' => 'form-control'),
                 'label'     => 'Choose a category',
-                'type'      => new CategoryType(),
-                'allow_add' => true
+                'class'     => 'ROVBlogBundle:Category',
+                'property'  => 'name',
+                'empty_value' => ''
                 ))
-            ->add('tags', 'collection', array(
-                    'type'         => new TagType(),
-                    'allow_add'    => true,
+            ->add('tags', 'entity', array(
+                'attr'         => array('class' => 'form-control'),
+                // 'type'         => new TagType(),
+                'class'     => 'ROVBlogBundle:Tag',
+                'property'  => 'name',
+                'multiple'  => true,
+                'empty_value' => ''
                 ))
         ;
     }
