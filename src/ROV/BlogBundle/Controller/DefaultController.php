@@ -90,16 +90,8 @@ class DefaultController extends Controller
             $this->get('session')->getFlashBag()->add('success',
                 'New article saved'
             );
-
-            return $this->render('ROVBlogBundle:Default:newArticle.html.twig', array(
-                'new_article_form'  => $formNewArticle->createView(),
-                'new_category_form' => $formNewCategory->createView(),
-                'new_tag_form'      => $formNewTag->createView(),
-                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
-                'error'             => $error
-            ));
-
         }
+
         $formNewCategory->handleRequest($request);
         if ($formNewCategory->isValid())
         {
@@ -109,16 +101,8 @@ class DefaultController extends Controller
             $this->get('session')->getFlashBag()->add('success',
                 'New category added'
             );
-
-            return $this->render('ROVBlogBundle:Default:newArticle.html.twig', array(
-                'new_article_form'  => $formNewArticle->createView(),
-                'new_category_form' => $formNewCategory->createView(),
-                'new_tag_form'      => $formNewTag->createView(),
-                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
-                'error'             => $error
-            ));
-
         }
+
         $formNewTag->handleRequest($request);
         if ($formNewTag->isValid())
         {
@@ -128,15 +112,6 @@ class DefaultController extends Controller
             $this->get('session')->getFlashBag()->add('success',
                 'New tag added'
             );
-
-            return $this->render('ROVBlogBundle:Default:newArticle.html.twig', array(
-                'new_article_form'  => $formNewArticle->createView(),
-                'new_category_form' => $formNewCategory->createView(),
-                'new_tag_form'      => $formNewTag->createView(),
-                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
-                'error'             => $error
-            ));
-
         }
 
         return $this->render('ROVBlogBundle:Default:newArticle.html.twig', array(
@@ -192,17 +167,8 @@ class DefaultController extends Controller
             $this->get('session')->getFlashBag()->add('success',
                 'Article saved'
             );
-
-            return $this->render('ROVBlogBundle:Default:editArticle.html.twig', array(
-                'edit_article_form' => $formEditArticle->createView(),
-                'article_id'        => $article_id,
-                'new_category_form' => $formNewCategory->createView(),
-                'new_tag_form'      => $formNewTag->createView(),
-                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
-                'error'             => $error
-            ));
-
         }
+
         $formNewCategory->handleRequest($request);
         if ($formNewCategory->isValid())
         {
@@ -212,17 +178,8 @@ class DefaultController extends Controller
             $this->get('session')->getFlashBag()->add('success',
                 'New category added'
             );
-
-            return $this->render('ROVBlogBundle:Default:editArticle.html.twig', array(
-                'edit_article_form' => $formEditArticle->createView(),
-                'article_id'        => $article_id,
-                'new_category_form' => $formNewCategory->createView(),
-                'new_tag_form'      => $formNewTag->createView(),
-                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
-                'error'             => $error
-            ));
-
         }
+
         $formNewTag->handleRequest($request);
         if ($formNewTag->isValid())
         {
@@ -232,16 +189,6 @@ class DefaultController extends Controller
             $this->get('session')->getFlashBag()->add('success',
                 'New tag added'
             );
-
-            return $this->render('ROVBlogBundle:Default:editArticle.html.twig', array(
-                'edit_article_form' => $formEditArticle->createView(),
-                'article_id'        => $article_id,
-                'new_category_form' => $formNewCategory->createView(),
-                'new_tag_form'      => $formNewTag->createView(),
-                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
-                'error'             => $error
-            ));
-
         }
 
         return $this->render('ROVBlogBundle:Default:editArticle.html.twig', array(
@@ -291,9 +238,43 @@ class DefaultController extends Controller
                 array('updated' => 'DESC')
             );
         }
+
         
+        $formNewCategory->handleRequest($request);
+        if ($formNewCategory->isValid())
+        {
+            $em->persist($category);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'New category added'
+            );
+        }
+
+        $formNewTag->handleRequest($request);
+        if ($formNewTag->isValid())
+        {
+            $em->persist($tag);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'New tag added'
+            );
+        }
+
+        $categories = $em->getRepository('ROVBlogBundle:Category')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+        $tags = $em->getRepository('ROVBlogBundle:Tag')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
         return $this->render('ROVBlogBundle:Default:manageArticles.html.twig', array(
             'articles'              => $articles,
+            'categories'            => $categories,
+            'tags'                  => $tags,
             'new_category_form'     => $formNewCategory->createView(),
             'new_tag_form'          => $formNewTag->createView(),
             'last_username'         => $session->get(SecurityContext::LAST_USERNAME),

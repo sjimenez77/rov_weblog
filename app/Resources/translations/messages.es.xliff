@@ -399,10 +399,410 @@
 				<target>Gestionar artículos</target>
 			</trans-unit>
 			<trans-unit id="100">
+				<source>Categories</source>
+				<target>Categorías</target>
+			</trans-unit>
+			<trans-unit id="101">
+				<source>There are no categories yet</source>
+				<target>No hay categorías aún</target>
+			</trans-unit>
+			<trans-unit id="102">
+				<source>Articles list</source>
+				<target>Listado de artículos</target>
+			</trans-unit>
+			<trans-unit id="103">
+				<source>There are not any article yet!</source>
+				<target>¡Todavía no hay ningún artículo!</target>
+			</trans-unit>
+			<trans-unit id="104">
+				<source>Created</source>
+				<target>Creado</target>
+			</trans-unit>
+			<trans-unit id="105">
+				<source>Last updated</source>
+				<target>Última actualización</target>
+			</trans-unit>
+			<trans-unit id="106">
+				<source>Options</source>
+				<target>Opciones</target>
+			</trans-unit>
+			<trans-unit id="107">
+				<source>Edit</source>
+				<target>Editar</target>
+			</trans-unit>
+			<trans-unit id="108">
 				<source></source>
 				<target></target>
 			</trans-unit>
-			<trans-unit id="101">
+			<trans-unit id="109">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="110">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="111">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="112">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="113">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="114">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="115">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="116">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="117">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="118">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="119">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="120">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="121">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="122">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="123">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="124">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="125">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="126">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="127">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="128">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="129">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="130">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="131">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="132">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="133">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="134">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="135">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="136">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="137">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="138">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="139">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="140">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="141">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="142">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="143">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="144">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="145">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="146">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="147">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="148">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="149">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="150">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="151">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="152">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="153">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="154">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="155">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="156">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="157">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="158">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="159">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="160">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="161">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="162">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="163">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="164">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="165">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="166">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="167">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="168">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="169">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="170">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="171">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="172">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="173">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="174">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="175">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="176">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="177">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="178">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="179">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="180">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="181">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="182">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="183">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="184">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="185">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="186">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="187">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="188">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="189">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="190">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="191">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="192">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="193">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="194">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="195">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="196">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="197">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="198">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="199">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="200">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="201">
 				<source></source>
 				<target></target>
 			</trans-unit>

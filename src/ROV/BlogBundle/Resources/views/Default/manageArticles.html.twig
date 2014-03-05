@@ -18,78 +18,156 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h4>{{ 'Write a new article'|trans }}</h4>
-				</div>
-				<div class="panel-body">
-					{# Flashbag session success messages #}
-					{% for message in app.session.flashbag.get('error') %}
-					<div class="alert alert-danger">{{ message|trans }}</div>
-					{% endfor %}
-					{% for message in app.session.flashbag.get('success') %}
-					<div class="alert alert-success">{{ message|trans }}</div>
-					{% endfor %}
-					<div class="row">
-						<div class="col-md-8">
-
-
-
-
-						</div>
-						<br class="visible-xs visible-sm">
-						<div class="col-md-4">
-							<!-- Button trigger modal -->
-							<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#newCategory" style="margin-bottom:5px">{{ 'Create a new category'|trans }}</button>
-							<!-- Button trigger modal -->
-							<button class="btn btn-info btn-block" data-toggle="modal" data-target="#newTag" style="margin-top:5px">{{ 'Create a new tag'|trans }}</button>
-						</div>
-					</div>
+			{# Flashbag session success messages #}
+			{% for message in app.session.flashbag.get('error') %}
+			<div class="alert alert-danger">{{ message|trans }}</div>
+			{% endfor %}
+			{% for message in app.session.flashbag.get('success') %}
+			<div class="alert alert-success">{{ message|trans }}</div>
+			{% endfor %}
+			<div class="row">
+				<div class="col-md-9">
+					{# Mostrar los artículos #}
+					<h2>{{ 'Articles list'|trans }}</h2>
 					<hr>
-					<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;{{ 'Save changes'|trans }}</button>
-					<button type="button" class="btn">{{ 'Cancel'|trans }}</button>
-					<!-- New Category Modal -->
-					<div class="modal fade" id="newCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								{{ form_start(new_category_form, {'method': 'POST', 'action': path('rov_blog_new_article') }) }}
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="myModalLabel">{{ 'Create a new category'|trans }}</h4>
-								</div>
-								<div class="modal-body">
-										{{ form_row(new_category_form.name) }}
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Close'|trans }}</button>
-									<button type="submit" class="btn btn-primary">{{ 'Save changes'|trans }}</button>
-								</div>
-								{{ form_end(new_category_form) }}
-							</div>
-						</div>
+					{% if articles|length > 0 %}
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover">
+							<thead>
+								<th>ID</th>
+								<th>{{ 'Title'|trans }}</th>
+								<th>{{ 'Created'|trans }}</th>
+								<th>{{ 'Last updated'|trans }}</th>
+								<th>{{ 'Options'|trans }}</th>
+							</thead>
+							<tbody>
+								{% for article in articles %}
+								<tr>
+									<td>{{ article.id }}</td>
+									<td>{{ article.title }}</td>
+									{% if app.request.locale == 'es' %}
+									<td>{{ article.created|localizeddate('medium', 'medium', locale, "Europe/Madrid") }}</td>
+									<td>{{ article.updated|localizeddate('medium', 'medium', locale, "Europe/Madrid") }}</td>
+									{% else %}
+									<td>{{ article.created|date("F jS \\a \\t g:ia", "Europe/Madrid") }}</td>
+									<td>{{ article.updated|date("F jS \\a \\t g:ia", "Europe/Madrid") }}</td>
+									{% endif %}
+									<td>
+										<a class="btn btn-default btn-xs" href="{{ path('rov_blog_edit_article', { 'article_id': article.id }) }}" role="button">{{ 'Edit'|trans }}</a>
+										{# <a class="btn btn-default btn-xs" href="{{ path('rov_blog_delete_article', { 'article_id': article.id }) }}" role="button">{{ 'Delete'|trans }}</a> #}
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
 					</div>
-					<!-- New Tag Modal -->
-					<div class="modal fade" id="newTag" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								{{ form_start(new_tag_form, {'method': 'POST', 'action': path('rov_blog_new_article') }) }}
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="myModalLabel">{{ 'Create a new tag'|trans }}</h4>
-								</div>
-								<div class="modal-body">
-									{{ form_row(new_tag_form.name) }}
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Close'|trans }}</button>
-									<button type="submit" class="btn btn-primary">{{ 'Save changes'|trans }}</button>
-								</div>
-								{{ form_end(new_tag_form) }}
+					{% else %}
+					<div class="alert alert-info">
+						<h4>{{ 'There are no articles yet!'|trans }}</h4>
+					</div>
+					{% endif %}
+				</div>
+				<br class="visible-xs visible-sm">
+				<div class="col-md-3">
+					<div class="well">
+						<h4>{{ 'Categories'|trans }}</h4>
+						<div class="row">
+							{% set length = categories|length %}
+							{% if length > 0 %}
+							<div class="col-lg-6">
+								<ul class="list-unstyled">
+							{% for category in categories|slice(0, (length / 2)|round) %}
+									<li><a href="#">{{ category.name|trans }}</a></li>
+							{% endfor %}
+								</ul>
 							</div>
+							<div class="col-lg-6">
+								<ul class="list-unstyled">
+							{% for category in categories|slice((length / 2)|round, length) %}
+									<li><a href="#">{{ category.name|trans }}</a></li>
+							{% endfor %}
+								</ul>
+							</div>
+							{% else %}
+							<div class="col-lg-6">
+								<p>{{ 'There are no categories yet'|trans }}</p>
+							</div>
+							{% endif %}
 						</div>
+						<!-- Button trigger modal -->
+						<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#newCategory" style="margin-bottom:5px">{{ 'Create a new category'|trans }}</button>
+					</div><!-- /well -->
+					<div class="well">
+						<h4>{{ 'Tags'|trans }}</h4>
+						<div class="row">
+							{% set length = tags|length %}
+							{% if length > 0 %}
+							<div class="col-lg-6">
+								<ul class="list-unstyled">
+							{% for tag in tags|slice(0, (length / 2)|round) %}
+									<li><a href="#">{{ tag.name|trans }}</a></li>
+							{% endfor %}
+								</ul>
+							</div>
+							<div class="col-lg-6">
+								<ul class="list-unstyled">
+							{% for tag in tags|slice((length / 2)|round, length) %}
+									<li><a href="#">{{ tag.name|trans }}</a></li>
+							{% endfor %}
+								</ul>
+							</div>
+							{% else %}
+							<div class="col-lg-6">
+								<p>{{ 'There are no tags yet'|trans }}</p>
+							</div>
+							{% endif %}
+						</div>
+						<!-- Button trigger modal -->
+						<button class="btn btn-info btn-block" data-toggle="modal" data-target="#newTag" style="margin-top:5px">{{ 'Create a new tag'|trans }}</button>
+					</div><!-- /well -->
+				</div>
+			</div>
+			<!-- New Category Modal -->
+			<div class="modal fade" id="newCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						{{ form_start(new_category_form, {'method': 'POST', 'action': path('rov_blog_manage_articles') }) }}
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">{{ 'Create a new category'|trans }}</h4>
+						</div>
+						<div class="modal-body">
+								{{ form_row(new_category_form.name) }}
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Close'|trans }}</button>
+							<button type="submit" class="btn btn-primary">{{ 'Save changes'|trans }}</button>
+						</div>
+						{{ form_end(new_category_form) }}
 					</div>
 				</div>
 			</div>
+			<!-- New Tag Modal -->
+			<div class="modal fade" id="newTag" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						{{ form_start(new_tag_form, {'method': 'POST', 'action': path('rov_blog_manage_articles') }) }}
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">{{ 'Create a new tag'|trans }}</h4>
+						</div>
+						<div class="modal-body">
+							{{ form_row(new_tag_form.name) }}
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Close'|trans }}</button>
+							<button type="submit" class="btn btn-primary">{{ 'Save changes'|trans }}</button>
+						</div>
+						{{ form_end(new_tag_form) }}
+					</div>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 </div>
@@ -97,15 +175,76 @@
 {% block js %}
 	{# Select2 and wysihtml5 creation #}
 	{{ parent() }}
-    {% if locale == 'es' %}
-    <script type="text/javascript" src="{{ asset('bundles/rovstart/js/select2/select2_locale_es.js') }}"></script>
-    {% endif %}
+    <script type="text/javascript" src="{{ asset('bundles/rovstart/js/jquery.tablesorter.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/rovstart/js/jquery.tablesorter.widgets.min.js') }}"></script>
 	<script>
-		$('#rov_blogbundle_articletype_category').select2({
-			placeholder: "{{ 'Choose a category'|trans }}"
-		});
-		$('#rov_blogbundle_articletype_tags').select2({
-			placeholder: "{{ 'Choose tags'|trans }}"
-		});
+	$(function() {
+
+	  $.extend($.tablesorter.themes.bootstrap, {
+	    // these classes are added to the table. To see other table classes available,
+	    // look here: http://twitter.github.com/bootstrap/base-css.html#tables
+	    table      : 'table table-bordered',
+	    caption    : 'caption',
+	    header     : 'bootstrap-header', // give the header a gradient background
+	    footerRow  : '',
+	    footerCells: '',
+	    icons      : '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
+	    sortNone   : 'bootstrap-icon-unsorted',
+	    sortAsc    : 'icon-chevron-up glyphicon glyphicon-chevron-up',     // includes classes for Bootstrap v2 & v3
+	    sortDesc   : 'icon-chevron-down glyphicon glyphicon-chevron-down', // includes classes for Bootstrap v2 & v3
+	    active     : '', // applied when column is sorted
+	    hover      : '', // use custom css here - bootstrap class may not override it
+	    filterRow  : '', // filter row class
+	    even       : '', // odd row zebra striping
+	    odd        : ''  // even row zebra striping
+	  });
+
+	  // call the tablesorter plugin and apply the uitheme widget
+	  $("table").tablesorter({
+	    // this will apply the bootstrap theme if "uitheme" widget is included
+	    // the widgetOptions.uitheme is no longer required to be set
+	    theme : "bootstrap",
+
+	    widthFixed: true,
+
+	    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+
+	    // widget code contained in the jquery.tablesorter.widgets.js file
+	    // use the zebra stripe widget if you plan on hiding any rows (filter widget)
+	    widgets : [ "uitheme", "filter", "zebra" ],
+
+	    widgetOptions : {
+	      // using the default zebra striping class name, so it actually isn't included in the theme variable above
+	      // this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
+	      zebra : ["even", "odd"],
+
+	      // reset filters button
+	      filter_reset : ".reset"
+
+	      // set the uitheme widget to use the bootstrap theme class names
+	      // this is no longer required, if theme is set
+	      // ,uitheme : "bootstrap"
+
+	    }
+	  }).tablesorterPager({
+
+	    // target the pager markup - see the HTML block below
+	    container: $(".ts-pager"),
+
+	    // target the pager page select dropdown - choose a page
+	    cssGoto  : ".pagenum",
+
+	    // remove rows from the table to speed up the sort of large tables.
+	    // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
+	    removeRows: false,
+
+	    // output string - default is '{page}/{totalPages}';
+	    // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
+	    output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
+
+	  });
+
+	});
+
 	</script>
 {% endblock %}
