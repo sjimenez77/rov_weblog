@@ -34,12 +34,40 @@
 					<div class="table-responsive">
 						<table>
 							<thead>
-								<th>ID</th>
-								<th>{{ 'Title'|trans }}</th>
-								<th>{{ 'Created'|trans }}</th>
-								<th>{{ 'Last updated'|trans }}</th>
-								<th>{{ 'Options'|trans }}</th>
+								<tr>
+									<th>ID</th>
+									<th>{{ 'Title'|trans }}</th>
+									<th>{{ 'Created'|trans }}</th>
+									<th>{{ 'Last updated'|trans }}</th>
+									<th>{{ 'Options'|trans }}</th>
+								</tr>
 							</thead>
+							<tfoot>
+								<tr>
+									<th>ID</th>
+									<th>{{ 'Title'|trans }}</th>
+									<th>{{ 'Created'|trans }}</th>
+									<th>{{ 'Last updated'|trans }}</th>
+									<th>{{ 'Options'|trans }}</th>
+								</tr>
+								<tr>
+									<th colspan="5" class="ts-pager form-horizontal">
+										<button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
+										<button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
+										<span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+										<button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
+										<button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
+										<select class="pagesize input-mini" title="{{ 'Select page size'|trans }}">
+											<option selected="selected" value="10">10</option>
+											<option value="20">20</option>
+											<option value="30">30</option>
+											<option value="40">40</option>
+										</select>
+										<select class="pagenum input-mini" title="{{ 'Select page number'|trans }}"></select>
+									</th>
+								</tr>
+							</tfoot>
+
 							<tbody>
 								{% for article in articles %}
 								<tr>
@@ -63,7 +91,7 @@
 					</div>
 					{% else %}
 					<div class="alert alert-info">
-						<h4>{{ 'There are no articles yet!'|trans }}</h4>
+						<h4>{{ 'There are not any article yet!'|trans }}</h4>
 					</div>
 					{% endif %}
 				</div>
@@ -89,7 +117,7 @@
 								</ul>
 							</div>
 							{% else %}
-							<div class="col-lg-6">
+							<div class="col-lg-12">
 								<p>{{ 'There are no categories yet'|trans }}</p>
 							</div>
 							{% endif %}
@@ -117,7 +145,7 @@
 								</ul>
 							</div>
 							{% else %}
-							<div class="col-lg-6">
+							<div class="col-lg-12">
 								<p>{{ 'There are no tags yet'|trans }}</p>
 							</div>
 							{% endif %}
@@ -173,79 +201,80 @@
 </div>
 {% endblock %}
 {% block js %}
-	{# Select2 and wysihtml5 creation #}
+	{# TableSorter creation #}
 	{{ parent() }}
+	{% if articles|length > 0 %}
     <script type="text/javascript" src="{{ asset('bundles/rovstart/js/jquery.tablesorter.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/rovstart/js/jquery.tablesorter.widgets.min.js') }}"></script>
 	<script>
 	$(function() {
 
-	  $.extend($.tablesorter.themes.bootstrap, {
-	    // these classes are added to the table. To see other table classes available,
-	    // look here: http://twitter.github.com/bootstrap/base-css.html#tables
-	    table      : 'table table-bordered table-hover',
-	    caption    : 'caption',
-	    header     : 'bootstrap-header', // give the header a gradient background
-	    footerRow  : '',
-	    footerCells: '',
-	    icons      : '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
-	    sortNone   : 'bootstrap-icon-unsorted',
-	    sortAsc    : 'icon-chevron-up glyphicon glyphicon-chevron-up',     // includes classes for Bootstrap v2 & v3
-	    sortDesc   : 'icon-chevron-down glyphicon glyphicon-chevron-down', // includes classes for Bootstrap v2 & v3
-	    active     : '', // applied when column is sorted
-	    hover      : '', // use custom css here - bootstrap class may not override it
-	    filterRow  : '', // filter row class
-	    even       : '', // odd row zebra striping
-	    odd        : ''  // even row zebra striping
-	  });
+		$.extend($.tablesorter.themes.bootstrap, {
+			// these classes are added to the table. To see other table classes available,
+			// look here: http://twitter.github.com/bootstrap/base-css.html#tables
+			table      : 'table table-bordered table-hover',
+			caption    : 'caption',
+			header     : 'bootstrap-header', // give the header a gradient background
+			footerRow  : '',
+			footerCells: '',
+			icons      : '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
+			sortNone   : 'bootstrap-icon-unsorted',
+			sortAsc    : 'icon-chevron-up glyphicon glyphicon-chevron-up',     // includes classes for Bootstrap v2 & v3
+			sortDesc   : 'icon-chevron-down glyphicon glyphicon-chevron-down', // includes classes for Bootstrap v2 & v3
+			active     : '', // applied when column is sorted
+			hover      : '', // use custom css here - bootstrap class may not override it
+			filterRow  : '', // filter row class
+			even       : '', // odd row zebra striping
+			odd        : ''  // even row zebra striping
+		});
 
-	  // call the tablesorter plugin and apply the uitheme widget
-	  $("table").tablesorter({
-	    // this will apply the bootstrap theme if "uitheme" widget is included
-	    // the widgetOptions.uitheme is no longer required to be set
-	    theme : "bootstrap",
+		// call the tablesorter plugin and apply the uitheme widget
+		$("table").tablesorter({
+			// this will apply the bootstrap theme if "uitheme" widget is included
+			// the widgetOptions.uitheme is no longer required to be set
+			theme : "bootstrap",
 
-	    widthFixed: true,
+			widthFixed: true,
 
-	    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+			headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
 
-	    // widget code contained in the jquery.tablesorter.widgets.js file
-	    // use the zebra stripe widget if you plan on hiding any rows (filter widget)
-	    widgets : [ "uitheme", "filter", "zebra" ],
+			// widget code contained in the jquery.tablesorter.widgets.js file
+			// use the zebra stripe widget if you plan on hiding any rows (filter widget)
+			widgets : [ "uitheme", "filter", "zebra" ],
 
-	    widgetOptions : {
-	      // using the default zebra striping class name, so it actually isn't included in the theme variable above
-	      // this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
-	      zebra : ["even", "odd"],
+			widgetOptions : {
+				// using the default zebra striping class name, so it actually isn't included in the theme variable above
+				// this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
+				zebra : ["even", "odd"],
 
-	      // reset filters button
-	      filter_reset : ".reset"
+				// reset filters button
+				filter_reset : ".reset"
 
-	      // set the uitheme widget to use the bootstrap theme class names
-	      // this is no longer required, if theme is set
-	      // ,uitheme : "bootstrap"
+				// set the uitheme widget to use the bootstrap theme class names
+				// this is no longer required, if theme is set
+				// ,uitheme : "bootstrap"
 
-	    }
-	  })
-	  .tablesorterPager({
+			}
+		})
+		.tablesorterPager({
 
-	    // target the pager markup - see the HTML block below
-	    container: $(".ts-pager"),
+			// target the pager markup - see the HTML block below
+			container: $(".ts-pager"),
 
-	    // target the pager page select dropdown - choose a page
-	    cssGoto  : ".pagenum",
+			// target the pager page select dropdown - choose a page
+			cssGoto  : ".pagenum",
 
-	    // remove rows from the table to speed up the sort of large tables.
-	    // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
-	    removeRows: false,
+			// remove rows from the table to speed up the sort of large tables.
+			// setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
+			removeRows: false,
 
-	    // output string - default is '{page}/{totalPages}';
-	    // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
-	    output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
+			// output string - default is '{page}/{totalPages}';
+			// possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
+			output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
 
-	  });
+		});
 
 	});
-
 	</script>
+	{% endif %}
 {% endblock %}

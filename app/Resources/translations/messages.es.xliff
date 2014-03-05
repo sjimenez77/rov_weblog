@@ -431,20 +431,20 @@
 				<target>Editar</target>
 			</trans-unit>
 			<trans-unit id="108">
-				<source></source>
-				<target></target>
+				<source>There are no tags yet</source>
+				<target>No hay ninguna etiqueta todavía</target>
 			</trans-unit>
 			<trans-unit id="109">
-				<source></source>
-				<target></target>
+				<source>Health</source>
+				<target>Salud</target>
 			</trans-unit>
 			<trans-unit id="110">
-				<source></source>
-				<target></target>
+				<source>Select page size</source>
+				<target>Seleccione tamaño de página</target>
 			</trans-unit>
 			<trans-unit id="111">
-				<source></source>
-				<target></target>
+				<source>Select page number</source>
+				<target>Seleccione número de página</target>
 			</trans-unit>
 			<trans-unit id="112">
 				<source></source>
