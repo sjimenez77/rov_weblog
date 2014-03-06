@@ -1,0 +1,7 @@
+# app/config/services.yml
+services:
+    # ...
+    intl.twig.extension:
+        class: Twig_Extensions_Extension_Intl
+        tags: 
+            - { name: 'twig.extension' }
