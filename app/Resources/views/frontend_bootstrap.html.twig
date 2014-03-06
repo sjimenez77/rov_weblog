@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% set locale = app.request.locale %}
-{% block lang %}{{ app.request.locale }}{% endblock %}
+{% block lang %}{{ locale }}{% endblock %}
 {% block title %}{% endblock %}
 
 {% block meta %}
@@ -61,15 +61,28 @@
         '@ROVStartBundle/Resources/public/js/holder.js'
         '@ROVStartBundle/Resources/public/js/bootstrap3-wysihtml5.js' 
         '@ROVStartBundle/Resources/public/js/select2/select2.js' 
-        '@ROVStartBundle/Resources/public/js/custom.js' 
         output='js/compiled/main.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script type="text/javascript">
         // *** Eventos **************************************************************************
+        var amplia_footer = function() {
+            // Ampliamos el alto del footer hasta el fondo de la página en el caso
+            // de que el contenido sea demasiado pequeño y el footer se quede por 
+            // encima del mismo
+            var diferencia = $(window).height() - ($('footer').height() + $('footer').offset().top);
+            if (diferencia > 0) {
+                var altura_footer = $('footer').height();
+                $('footer').height(altura_footer + diferencia - 50);
+            } else {
+                $('footer').height('auto');
+            }
+            return true;
+        };
+
         $(function () {
             $(window).on('resize', function() {amplia_footer()} );
-            $(window).on('ready', function() {setTimeout(function(){amplia_footer()},50)} );
+            $(window).on('ready', function() {setTimeout(function(){amplia_footer()},100)} );
             $('button.close').on('click', function() {setTimeout(function(){amplia_footer()},50)} );
         });
     </script>

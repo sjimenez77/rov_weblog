@@ -115,7 +115,7 @@
 {% block js %}
 	{# Select2 creation #}
 	{{ parent() }}
-    {% if app.request.locale == 'es' %}<script type="text/javascript" src="{{ asset('bundles/rovstart/js/select2/select2_locale_es.js') }}"></script>{% endif %}
+    {% if locale == 'es' %}<script type="text/javascript" src="{{ asset('bundles/rovstart/js/select2/select2_locale_es.js') }}"></script>{% endif %}
 	<script>
 		$('#rov_usersbundle_usertype_country').select2({
 			placeholder: "{{ 'Select a country'|trans }}"
