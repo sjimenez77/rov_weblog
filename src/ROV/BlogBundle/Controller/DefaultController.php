@@ -90,6 +90,8 @@ class DefaultController extends Controller
             $this->get('session')->getFlashBag()->add('success',
                 'New article saved'
             );
+
+            return $this->redirect($this->generateUrl('rov_blog_manage_articles'));
         }
 
         $formNewCategory->handleRequest($request);

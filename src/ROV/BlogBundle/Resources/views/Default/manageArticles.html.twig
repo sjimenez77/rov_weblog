@@ -32,7 +32,7 @@
 					<hr>
 					{% if articles|length > 0 %}
 					<div class="table-responsive">
-						<table>
+						<table class="tablesorter">
 							<thead>
 								<tr>
 									<th>ID</th>
@@ -206,6 +206,9 @@
 	{% if articles|length > 0 %}
     <script type="text/javascript" src="{{ asset('bundles/rovstart/js/jquery.tablesorter.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/rovstart/js/jquery.tablesorter.widgets.min.js') }}"></script>
+    <!-- Tablesorter: optional -->
+    <link rel="stylesheet" href="{{ asset('bundles/rovstart/css/jquery.tablesorter.pager.css') }}">
+    <script type="text/javascript" src="{{ asset('bundles/rovstart/js/jquery.tablesorter.pager.js') }}"></script>
 	<script>
 	$(function() {
 
