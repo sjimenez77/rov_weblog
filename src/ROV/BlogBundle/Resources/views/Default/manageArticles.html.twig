@@ -73,7 +73,7 @@
 								<tr>
 									<td>{{ article.id }}</td>
 									<td>{{ article.title }}</td>
-									{% if app.request.locale == 'es' %}
+									{% if locale == 'es' %}
 									<td>{{ article.created|localizeddate('medium', 'medium', locale, "Europe/Madrid") }}</td>
 									<td>{{ article.updated|localizeddate('medium', 'medium', locale, "Europe/Madrid") }}</td>
 									{% else %}
