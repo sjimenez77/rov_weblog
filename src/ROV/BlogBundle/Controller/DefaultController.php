@@ -204,6 +204,63 @@ class DefaultController extends Controller
     }
 
     /**
+     * Delete article
+     * @param  Request $request [description]
+     * @param  integer $article_id [description]
+     * @return object           Twig template
+     */
+    public function deleteArticleAction(Request $request, $article_id)
+    {
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            $article = $em->getRepository('ROVBlogBundle:Article')->find($article_id);
+            $em->remove($article);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'Article deleted successfully'
+            );
+        }
+        elseif ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // Check whether the article belongs to this user
+            $article = $em->getRepository('ROVBlogBundle:Article')->findBy(array(
+                'id' => $article_id,
+                'author' => $user
+                ));
+
+            if ($article) {
+                $em->remove($article);
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add('success',
+                    'Article deleted successfully'
+                );
+            } else {
+                $this->get('session')->getFlashBag()->add('error',
+                    'You cannot delete this article'
+                );
+            }
+
+        } else {
+            // User has not an admin role
+            $this->get('session')->getFlashBag()->add('error',
+                'You cannot delete articles'
+            );
+            return $this->redirect($this->generateUrl('rov_blog_homepage'));            
+        }
+
+        return $this->redirect($this->generateUrl('rov_blog_manage_articles'));
+    }
+
+    /**
      * Manage the articles
      * @param  Request $request [description]
      * @return object           Twig template

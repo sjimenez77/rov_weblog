@@ -447,24 +447,24 @@
 				<target>Seleccione número de página</target>
 			</trans-unit>
 			<trans-unit id="112">
-				<source></source>
-				<target></target>
+				<source>Delete article</source>
+				<target>Borrar artículo</target>
 			</trans-unit>
 			<trans-unit id="113">
-				<source></source>
-				<target></target>
+				<source>This action will delete this article and all its comments. This process cannot be reversed.</source>
+				<target>Esta acción borrará este artículo y todos sus comentarios. Este proceso no se puede deshacer.</target>
 			</trans-unit>
 			<trans-unit id="114">
-				<source></source>
-				<target></target>
+				<source>You cannot delete articles</source>
+				<target>Usted no puede borrar artículos</target>
 			</trans-unit>
 			<trans-unit id="115">
-				<source></source>
-				<target></target>
+				<source>You cannot delete this article</source>
+				<target>Usted no puede borrar este artículo</target>
 			</trans-unit>
 			<trans-unit id="116">
-				<source></source>
-				<target></target>
+				<source>Article deleted successfully</source>
+				<target>Artículo borrado con éxito</target>
 			</trans-unit>
 			<trans-unit id="117">
 				<source></source>

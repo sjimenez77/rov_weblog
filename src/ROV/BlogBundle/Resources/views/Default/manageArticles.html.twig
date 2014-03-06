@@ -39,7 +39,7 @@
 									<th>{{ 'Title'|trans }}</th>
 									<th>{{ 'Created'|trans }}</th>
 									<th>{{ 'Last updated'|trans }}</th>
-									<th>{{ 'Options'|trans }}</th>
+									<th class="filter-false">{{ 'Options'|trans }}</th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -81,7 +81,7 @@
 									<td>{{ article.updated|date("F jS \\a \\t g:ia", "Europe/Madrid") }}</td>
 									{% endif %}
 									<td>
-										<a class="btn btn-default btn-xs" href="{{ path('rov_blog_edit_article', { 'article_id': article.id }) }}" role="button">{{ 'Edit'|trans }}</a>
+										<a class="btn btn-default btn-xs btn-block" href="{{ path('rov_blog_edit_article', { 'article_id': article.id }) }}" role="button">{{ 'Edit'|trans }}</a>
 										{# <a class="btn btn-default btn-xs" href="{{ path('rov_blog_delete_article', { 'article_id': article.id }) }}" role="button">{{ 'Delete'|trans }}</a> #}
 									</td>
 								</tr>
@@ -236,26 +236,20 @@
 			// this will apply the bootstrap theme if "uitheme" widget is included
 			// the widgetOptions.uitheme is no longer required to be set
 			theme : "bootstrap",
-
 			widthFixed: true,
-
 			headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
-
 			// widget code contained in the jquery.tablesorter.widgets.js file
 			// use the zebra stripe widget if you plan on hiding any rows (filter widget)
 			widgets : [ "uitheme", "filter", "zebra" ],
-
 			widgetOptions : {
 				// using the default zebra striping class name, so it actually isn't included in the theme variable above
 				// this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
 				zebra : ["even", "odd"],
-
 				// reset filters button
-				filter_reset : ".reset"
-
+				filter_reset : ".reset",
 				// set the uitheme widget to use the bootstrap theme class names
 				// this is no longer required, if theme is set
-				// ,uitheme : "bootstrap"
+				uitheme : "bootstrap"
 
 			}
 		})
