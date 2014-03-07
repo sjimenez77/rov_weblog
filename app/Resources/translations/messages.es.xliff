@@ -467,32 +467,32 @@
 				<target>Artículo borrado con éxito</target>
 			</trans-unit>
 			<trans-unit id="117">
-				<source></source>
-				<target></target>
+				<source>Back</source>
+				<target>Volver</target>
 			</trans-unit>
 			<trans-unit id="118">
-				<source></source>
-				<target></target>
+				<source>Articles search</source>
+				<target>Búsqueda de artículos</target>
 			</trans-unit>
 			<trans-unit id="119">
-				<source></source>
-				<target></target>
+				<source>Next</source>
+				<target>Siguientes</target>
 			</trans-unit>
 			<trans-unit id="120">
-				<source></source>
-				<target></target>
+				<source>Previous</source>
+				<target>Anteriores</target>
 			</trans-unit>
 			<trans-unit id="121">
-				<source></source>
-				<target></target>
+				<source>There are not articles published yet</source>
+				<target>No hay artículos publicados todavía</target>
 			</trans-unit>
 			<trans-unit id="122">
-				<source></source>
-				<target></target>
+				<source>by</source>
+				<target>por</target>
 			</trans-unit>
 			<trans-unit id="123">
-				<source></source>
-				<target></target>
+				<source>Read more</source>
+				<target>Sigue leyendo</target>
 			</trans-unit>
 			<trans-unit id="124">
 				<source></source>

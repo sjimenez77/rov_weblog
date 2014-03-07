@@ -62,7 +62,7 @@
 						</div>
 						<hr>
 						<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;{{ 'Save changes'|trans }}</button>
-						<button type="button" class="btn">{{ 'Cancel'|trans }}</button>
+						<a class="btn btn-default" href="{{ path('rov_blog_manage_articles') }}">{{ 'Back'|trans }}</a>
 						<button type="button" data-toggle="modal" class="btn btn-danger pull-right" data-target="#sureDeleteArticle"><i class="icon-trash icon-white"></i><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;{{ 'Delete article'|trans }}</button>
 					{{ form_end(edit_article_form) }}
 					<!-- New Category Modal -->

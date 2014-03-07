@@ -13,6 +13,8 @@ use ROV\BlogBundle\Form\Backend\ArticleType;
 use ROV\BlogBundle\Form\Backend\CategoryType;
 use ROV\BlogBundle\Form\Backend\TagType;
 
+use ROV\BlogBundle\Util\Util;
+
 class DefaultController extends Controller
 {
     /**
@@ -33,17 +35,37 @@ class DefaultController extends Controller
             $session->get(SecurityContext::AUTHENTICATION_ERROR)
         );
 
-    	$lastArticles = $em->getRepository('ROVBlogBundle:Article')->findBy(
-    		array('published' => true),
-    		array('updated' => 'DESC'),
-    		$numberPosts,
-    		0 + ($page * $numberPosts)
-    	);
+        $category = new Category();
+        $formNewCategory = $this->createForm(new CategoryType(), $category);
+        $tag = new Tag();
+        $formNewTag = $this->createForm(new TagType(), $tag);
+
+        $categories = $em->getRepository('ROVBlogBundle:Category')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+        $tags = $em->getRepository('ROVBlogBundle:Tag')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        $query = $em->createQuery('
+            SELECT a, u FROM ROVBlogBundle:Article a JOIN a.author u
+            WHERE a.published = :published
+            ORDER BY a.updated DESC');
+        $query->setParameter('published', true);
+        $query->setMaxResults($numberPosts);
+        $query->setFirstResult(($page-1) * $numberPosts);
+        $lastArticles = $query->getResult();
 
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
-        	'articles' => $lastArticles,
-            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error
+        	'articles'          => $lastArticles,
+            'categories'        => $categories,
+            'tags'              => $tags,
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'new_category_form' => $formNewCategory->createView(),
+            'new_tag_form'      => $formNewTag->createView(),
+            'error'             => $error
         ));
     }
 
@@ -77,10 +99,7 @@ class DefaultController extends Controller
         if ($formNewArticle->isValid())
         {
             // Process title and create a valid slug
-            $some_special_chars = array("á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ñ", "Ñ");
-            $replacement_chars  = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "n", "N");
-            $slug = str_replace(" ", "_", trim($article->getTitle()));
-            $slug = str_replace($some_special_chars, $replacement_chars, $slug);
+            $slug = Util::getSlug($article->getTitle());
 
             $article->setSlug($slug);
             $article->setAuthor($user);
@@ -156,10 +175,7 @@ class DefaultController extends Controller
         if ($formEditArticle->isValid())
         {
             // Process title and create a valid slug
-            $some_special_chars = array("á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ñ", "Ñ");
-            $replacement_chars  = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "n", "N");
-            $slug = str_replace(" ", "_", trim($article->getTitle()));
-            $slug = str_replace($some_special_chars, $replacement_chars, $slug);
+            $slug = Util::getSlug($article->getTitle());
 
             $article->setSlug($slug);
             $article->setUpdated(new \DateTime());
