@@ -29,10 +29,13 @@
 				<hr>
 				<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|localizeddate('full', 'medium', locale, "Europe/Madrid") }}</p>
 				<hr>
-				<a href="{{ path('rov_blog_article', { 'slug': article.slug })}}"><img src="http://placehold.it/900x300" class="img-responsive"></a>
+				<a href="{{ path('rov_blog_article', { 'slug': article.slug })}}"><div class="img_blog" style="background-image:url('{{ article.image }}');"></div></a>
 				<hr>
 				<p>{{ article.subtitle }}</p>
 				<a class="btn btn-primary" href="{{ path('rov_blog_article', { 'slug': article.slug })}}">{{ 'Read more'|trans }} <i class="fa fa-angle-right"></i></a>
+				{% if article.author == app.user %}
+				<a class="btn btn-default pull-right" href="{{ path('rov_blog_edit_article', { 'article_id': article.id })}}"><i class="fa fa-pencil-square-o"></i> {{ 'Edit article'|trans }}</a>
+				{% endif %}
 				<hr>
 				{% endfor %}
 				<ul class="pager">

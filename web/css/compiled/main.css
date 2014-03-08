@@ -7298,3 +7298,12 @@ disabled look for disabled choices in the results dropdown
 	cursor: pointer;
 	background-color: #e6bf99;
 }
+
+
+.img_blog {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width:100%;
+	height:300px;
+}
