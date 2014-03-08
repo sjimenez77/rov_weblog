@@ -58,8 +58,15 @@ class DefaultController extends Controller
         $query->setFirstResult(($page-1) * $numberPosts);
         $lastArticles = $query->getResult();
 
+        $queryCount = $em->createQuery('SELECT a FROM ROVBlogBundle:Article a WHERE a.published = :published');
+        $queryCount->setParameter('published', true);
+        $queryCount->setFirstResult(($page) * $numberPosts);
+        $articlesLeft = $queryCount->getResult();
+
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
+            'page'              => $page,
         	'articles'          => $lastArticles,
+            'articlesLeft'      => $articlesLeft,
             'categories'        => $categories,
             'tags'              => $tags,
             'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
