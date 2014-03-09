@@ -83,7 +83,11 @@ class UserType extends AbstractType
     {
         $resolve->setDefaults(array(
             'data_class' => 'ROV\UsersBundle\Entity\User',
-            'validation_groups' => array('Default', 'signup')
+            'validation_groups' => array('Default', 'signup'),
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            // a unique key to help generate the secret token
+            'intention'       => 'user_item',
         ));
     }
  
