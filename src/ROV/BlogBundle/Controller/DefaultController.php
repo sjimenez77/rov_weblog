@@ -88,6 +88,164 @@ class DefaultController extends Controller
     }
 
     /**
+     * Show paginated blog articles
+     * @param  Request $request [description]
+     * @return object           Twig template
+     */
+    public function articleCategoryAction(Request $request, $slug, $page)
+    {
+        $numberPosts = 3;
+
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
+
+        $category = new Category();
+        $formNewCategory = $this->createForm(new CategoryType(), $category);
+        $tag = new Tag();
+        $formNewTag = $this->createForm(new TagType(), $tag);
+
+        $categories = $em->getRepository('ROVBlogBundle:Category')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+        $tags = $em->getRepository('ROVBlogBundle:Tag')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        $query = $em->createQuery('
+            SELECT a, u, c FROM ROVBlogBundle:Article a 
+            JOIN a.author u
+            JOIN a.category c
+            WHERE a.published = :published
+            AND c.slug = :slug
+            ORDER BY a.updated DESC');
+        $query->setParameter('published', true);
+        $query->setParameter('slug', $slug);
+        $query->setMaxResults($numberPosts);
+        $query->setFirstResult(($page-1) * $numberPosts);
+        $lastArticles = $query->getResult();
+
+        $queryCount = $em->createQuery('
+            SELECT a FROM ROVBlogBundle:Article a
+            JOIN a.category c
+            WHERE a.published = :published
+            AND c.slug = :slug');
+        $queryCount->setParameter('published', true);
+        $queryCount->setParameter('slug', $slug);
+        $queryCount->setFirstResult(($page) * $numberPosts);
+        $articlesLeft = $queryCount->getResult();
+
+        return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
+            'page'              => $page,
+            'category'          => $slug,
+            'form_search'       => $formSearch->createView(),
+            'articles'          => $lastArticles,
+            'articlesLeft'      => $articlesLeft,
+            'categories'        => $categories,
+            'tags'              => $tags,
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'new_category_form' => $formNewCategory->createView(),
+            'new_tag_form'      => $formNewTag->createView(),
+            'error'             => $error
+        ));
+    }
+
+    /**
+     * Show paginated blog articles
+     * @param  Request $request [description]
+     * @return object           Twig template
+     */
+    public function articleTagAction(Request $request, $slug, $page)
+    {
+        $numberPosts = 3;
+
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
+
+        $category = new Category();
+        $formNewCategory = $this->createForm(new CategoryType(), $category);
+        $tag = new Tag();
+        $formNewTag = $this->createForm(new TagType(), $tag);
+
+        $categories = $em->getRepository('ROVBlogBundle:Category')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+        $tags = $em->getRepository('ROVBlogBundle:Tag')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        $query = $em->createQuery('
+            SELECT a, u, t FROM ROVBlogBundle:Article a 
+            JOIN a.author u
+            JOIN a.tags t
+            WHERE a.published = :published
+            AND t MEMBER OF a.tags
+            AND t.slug = :slug
+            ORDER BY a.updated DESC');
+        $query->setParameter('published', true);
+        $query->setParameter('slug', $slug);
+        $query->setMaxResults($numberPosts);
+        $query->setFirstResult(($page-1) * $numberPosts);
+        $lastArticles = $query->getResult();
+
+        $queryCount = $em->createQuery('
+            SELECT a FROM ROVBlogBundle:Article a 
+            JOIN a.tags t
+            WHERE a.published = :published
+            AND t.slug = :slug');
+        $queryCount->setParameter('published', true);
+        $queryCount->setFirstResult(($page) * $numberPosts);
+        $articlesLeft = $queryCount->getResult();
+
+        return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
+            'page'              => $page,
+            'tag'               => $slug,
+            'form_search'       => $formSearch->createView(),
+            'articles'          => $lastArticles,
+            'articlesLeft'      => $articlesLeft,
+            'categories'        => $categories,
+            'tags'              => $tags,
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'new_category_form' => $formNewCategory->createView(),
+            'new_tag_form'      => $formNewTag->createView(),
+            'error'             => $error
+        ));
+    }
+
+    /**
      * Search results
      * @param  Request $request [description]
      * @return object           Twig template
