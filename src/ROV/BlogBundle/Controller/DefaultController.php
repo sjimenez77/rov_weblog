@@ -35,6 +35,16 @@ class DefaultController extends Controller
             $session->get(SecurityContext::AUTHENTICATION_ERROR)
         );
 
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
+
         $category = new Category();
         $formNewCategory = $this->createForm(new CategoryType(), $category);
         $tag = new Tag();
@@ -65,6 +75,7 @@ class DefaultController extends Controller
 
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
             'page'              => $page,
+            'form_search'       => $formSearch->createView(),
         	'articles'          => $lastArticles,
             'articlesLeft'      => $articlesLeft,
             'categories'        => $categories,
@@ -74,6 +85,97 @@ class DefaultController extends Controller
             'new_tag_form'      => $formNewTag->createView(),
             'error'             => $error
         ));
+    }
+
+    /**
+     * Search results
+     * @param  Request $request [description]
+     * @return object           Twig template
+     */
+    public function searchAction(Request $request)
+    {
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
+
+        // Handle formSearch
+        $formSearch->handleRequest($request);
+        if ($formSearch->isValid())
+        {
+            $data = $formSearch->getData();
+            $querySearch = $em->createQuery('
+                SELECT a, u, c, t FROM ROVBlogBundle:Article a 
+                JOIN a.author u
+                JOIN a.category c
+                JOIN a.tags t
+                WHERE a.published = :published
+                AND (a.title LIKE :search
+                    OR a.subtitle LIKE :search
+                    OR a.content LIKE :search
+                    OR c.name LIKE :search
+                    OR t.name LIKE :search)
+                ORDER BY a.updated DESC');
+            $querySearch->setParameter('published', true);
+            $querySearch->setParameter('search', '%'.$data['search'].'%');
+            $articlesSearch = $querySearch->getResult();
+
+            $defaultData = array();
+            $formSearch = $this->createFormBuilder($defaultData)
+                    ->add('search', 'text', array(
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Type your search'
+                        )
+                    ))
+                    ->getForm();
+
+            $category = new Category();
+            $formNewCategory = $this->createForm(new CategoryType(), $category);
+            $tag = new Tag();
+            $formNewTag = $this->createForm(new TagType(), $tag);
+
+            $categories = $em->getRepository('ROVBlogBundle:Category')->findBy(
+                    array(),
+                    array('name' => 'ASC')
+                );
+            $tags = $em->getRepository('ROVBlogBundle:Tag')->findBy(
+                    array(),
+                    array('name' => 'ASC')
+                );
+
+            return $this->render('ROVBlogBundle:Default:search.html.twig', array(
+                'search_term'       => $data['search'],
+                'form_search'       => $formSearch->createView(),
+                'articles'          => $articlesSearch,
+                'categories'        => $categories,
+                'tags'              => $tags,
+                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+                'new_category_form' => $formNewCategory->createView(),
+                'new_tag_form'      => $formNewTag->createView(),
+                'error'             => $error
+            ));
+        }
+        else
+        {
+            $this->get('session')->getFlashBag()->add('error',
+                'Search error'
+            );
+            return $this->redirect($this->generateUrl('rov_blog_homepage'));
+        }
     }
 
     /**

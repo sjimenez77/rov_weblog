@@ -69,7 +69,7 @@
 					<div class="modal fade" id="newCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								{{ form_start(new_category_form, {'method': 'POST', 'action': path('rov_blog_new_article') }) }}
+								{{ form_start(new_category_form, {'method': 'POST', 'action': path('rov_blog_edit_article', { 'article_id': article_id }) }) }}
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 									<h4 class="modal-title" id="myModalLabel">{{ 'Create a new category'|trans }}</h4>
@@ -89,7 +89,7 @@
 					<div class="modal fade" id="newTag" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								{{ form_start(new_tag_form, {'method': 'POST', 'action': path('rov_blog_new_article') }) }}
+								{{ form_start(new_tag_form, {'method': 'POST', 'action': path('rov_blog_edit_article', { 'article_id': article_id }) }) }}
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 									<h4 class="modal-title" id="myModalLabel">{{ 'Create a new tag'|trans }}</h4>

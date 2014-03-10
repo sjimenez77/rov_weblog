@@ -495,24 +495,24 @@
 				<target>Sigue leyendo</target>
 			</trans-unit>
 			<trans-unit id="124">
-				<source></source>
-				<target></target>
+				<source>Type your search</source>
+				<target>Escriba su búsqueda</target>
 			</trans-unit>
 			<trans-unit id="125">
-				<source></source>
-				<target></target>
+				<source>There are not any article with these search terms</source>
+				<target>No hay ningún artículo con estos términos de búsqueda</target>
 			</trans-unit>
 			<trans-unit id="126">
-				<source></source>
-				<target></target>
+				<source>Read article</source>
+				<target>Leer artículo</target>
 			</trans-unit>
 			<trans-unit id="127">
-				<source></source>
-				<target></target>
+				<source>Articles</source>
+				<target>Artículos</target>
 			</trans-unit>
 			<trans-unit id="128">
-				<source></source>
-				<target></target>
+				<source>Summary</source>
+				<target>Resumen</target>
 			</trans-unit>
 			<trans-unit id="129">
 				<source></source>
