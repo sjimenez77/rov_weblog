@@ -225,6 +225,9 @@ class DefaultController extends Controller
         $formNewCategory->handleRequest($request);
         if ($formNewCategory->isValid())
         {
+            // Create a valid slug
+            $slug = Util::getSlug($category->getName());
+            $category->setSlug($slug);
             $em->persist($category);
             $em->flush();
 
@@ -236,6 +239,9 @@ class DefaultController extends Controller
         $formNewTag->handleRequest($request);
         if ($formNewTag->isValid())
         {
+            // Create a valid slug
+            $slug = Util::getSlug($tag->getName());
+            $tag->setSlug($slug);
             $em->persist($tag);
             $em->flush();
 
@@ -299,6 +305,9 @@ class DefaultController extends Controller
         $formNewCategory->handleRequest($request);
         if ($formNewCategory->isValid())
         {
+            // Create a valid slug
+            $slug = Util::getSlug($category->getName());
+            $category->setSlug($slug);
             $em->persist($category);
             $em->flush();
 
@@ -310,6 +319,9 @@ class DefaultController extends Controller
         $formNewTag->handleRequest($request);
         if ($formNewTag->isValid())
         {
+            // Create a valid slug
+            $slug = Util::getSlug($tag->getName());
+            $tag->setSlug($slug);
             $em->persist($tag);
             $em->flush();
 
@@ -423,10 +435,12 @@ class DefaultController extends Controller
             );
         }
 
-        
         $formNewCategory->handleRequest($request);
         if ($formNewCategory->isValid())
         {
+            // Create a valid slug
+            $slug = Util::getSlug($category->getName());
+            $category->setSlug($slug);
             $em->persist($category);
             $em->flush();
 
@@ -438,6 +452,9 @@ class DefaultController extends Controller
         $formNewTag->handleRequest($request);
         if ($formNewTag->isValid())
         {
+            // Create a valid slug
+            $slug = Util::getSlug($tag->getName());
+            $tag->setSlug($slug);
             $em->persist($tag);
             $em->flush();
 

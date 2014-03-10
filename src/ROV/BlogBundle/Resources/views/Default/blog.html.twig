@@ -63,14 +63,14 @@
 					<div class="row">
 						{% set length = categories|length %}
 						{% if length > 0 %}
-						<div class="col-lg-6">
+						<div class="col-xs-6">
 							<ul class="list-unstyled">
 						{% for category in categories|slice(0, (length / 2)|round) %}
 								<li><a href="#">{{ category.name|trans }}</a></li>
 						{% endfor %}
 							</ul>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-xs-6">
 							<ul class="list-unstyled">
 						{% for category in categories|slice((length / 2)|round, length) %}
 								<li><a href="#">{{ category.name|trans }}</a></li>
@@ -93,14 +93,14 @@
 					<div class="row">
 						{% set length = tags|length %}
 						{% if length > 0 %}
-						<div class="col-lg-6">
+						<div class="col-xs-6">
 							<ul class="list-unstyled">
 						{% for tag in tags|slice(0, (length / 2)|round) %}
 								<li><a href="#">{{ tag.name|trans }}</a></li>
 						{% endfor %}
 							</ul>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-xs-6">
 							<ul class="list-unstyled">
 						{% for tag in tags|slice((length / 2)|round, length) %}
 								<li><a href="#">{{ tag.name|trans }}</a></li>
