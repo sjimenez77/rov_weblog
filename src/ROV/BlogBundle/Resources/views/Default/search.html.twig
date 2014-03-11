@@ -85,7 +85,7 @@
 			<br class="visible-xs visible-sm">
 			<div class="col-md-4">
 				<div class="well">
-					{{ form_start(form_search, {'method': 'POST', 'action': path('rov_blog_search') }) }}
+					{{ form_start(form_search, {'method': 'POST', 'action': path('rov_blog_article_search') }) }}
 						<h4>{{ 'Articles search'|trans }}</h4>
 						<div class="input-group">
 							{{ form_widget(form_search.search, { 'attr': { 'value': search_term }}) }}

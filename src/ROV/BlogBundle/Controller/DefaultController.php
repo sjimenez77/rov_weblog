@@ -212,7 +212,6 @@ class DefaultController extends Controller
             JOIN a.author u
             JOIN a.tags t
             WHERE a.published = :published
-            AND t MEMBER OF a.tags
             AND t.slug = :slug
             ORDER BY a.updated DESC');
         $query->setParameter('published', true);
@@ -227,6 +226,7 @@ class DefaultController extends Controller
             WHERE a.published = :published
             AND t.slug = :slug');
         $queryCount->setParameter('published', true);
+        $queryCount->setParameter('slug', $slug);
         $queryCount->setFirstResult(($page) * $numberPosts);
         $articlesLeft = $queryCount->getResult();
 
@@ -250,7 +250,7 @@ class DefaultController extends Controller
      * @param  Request $request [description]
      * @return object           Twig template
      */
-    public function searchAction(Request $request)
+    public function articleSearchAction(Request $request)
     {
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
