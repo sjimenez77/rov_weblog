@@ -1,0 +1,52 @@
+{% extends '::frontend_bootstrap.html.twig' %}
+
+{% block title %}{{ 'Update category'|trans }}{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Blog <small>{{ 'Update category'|trans }}</small></h1>
+				<ol class="breadcrumb">
+					<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
+					<li><a href="{{ path('rov_blog_manage_articles') }}">{{ 'Manage articles'|trans }}</a></li>
+					<li class="active">{{ 'Update category'|trans }}</li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-primary">
+					{# Flashbag session success messages #}
+					{% for message in app.session.flashbag.get('error') %}
+					<div class="alert alert-danger">{{ message|trans }}</div>
+					{% endfor %}
+					{% for message in app.session.flashbag.get('success') %}
+					<div class="alert alert-success">{{ message|trans }}</div>
+					{% endfor %}
+					<div class="panel-heading"><h4>{{ 'Update category'|trans }}</h4></div>
+					{{ form_start(edit_category_form, {'method': 'POST', 'action': path('rov_blog_manage_category', { 'slug': category.slug }), 'attr':{'role': 'form'} }) }}
+					<div class="panel-body">
+							{# form_widget(edit_category_form) #}
+							<h3>{{ form_errors(edit_category_form) }}</h3>
+							<div class="row">
+								<div class="col-lg-12">
+									<fieldset>
+										<legend>{{ 'New category name'|trans }}</legend>
+										{{ form_row(edit_category_form.name) }}
+									</fieldset>
+								</div>
+							</div>
+							<hr>
+							<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;{{ 'Save changes'|trans }}</button>
+							<a class="btn btn-default" href="{{ path('rov_blog_manage_articles') }}">{{ 'Cancel'|trans }}</a>
+					</div>
+					{{ form_end(edit_category_form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

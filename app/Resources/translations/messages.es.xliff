@@ -539,20 +539,20 @@
 				<target>Etiqueta actualizada</target>
 			</trans-unit>
 			<trans-unit id="135">
-				<source></source>
-				<target></target>
+				<source>Update category</source>
+				<target>Actualizar categoría</target>
 			</trans-unit>
 			<trans-unit id="136">
-				<source></source>
-				<target></target>
+				<source>Update tag</source>
+				<target>Actualizar etiqueta</target>
 			</trans-unit>
 			<trans-unit id="137">
-				<source></source>
-				<target></target>
+				<source>New category name</source>
+				<target>Nuevo nombre de categoría</target>
 			</trans-unit>
 			<trans-unit id="138">
-				<source></source>
-				<target></target>
+				<source>New tag name</source>
+				<target>Nuevo nombre de etiqueta</target>
 			</trans-unit>
 			<trans-unit id="139">
 				<source></source>

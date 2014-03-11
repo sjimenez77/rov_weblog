@@ -663,11 +663,12 @@ class DefaultController extends Controller
 
         $category = $em->getRepository('ROVBlogBundle:Category')->findOneBy(array('slug' => $slug));
         $formEditCategory = $this->createForm(new CategoryType(), $category);
+        $formEditCategory->handleRequest($request);
         if ($formEditCategory->isValid())
         {
             // Create a valid slug
-            $slug = Util::getSlug($category->getName());
-            $category->setSlug($slug);
+            $newSlug = Util::getSlug($category->getName());
+            $category->setSlug($newSlug);
             $em->persist($category);
             $em->flush();
 
@@ -675,8 +676,10 @@ class DefaultController extends Controller
                 'Category updated'
             );
 
+            return $this->redirect($this->generateUrl('rov_blog_manage_articles')); 
         }
         return $this->render('ROVBlogBundle:Default:manageCategory.html.twig', array(
+            'category'              => $category,
             'edit_category_form'    => $formEditCategory->createView(),
             'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
             'error'                 => $error
@@ -701,6 +704,7 @@ class DefaultController extends Controller
 
         $tag = $em->getRepository('ROVBlogBundle:Tag')->findOneBy(array('slug' => $slug));
         $formEditTag = $this->createForm(new TagType(), $tag);
+        $formEditTag->handleRequest($request);
         if ($formEditTag->isValid())
         {
             // Create a valid slug
@@ -712,11 +716,14 @@ class DefaultController extends Controller
             $this->get('session')->getFlashBag()->add('success',
                 'Tag updated'
             );
+
+            return $this->redirect($this->generateUrl('rov_blog_manage_articles'));
         }
         return $this->render('ROVBlogBundle:Default:manageTag.html.twig', array(
-            'edit_tag_form'          => $formEditTag->createView(),
-            'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
-            'error'                 => $error
+            'tag'               => $tag,
+            'edit_tag_form'     => $formEditTag->createView(),
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'error'             => $error
         ));
     }
 }
