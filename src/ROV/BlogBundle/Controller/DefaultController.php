@@ -151,9 +151,11 @@ class DefaultController extends Controller
         $queryCount->setFirstResult(($page) * $numberPosts);
         $articlesLeft = $queryCount->getResult();
 
+        $category = $em->getRepository('ROVBlogBundle:Category')->findOneBy(array('slug' => $slug));
+
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
             'page'              => $page,
-            'category'          => $slug,
+            'category_url'      => $category,
             'form_search'       => $formSearch->createView(),
             'articles'          => $lastArticles,
             'articlesLeft'      => $articlesLeft,
@@ -230,9 +232,11 @@ class DefaultController extends Controller
         $queryCount->setFirstResult(($page) * $numberPosts);
         $articlesLeft = $queryCount->getResult();
 
+        $tag = $em->getRepository('ROVBlogBundle:Tag')->findOneBy(array('slug' => $slug));
+
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
             'page'              => $page,
-            'tag'               => $slug,
+            'tag_url'               => $tag,
             'form_search'       => $formSearch->createView(),
             'articles'          => $lastArticles,
             'articlesLeft'      => $articlesLeft,
@@ -636,6 +640,81 @@ class DefaultController extends Controller
             'tags'                  => $tags,
             'new_category_form'     => $formNewCategory->createView(),
             'new_tag_form'          => $formNewTag->createView(),
+            'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
+            'error'                 => $error
+        ));
+    }
+
+    /**
+     * Edit categories
+     * @param  Request $request [description]
+     * @return object           Twig template
+     */
+    public function manageCategoryAction(Request $request, $slug)
+    {
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $category = $em->getRepository('ROVBlogBundle:Category')->findOneBy(array('slug' => $slug));
+        $formEditCategory = $this->createForm(new CategoryType(), $category);
+        if ($formEditCategory->isValid())
+        {
+            // Create a valid slug
+            $slug = Util::getSlug($category->getName());
+            $category->setSlug($slug);
+            $em->persist($category);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'Category updated'
+            );
+
+        }
+        return $this->render('ROVBlogBundle:Default:manageCategory.html.twig', array(
+            'edit_category_form'    => $formEditCategory->createView(),
+            'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
+            'error'                 => $error
+        ));
+    }
+
+    /**
+     * Edit tags
+     * @param  Request $request [description]
+     * @return object           Twig template
+     */
+    public function manageTagAction(Request $request, $slug)
+    {
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $tag = $em->getRepository('ROVBlogBundle:Tag')->findOneBy(array('slug' => $slug));
+        $formEditTag = $this->createForm(new TagType(), $tag);
+        if ($formEditTag->isValid())
+        {
+            // Create a valid slug
+            $slug = Util::getSlug($tag->getName());
+            $tag->setSlug($slug);
+            $em->persist($tag);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'Tag updated'
+            );
+        }
+        return $this->render('ROVBlogBundle:Default:manageTag.html.twig', array(
+            'edit_tag_form'          => $formEditTag->createView(),
             'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
             'error'                 => $error
         ));

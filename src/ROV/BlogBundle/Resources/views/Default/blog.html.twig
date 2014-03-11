@@ -11,7 +11,17 @@
 				<h1 class="page-header">Blog <small>{{ 'Articles list'|trans }}</small></h1>
 				<ol class="breadcrumb">
 					<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
+					{% if category_url is defined %}
+					<li><a href="{{ path('rov_blog_homepage') }}">{{ 'Articles list'|trans }}</a></li>
+					<li>{{ 'Category'|trans }}</li>
+					<li class="active">{{ category_url.name|trans }}</li>
+					{% elseif tag_url is defined %}
+					<li><a href="{{ path('rov_blog_homepage') }}">{{ 'Articles list'|trans }}</a></li>
+					<li>{{ 'Tag'|trans }}</li>
+					<li class="active">{{ tag_url.name|trans }}</li>
+					{% else %}
 					<li class="active">{{ 'Articles list'|trans }}</li>
+					{% endif %}
 				</ol>
 			</div>
 		</div>
@@ -39,10 +49,10 @@
 					{% if page > 1 %}<li class="previous"><a href="{{ path('rov_blog_homepage', { 'page': (page-1) })}}"><i class="fa fa-arrow-circle-o-left"></i> {{ 'Previous'|trans }}</a></li>{% endif %}
 					{% if articlesLeft|length > 0 %}
 					<li class="next">
-						{% if category is defined %}
-						<a href="{{ path('rov_blog_article_category', { 'slug': category, 'page': (page+1) }) }}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
-						{% elseif tag is defined %}
-						<a href="{{ path('rov_blog_article_tag', { 'slug': category, 'page': (page+1) }) }}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
+						{% if category_url is defined %}
+						<a href="{{ path('rov_blog_article_category', { 'slug': category_url.slug, 'page': (page+1) }) }}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
+						{% elseif tag_url is defined %}
+						<a href="{{ path('rov_blog_article_tag', { 'slug': tag_url, 'page': (page+1) }) }}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
 						{% else %}
 						<a href="{{ path('rov_blog_homepage', { 'page': (page+1) })}}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
 						{% endif %}

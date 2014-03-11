@@ -519,24 +519,24 @@
 				<target>Últimos artículos</target>
 			</trans-unit>
 			<trans-unit id="130">
-				<source></source>
-				<target></target>
+				<source>Search</source>
+				<target>Búsqueda</target>
 			</trans-unit>
 			<trans-unit id="131">
-				<source></source>
-				<target></target>
+				<source>Category</source>
+				<target>Categoría</target>
 			</trans-unit>
 			<trans-unit id="132">
-				<source></source>
-				<target></target>
+				<source>Tag</source>
+				<target>Etiqueta</target>
 			</trans-unit>
 			<trans-unit id="133">
-				<source></source>
-				<target></target>
+				<source>Category updated</source>
+				<target>Categoría actualizada</target>
 			</trans-unit>
 			<trans-unit id="134">
-				<source></source>
-				<target></target>
+				<source>Tag updated</source>
+				<target>Etiqueta actualizada</target>
 			</trans-unit>
 			<trans-unit id="135">
 				<source></source>

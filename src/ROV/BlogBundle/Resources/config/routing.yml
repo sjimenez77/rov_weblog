@@ -31,6 +31,14 @@ rov_blog_manage_articles:
     pattern:  /admin/manage
     defaults: { _controller: ROVBlogBundle:Default:manageArticles }
 
+rov_blog_manage_category:
+    pattern:  /admin/manage/category/{slug}
+    defaults: { _controller: ROVBlogBundle:Default:manageCategory }
+
+rov_blog_manage_tag:
+    pattern:  /admin/manage/tag/{slug}
+    defaults: { _controller: ROVBlogBundle:Default:manageTag }
+
 rov_blog_article:
     pattern:  /{slug}
     defaults: { _controller: ROVBlogBundle:Default:article }
