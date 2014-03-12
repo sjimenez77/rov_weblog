@@ -198,6 +198,32 @@ class DefaultController extends Controller
                 );
             }
 
+            $message = \Swift_Message::newInstance()
+                ->setContentType('text/html')
+                ->setCharset('UTF-8')
+                ->setSubject('Nuevo comentario en el Blog')
+                ->setFrom(array(
+                    $user->getEmail() => $user->getName().' '.$user->getSurname()
+                    )
+                )
+                ->setTo($this->container->getParameter('rov_admin_email'))
+                ->setBody(
+                    $this->renderView(
+                        '::email_contact.html.twig',
+                        array(
+                            'name' => $user->getName(),
+                            'surname' => $user->getSurname(),
+                            'subject' => 'Nuevo comentario en el Blog',
+                            'email' => $user->getEmail(),
+                            'url' => $this->getRequest()->getHost().$this->generateUrl('rov_blog_article', array('slug' => $slug)),
+                            'message' => $comment->getContent()
+                            )
+                        )
+                    )
+                ;
+
+            $this->get('mailer')->send($message);
+
             $em->persist($comment);
             $em->flush();
         }

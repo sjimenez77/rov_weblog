@@ -61,7 +61,7 @@
 				{% if is_granted('ROLE_USER') %}
 				<!-- the comment box -->
 				<div class="well">
-					{{ form_start(form_new_comment, {'method': 'POST', 'action': path('rov_blog_article', { 'slug': article.slug }) }) }}
+					{{ form_start(form_new_comment, {'method': 'POST', 'action': path('rov_blog_article', { 'slug': article.slug }), 'attr':{'role': 'form', 'autocomplete': 'off'} }) }}
 					<h4>{{ 'Leave a Comment'|trans }}:</h4>
 					
 						<div class="form-group">

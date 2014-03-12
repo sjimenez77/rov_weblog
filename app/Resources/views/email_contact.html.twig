@@ -1,7 +1,12 @@
 {% extends '::frontend_email.html.twig' %}
 
 {% block subject %}{{ subject|e }}{% endblock %}
-{% block message %}{{ message|e }}{% endblock %}
+{% block message %}
+	{% if url is defined %}
+	<p><strong><a href="{{ url }}" style="color: #DDD">Ver artículo</a></strong></p>
+	{% endif %}
+	{{ message|e }}
+{% endblock %}
 {% block name %}{{ name }} {{ surname }}{% endblock %}
 {% block email %}{{ email }}{% endblock %}
 {% block emailshow %}{{ email }}{% endblock %}
