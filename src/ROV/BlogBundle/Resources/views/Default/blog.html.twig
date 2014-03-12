@@ -52,8 +52,14 @@
 						<strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|localizeddate('full', 'medium', locale, "Europe/Madrid") }}
 					</div>
 					<div class="col-sm-3">
-						<span class="label label-primary"><i class="fa fa-comments"></i> 
-						{% transchoice article.comments|length  with { '%total%' : article.comments|length } %}
+						<span class="label label-primary"><i class="fa fa-comments"></i>
+						{% set commentAccepted = 0 %}
+						{% for comment in article.comments %}
+							{% if comment.accepted %}
+							{% set commentAccepted = commentAccepted + 1 %}
+							{% endif %}
+						{% endfor %} 
+						{% transchoice commentAccepted  with { '%total%' : commentAccepted } %}
 						{0} No comments | {1} One comment | ]1,Inf] %total% comments
 						{% endtranschoice %}
 						</span>

@@ -62,7 +62,8 @@ class DefaultController extends Controller
             );
 
         $query = $em->createQuery('
-            SELECT a, u FROM ROVBlogBundle:Article a JOIN a.author u
+            SELECT a, u FROM ROVBlogBundle:Article a
+            JOIN a.author u
             WHERE a.published = :published
             ORDER BY a.updated DESC');
         $query->setParameter('published', true);

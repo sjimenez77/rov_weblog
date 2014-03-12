@@ -79,9 +79,15 @@
 				<hr>
 				<!-- the comments -->
 				<h3>
+				{% if moderator %}
+				{% transchoice comments|length  with { '%total%' : comments|length } %}
+				{0} No comments | {1} One comment | ]1,Inf] %total% comments
+				{% endtranschoice %}
+				{% else %}
 				{% transchoice comments|length  with { '%total%' : comments|length } %}
 				{0} There are not comments yet | {1} One comment published | ]1,Inf] %total% comments published
 				{% endtranschoice %}
+				{% endif %}
 				<i class="fa fa-comment-o"></i>
 				</h3>
 				<hr>
