@@ -555,80 +555,80 @@
 				<target>Nuevo nombre de etiqueta</target>
 			</trans-unit>
 			<trans-unit id="139">
-				<source></source>
-				<target></target>
+				<source>The article does not exist or is not published yet</source>
+				<target>El artículo no existe o no se ha publicado todavía</target>
 			</trans-unit>
 			<trans-unit id="140">
-				<source></source>
-				<target></target>
+				<source>Article</source>
+				<target>Artículo</target>
 			</trans-unit>
 			<trans-unit id="141">
-				<source></source>
-				<target></target>
+				<source>Click to see all the articles from this category</source>
+				<target>Haga clic para ver los artículos de la categoría</target>
 			</trans-unit>
 			<trans-unit id="142">
-				<source></source>
-				<target></target>
+				<source>Click to see all the articles with this tag</source>
+				<target>Haga clic para ver los artículos con esta etiqueta</target>
 			</trans-unit>
 			<trans-unit id="143">
-				<source></source>
-				<target></target>
+				<source>Comment published successfully</source>
+				<target>Comentario publicado con éxito</target>
 			</trans-unit>
 			<trans-unit id="144">
-				<source></source>
-				<target></target>
+				<source>Comment posted successfully and waiting for approval</source>
+				<target>Comentario publicado con éxito y en espera de aprobación</target>
 			</trans-unit>
 			<trans-unit id="145">
-				<source></source>
-				<target></target>
+				<source>Leave a Comment</source>
+				<target>Deje un comentario</target>
 			</trans-unit>
 			<trans-unit id="146">
-				<source></source>
-				<target></target>
+				<source>Please, sign in to comment articles</source>
+				<target>Por favor, inicie sesión para comentar los artículos</target>
 			</trans-unit>
 			<trans-unit id="147">
-				<source></source>
-				<target></target>
+				<source>There are not comments yet</source>
+				<target>Todavía no hay comentarios</target>
 			</trans-unit>
 			<trans-unit id="148">
-				<source></source>
-				<target></target>
+				<source>comment</source>
+				<target>comentario</target>
 			</trans-unit>
 			<trans-unit id="149">
-				<source></source>
-				<target></target>
+				<source>comments</source>
+				<target>comentarios</target>
 			</trans-unit>
 			<trans-unit id="150">
-				<source></source>
-				<target></target>
+				<source>{0} There are not comments yet | {1} One comment published | ]1,Inf] %total% comments published</source>
+				<target>{0} Todavía no hay comentarios | {1} Un comentario publicado | ]1,Inf] %total% comentarios publicados</target>
 			</trans-unit>
 			<trans-unit id="151">
-				<source></source>
-				<target></target>
+				<source>Published</source>
+				<target>Publicado</target>
 			</trans-unit>
 			<trans-unit id="152">
-				<source></source>
-				<target></target>
+				<source>Yes</source>
+				<target>Sí</target>
 			</trans-unit>
 			<trans-unit id="153">
-				<source></source>
-				<target></target>
+				<source>{0} No comments | {1} One comment | ]1,Inf] %total% comments</source>
+				<target>{0} Sin comentarios | {1} Un comentario | ]1,Inf] %total% comentarios</target>
 			</trans-unit>
 			<trans-unit id="154">
-				<source></source>
-				<target></target>
+				<source>Accept</source>
+				<target>Aceptar</target>
 			</trans-unit>
 			<trans-unit id="155">
-				<source></source>
-				<target></target>
+				<source>Delete</source>
+				<target>Borrar</target>
 			</trans-unit>
 			<trans-unit id="156">
-				<source></source>
-				<target></target>
+				<source>You cannot accept comments for this article</source>
+				<target>No puede aceptar comentarios para este artículo</target>
 			</trans-unit>
 			<trans-unit id="157">
-				<source></source>
-				<target></target>
+				<source>You cannot delete comments from this article</source>
+				<target>No puede borrar comentarios de este artículo</target>
 			</trans-unit>
 			<trans-unit id="158">
 				<source></source>

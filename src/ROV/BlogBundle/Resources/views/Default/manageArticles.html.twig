@@ -35,19 +35,19 @@
 						<table class="tablesorter">
 							<thead>
 								<tr>
-									<th>ID</th>
 									<th>{{ 'Title'|trans }}</th>
 									<th>{{ 'Created'|trans }}</th>
 									<th>{{ 'Last updated'|trans }}</th>
+									<th>{{ 'Published'|trans }}</th>
 									<th class="filter-false">{{ 'Options'|trans }}</th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th>ID</th>
 									<th>{{ 'Title'|trans }}</th>
 									<th>{{ 'Created'|trans }}</th>
 									<th>{{ 'Last updated'|trans }}</th>
+									<th>{{ 'Published'|trans }}</th>
 									<th>{{ 'Options'|trans }}</th>
 								</tr>
 								<tr>
@@ -71,7 +71,6 @@
 							<tbody>
 								{% for article in articles %}
 								<tr>
-									<td>{{ article.id }}</td>
 									<td>{{ article.title }}</td>
 									{% if locale == 'es' %}
 									<td>{{ article.created|localizeddate('medium', 'medium', locale, "Europe/Madrid") }}</td>
@@ -80,6 +79,7 @@
 									<td>{{ article.created|date("F jS \\a \\t g:ia", "Europe/Madrid") }}</td>
 									<td>{{ article.updated|date("F jS \\a \\t g:ia", "Europe/Madrid") }}</td>
 									{% endif %}
+									<td style="text-align: center">{% if article.published %}{{ 'Yes'|trans }}{% else %}No{% endif %}</td>
 									<td>
 										<a class="btn btn-default btn-xs btn-block" href="{{ path('rov_blog_edit_article', { 'article_id': article.id }) }}" role="button">{{ 'Edit'|trans }}</a>
 										{# <a class="btn btn-default btn-xs" href="{{ path('rov_blog_delete_article', { 'article_id': article.id }) }}" role="button">{{ 'Delete'|trans }}</a> #}

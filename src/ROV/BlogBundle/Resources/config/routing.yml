@@ -39,8 +39,16 @@ rov_blog_manage_tag:
     pattern:  /admin/manage/tag/{slug}
     defaults: { _controller: ROVBlogBundle:Default:manageTag }
 
+rov_blog_accept_comment:
+    pattern:  /admin/comment/accept/{article_id}/{comment_id}
+    defaults: { _controller: ROVBlogBundle:Default:acceptComment }
+
+rov_blog_delete_comment:
+    pattern:  /admin/comment/delete/{article_id}/{comment_id}
+    defaults: { _controller: ROVBlogBundle:Default:deleteComment }
+
 rov_blog_article:
-    pattern:  /{slug}
+    pattern:  /article/{slug}
     defaults: { _controller: ROVBlogBundle:Default:article }
 
 rov_blog_homepage:

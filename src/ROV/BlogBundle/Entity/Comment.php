@@ -61,6 +61,23 @@ class Comment
      */
     private $date;
 
+    /**
+     * Comment accepted
+     * 
+     * @var boolean
+     *
+     * @ORM\Column(name="accepted", type="boolean")
+     */
+    private $accepted;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->accepted = false;
+        $this->date = new \DateTime();
+    }
 
     /**
      * Get id
@@ -185,5 +202,28 @@ class Comment
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set accepted
+     *
+     * @param boolean $accepted
+     * @return Comment
+     */
+    public function setAccepted($accepted)
+    {
+        $this->accepted = $accepted;
+
+        return $this;
+    }
+
+    /**
+     * Get accepted
+     *
+     * @return boolean 
+     */
+    public function getAccepted()
+    {
+        return $this->accepted;
     }
 }

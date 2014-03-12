@@ -7,11 +7,13 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 
 use ROV\BlogBundle\Entity\Article;
+use ROV\BlogBundle\Entity\Comment;
 use ROV\BlogBundle\Entity\Tag;
 use ROV\BlogBundle\Entity\Category;
 use ROV\BlogBundle\Form\Backend\ArticleType;
 use ROV\BlogBundle\Form\Backend\CategoryType;
 use ROV\BlogBundle\Form\Backend\TagType;
+use ROV\BlogBundle\Form\Frontend\CommentType;
 
 use ROV\BlogBundle\Util\Util;
 
@@ -85,6 +87,296 @@ class DefaultController extends Controller
             'new_tag_form'      => $formNewTag->createView(),
             'error'             => $error
         ));
+    }
+
+    /**
+     * Show an article
+     * @param  Request $request
+     * @param  string  $slug 
+     * @return object           Twig template
+     */
+    public function articleAction(Request $request, $slug)
+    {
+        $session = $request->getSession();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') ||
+           ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') && $article->getAuthor() == $user))
+        {
+            $moderator = true;
+        } else {
+            $moderator = false;
+        }
+
+        // Lateral Wells info
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
+
+        $category = new Category();
+        $formNewCategory = $this->createForm(new CategoryType(), $category);
+        $tag = new Tag();
+        $formNewTag = $this->createForm(new TagType(), $tag);
+        $categories = $em->getRepository('ROVBlogBundle:Category')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+        $tags = $em->getRepository('ROVBlogBundle:Tag')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+        // Article and its comments
+        $article = $em->getRepository('ROVBlogBundle:Article')->findOneBy(
+            array(
+                'slug' => $slug,
+                'published' => true
+            )
+        );
+        // Check whether the article exists and it is already published
+        if (!$article)
+        {
+            $this->get('session')->getFlashBag()->add('error',
+                'The article does not exist or is not published yet'
+            );
+
+            return $this->redirect($this->generateUrl('rov_blog_homepage'));
+        }
+
+        // New comment
+        $comment = new Comment();
+        $formNewComment = $this->createForm(new CommentType(), $comment);
+        // Handle formNewComment
+        $formNewComment->handleRequest($request);
+        if ($formNewComment->isValid())
+        {
+            $comment->setUser($user);
+            $comment->setArticle($article);
+            // Set accepted if the user comments its own article or if the user is super admin
+            if ($moderator)
+            {
+                $comment->setAccepted(true);
+                $lastCommentArticle = $em->getRepository('ROVBlogBundle:Comment')->findOneBy(
+                    array(
+                        'article'   => $article,
+                        'accepted'  => true
+                    ),
+                    array('number' => 'DESC')
+                );
+                ////////////// DEBUG
+                $this->get('ladybug')->log($lastCommentArticle);
+                
+                if ($lastCommentArticle) {
+                    $comment->setNumber($lastCommentArticle->getNumber()+1);
+                }
+                else
+                {
+                    $comment->setNumber(1);
+                }
+
+                $this->get('session')->getFlashBag()->add('success',
+                    'Comment published successfully'
+                );
+            }
+            else
+            {
+                // Set number 0 until the comment is accepted
+                $comment->setNumber(0);
+                $this->get('session')->getFlashBag()->add('success',
+                    'Comment posted successfully and waiting for approval'
+                );
+            }
+
+            $em->persist($comment);
+            $em->flush();
+        }
+
+        // Get all the comments or only the accepted ones depending on the user role
+        if ($moderator)
+        {
+            $comments = $em->getRepository('ROVBlogBundle:Comment')->findBy(
+                array('article' => $article),
+                array('date' => 'DESC')
+            );
+        }
+        else
+        {
+            $comments = $em->getRepository('ROVBlogBundle:Comment')->findBy(
+                array(
+                    'article' => $article,
+                    'accepted' => true
+                ),
+                array('date' => 'DESC')
+            );
+        }
+        $article->setComments($comments);
+
+        return $this->render('ROVBlogBundle:Default:article.html.twig', array(
+            'article'           => $article,
+            'comments'          => $comments,
+            'moderator'         => $moderator,
+            'form_new_comment'  => $formNewComment->createView(),
+            'form_search'       => $formSearch->createView(),
+            'categories'        => $categories,
+            'tags'              => $tags,
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'new_category_form' => $formNewCategory->createView(),
+            'new_tag_form'      => $formNewTag->createView(),
+            'error'             => $error
+        ));
+    }
+
+    /**
+     * Accept a comment
+     * @param  Request $request
+     * @param  integer $comment_id 
+     * @return object           Twig template
+     */
+    public function acceptCommentAction(Request $request, $article_id, $comment_id)
+    {
+        $session = $request->getSession();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $comment = $em->getRepository('ROVBlogBundle:Comment')->findOneBy(
+            array(
+                'id' => $comment_id,
+                'article' => $article_id,
+                'accepted' => false
+            )
+        );
+
+        $article = $em->getRepository('ROVBlogBundle:Article')->findOneBy(array('id' => $article_id));
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+        {
+            // Accept comment anyway
+            $comment->setAccepted(true);
+            $lastCommentArticle = $em->getRepository('ROVBlogBundle:Comment')->findOneBy(
+                array(
+                    'article'   => $article,
+                    'accepted'  => true
+                ),
+                array('number' => 'DESC')
+            );
+            
+            if ($lastCommentArticle) {
+                $comment->setNumber($lastCommentArticle->getNumber()+1);
+            }
+            else
+            {
+                $comment->setNumber(1);
+            }
+
+            $em->persist($comment);
+            $em->flush();
+        }
+        else
+        {
+            // Check if the user is the author
+            if ($article->getUser() == $user)
+            {
+                // Accept comment
+                $lastCommentArticle = $em->getRepository('ROVBlogBundle:Comment')->findOneBy(
+                    array(
+                        'article'   => $article,
+                        'accepted'  => true
+                    ),
+                    array('number' => 'DESC')
+                );
+                
+                if ($lastCommentArticle) {
+                    $comment->setNumber($lastCommentArticle->getNumber()+1);
+                }
+                else
+                {
+                    $comment->setNumber(1);
+                }
+
+                $comment->setAccepted(true);
+                $em->persist($comment);
+                $em->flush();
+            }
+            else
+            {
+                $this->get('session')->getFlashBag()->add('error',
+                    'You cannot accept comments for this article'
+                );
+            }
+        }
+
+        return $this->redirect($this->generateUrl('rov_blog_article', array('slug' => $article->getSlug())));
+    }
+
+    /**
+     * Delete a comment
+     * @param  Request $request
+     * @param  integer $comment_id 
+     * @return object           Twig template
+     */
+    public function deleteCommentAction(Request $request, $article_id, $comment_id)
+    {
+        $session = $request->getSession();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $comment = $em->getRepository('ROVBlogBundle:Comment')->findOneBy(
+            array(
+                'id' => $comment_id,
+                'article' => $article_id,
+                'accepted' => false
+            )
+        );
+
+        $article = $em->getRepository('ROVBlogBundle:Article')->findOneBy(array('id' => $article_id));
+        
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+        {
+            // Remove comment
+            $article->removeComment($comment);
+            $em->remove($comment);
+            $em->flush();
+        }
+        else
+        {
+            // Check if the user is the author
+            if ($article->getUser() == $user)
+            {
+                // Remove comment
+                $article->removeComment($comment);
+                $em->remove($comment);
+                $em->flush();
+            }
+            else
+            {
+                $this->get('session')->getFlashBag()->add('error',
+                    'You cannot delete comments from this article'
+                );
+            }
+        }
+
+        return $this->redirect($this->generateUrl('rov_blog_article', array('slug' => $article->getSlug())));
     }
 
     /**

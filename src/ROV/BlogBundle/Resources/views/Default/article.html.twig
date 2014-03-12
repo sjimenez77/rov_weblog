@@ -1,6 +1,6 @@
 {% extends '::frontend_bootstrap.html.twig' %}
 
-{% block title %}{{ 'Articles'|trans }}{% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
 
 {% block body %}
 	{{ parent() }}
@@ -11,22 +11,15 @@
 				<h1 class="page-header">Blog <small>{{ 'Articles list'|trans }}</small></h1>
 				<ol class="breadcrumb">
 					<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
-					{% if category_url is defined %}
 					<li><a href="{{ path('rov_blog_homepage') }}">{{ 'Articles list'|trans }}</a></li>
-					<li>{{ 'Category'|trans }}</li>
-					<li class="active">{{ category_url.name|trans }}</li>
-					{% elseif tag_url is defined %}
-					<li><a href="{{ path('rov_blog_homepage') }}">{{ 'Articles list'|trans }}</a></li>
-					<li>{{ 'Tag'|trans }}</li>
-					<li class="active">{{ tag_url.name|trans }}</li>
-					{% else %}
-					<li class="active">{{ 'Articles list'|trans }}</li>
-					{% endif %}
+					<li>{{ 'Article'|trans }}</li>
+					<li class="active">{{ article.title }}</li>
 				</ol>
 			</div>
 		</div>
 
 		<div class="row">
+
 			<div class="col-lg-8">
 				{# Flashbag session success messages #}
 				{% for message in app.session.flashbag.get('error') %}
@@ -42,52 +35,69 @@
 				</div>
 				{% endfor %}
 
-				{% if articles|length > 0 %}
-				{% for article in articles %}
-				<h1><a href="{{ path('rov_blog_article', { 'slug': article.slug })}}">{{ article.title }}</a></h1>
-				<p class="lead">{{ 'by'|trans }} <a href="#">{{ article.author.name }} {{ article.author.surname }}</a></p>
+				{# Show the article #}
 				<hr>
-				<div class="row">
-					<div class="col-sm-9">
-						<strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|localizeddate('full', 'medium', locale, "Europe/Madrid") }}
-					</div>
-					<div class="col-sm-3">
-						<span class="label label-primary"><i class="fa fa-comments"></i> 
-						{% transchoice article.comments|length  with { '%total%' : article.comments|length } %}
-						{0} No comments | {1} One comment | ]1,Inf] %total% comments
-						{% endtranschoice %}
-						</span>
-					</div>
+				<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|localizeddate('full', 'medium', locale, "Europe/Madrid") }}</p>
+				<hr>
+				<div class="img_blog" style="background-image:url('{{ article.image }}');"></div>
+				<hr>
+				<p class="lead">{{ article.subtitle }}</p>
+				<p>{{ article.content|raw }}</p>
+
+				<a class="btn btn-primary btn-xs" href="#" disabled>{{ 'Category'|trans }} <i class="fa fa-arrow-circle-right"></i></a>
+				<a class="btn btn-primary btn-xs" href="{{ path('rov_blog_article_category', { 'slug': article.category.slug }) }}" title="{{ 'Click to see all the articles from this category'|trans }}">{{ article.category.name|trans }}</a>
+				<br><br>
+
+				<a class="btn btn-info btn-xs" href="#" disabled>{{ 'Tags'|trans }} <i class="fa fa-arrow-circle-right"></i></a>
+				{% for tag in article.tags %}
+				<a class="btn btn-info btn-xs" href="{{ path('rov_blog_article_tag', { 'slug': tag.slug }) }}" title="{{ 'Click to see all the articles with this tag'|trans }}">{{ tag.name|trans }}</a>
+				{% endfor %}
+				<hr>
+
+				{% if moderator %}
+				<a class="btn btn-default btn-block" href="{{ path('rov_blog_edit_article', { 'article_id': article.id })}}"><i class="fa fa-pencil-square-o"></i> {{ 'Edit article'|trans }}</a>
+				<hr>
+				{% endif %}
+				{% if is_granted('ROLE_USER') %}
+				<!-- the comment box -->
+				<div class="well">
+					{{ form_start(form_new_comment, {'method': 'POST', 'action': path('rov_blog_article', { 'slug': article.slug }) }) }}
+					<h4>{{ 'Leave a Comment'|trans }}:</h4>
+					
+						<div class="form-group">
+							{{ form_widget(form_new_comment.content) }}
+						</div>
+						<button type="submit" class="btn btn-primary">{{ 'Send'|trans }}</button>
+					{{ form_end(form_new_comment)}}
 				</div>
+				{% else %}
+				<blockquote>
+					<p>{{ 'Please, sign in to comment articles'|trans }}</p>
+					<p class="text-muted">{{ 'Not a user yet?'|trans }} <a href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a></p>
+				</blockquote>
+				{% endif %}
 				<hr>
-				<a href="{{ path('rov_blog_article', { 'slug': article.slug })}}"><div class="img_blog" style="background-image:url('{{ article.image }}');"></div></a>
+				<!-- the comments -->
+				<h3>
+				{% transchoice comments|length  with { '%total%' : comments|length } %}
+				{0} There are not comments yet | {1} One comment published | ]1,Inf] %total% comments published
+				{% endtranschoice %}
+				<i class="fa fa-comment-o"></i>
+				</h3>
 				<hr>
-				<p>{{ article.subtitle }}</p>
-				<a class="btn btn-primary" href="{{ path('rov_blog_article', { 'slug': article.slug })}}">{{ 'Read more'|trans }} <i class="fa fa-angle-right"></i></a>
-				{% if is_granted('ROLE_SUPER_ADMIN') or (is_granted('ROLE_ADMIN') and article.author == app.user) %}
-				<a class="btn btn-default pull-right" href="{{ path('rov_blog_edit_article', { 'article_id': article.id })}}"><i class="fa fa-pencil-square-o"></i> {{ 'Edit article'|trans }}</a>
+				{% for comment in comments %}
+				<h4 class="text-primary"><span class="label label-info"><i class="fa fa-comment"></i> {{ comment.number }}</span> {{ comment.user.name }} {{ comment.user.surname }} <small>{{ comment.date|localizeddate('full', 'medium', locale, "Europe/Madrid") }}</small></h4>
+				<p>{{ comment.content }}</p>
+				{% if moderator and not comment.accepted %}
+				<div class="btn-group">
+					<a href="{{ path('rov_blog_accept_comment', {'article_id': article.id , 'comment_id': comment.id }) }}" class="btn btn-success"><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp;{{ 'Accept'|trans }}</a>
+					<a href="{{ path('rov_blog_delete_comment', {'article_id': article.id , 'comment_id': comment.id }) }}" class="btn btn-danger">{{ 'Delete'|trans }}&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i> </a>
+				</div>
 				{% endif %}
 				<hr>
 				{% endfor %}
-				<ul class="pager">
-					{% if page > 1 %}<li class="previous"><a href="{{ path('rov_blog_homepage', { 'page': (page-1) })}}"><i class="fa fa-arrow-circle-o-left"></i> {{ 'Previous'|trans }}</a></li>{% endif %}
-					{% if articlesLeft|length > 0 %}
-					<li class="next">
-						{% if category_url is defined %}
-						<a href="{{ path('rov_blog_article_category', { 'slug': category_url.slug, 'page': (page+1) }) }}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
-						{% elseif tag_url is defined %}
-						<a href="{{ path('rov_blog_article_tag', { 'slug': tag_url, 'page': (page+1) }) }}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
-						{% else %}
-						<a href="{{ path('rov_blog_homepage', { 'page': (page+1) })}}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
-						{% endif %}
-					</li>
-					{% endif %}
-				</ul>
-				{% else %}
-				<blockquote>
-					<p>{{ 'There are not articles published yet'|trans }}</p>
-				</blockquote>
-				{% endif %}
+				<p>&nbsp;</p>
+				
 			</div>
 
 			<div class="col-lg-4">
