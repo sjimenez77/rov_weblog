@@ -631,16 +631,16 @@
 				<target>No puede borrar comentarios de este artículo</target>
 			</trans-unit>
 			<trans-unit id="158">
-				<source></source>
-				<target></target>
+				<source>France</source>
+				<target>Francia</target>
 			</trans-unit>
 			<trans-unit id="159">
-				<source></source>
-				<target></target>
+				<source>Germany</source>
+				<target>Alemania</target>
 			</trans-unit>
 			<trans-unit id="160">
-				<source></source>
-				<target></target>
+				<source>United Kingdom</source>
+				<target>Reino Unido</target>
 			</trans-unit>
 			<trans-unit id="161">
 				<source></source>

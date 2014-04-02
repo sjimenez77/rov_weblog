@@ -72,13 +72,10 @@
 								{% for article in articles %}
 								<tr>
 									<td>{{ article.title }}</td>
-									{% if locale == 'es' %}
-									<td>{{ article.created|localizeddate('medium', 'medium', locale, "Europe/Madrid") }}</td>
-									<td>{{ article.updated|localizeddate('medium', 'medium', locale, "Europe/Madrid") }}</td>
-									{% else %}
-									<td>{{ article.created|date("F jS \\a \\t g:ia", "Europe/Madrid") }}</td>
-									<td>{{ article.updated|date("F jS \\a \\t g:ia", "Europe/Madrid") }}</td>
-									{% endif %}
+									{# article.created|localizeddate('medium', 'medium', locale, "Europe/Madrid") #}
+									<td>{{ article.created|date('d/m/Y H:i:s') }}</td>
+									{# article.updated|localizeddate('medium', 'medium', locale, "Europe/Madrid") #}
+									<td>{{ article.updated|date('d/m/Y H:i:s') }}</td>
 									<td style="text-align: center">{% if article.published %}{{ 'Yes'|trans }}{% else %}No{% endif %}</td>
 									<td>
 										<a class="btn btn-default btn-xs btn-block" href="{{ path('rov_blog_edit_article', { 'article_id': article.id }) }}" role="button">{{ 'Edit'|trans }}</a>
