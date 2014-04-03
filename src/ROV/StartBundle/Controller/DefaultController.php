@@ -27,7 +27,7 @@ class DefaultController extends Controller
         $lastArticles = $em->getRepository('ROVBlogBundle:Article')->findBy(
         	array('published' => true),
         	array('updated' => 'DESC'),
-        	5,
+        	3,
         	0
         );
 
