@@ -146,9 +146,9 @@ class DefaultController extends Controller
                 $message = \Swift_Message::newInstance()
                     ->setContentType('text/html')
                     ->setCharset('UTF-8')
-                    ->setSubject($data['Subject'])
+                    ->setSubject('Contacto '.$this->container->getParameter('rov_global_title').': '.$data['Subject'])
                     ->setFrom(array(
-                        $data['Email'] => $data['Name'].' '.$data['Surname']
+                        $this->container->getParameter('mailer_user') => $this->container->getParameter('rov_global_title')
                         )
                     )
                     ->setTo($this->container->getParameter('rov_admin_email'))

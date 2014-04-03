@@ -30,6 +30,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        appname: "%rov_global_title%"
 
 # Assetic Configuration
 assetic:
