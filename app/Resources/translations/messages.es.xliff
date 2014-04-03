@@ -647,12 +647,12 @@
 				<target>Datos de contacto</target>
 			</trans-unit>
 			<trans-unit id="162">
-				<source></source>
-				<target></target>
+				<source>Are you interested?</source>
+				<target>¿Le interesa?</target>
 			</trans-unit>
 			<trans-unit id="163">
-				<source></source>
-				<target></target>
+				<source>Blog specialized in wine culture</source>
+				<target>Blog especializado en la cultura del vino</target>
 			</trans-unit>
 			<trans-unit id="164">
 				<source></source>

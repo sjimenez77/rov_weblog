@@ -9,9 +9,18 @@
         </ol>
         <div class="carousel-inner">
           <div class="item active">
-            <div class="fill" style="background-image:url('http://placehold.it/1920x1080&text=Slide One');"></div>
+            <div class="fill" style="background-image:url('{{ asset("images/parra.jpg") }}');"></div>
             <div class="carousel-caption">
-              <h1>Sobre vinos y más cosas</h1>
+              <div class="row" style="padding-bottom: 2em">
+                <div class="col-sm-6" style="text-align: center">
+                  <img src="{{ asset('images/logo_mobile_exp.png') }}" alt="{{ appname }}">
+                </div>
+                <div class="col-sm-6">
+                  <h1>Blog especializado en la cultura del vino</h1>
+                  <h3>{{ 'Are you interested?'|trans }}</h3>
+                  <a class="btn btn-lg btn-primary" href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a>
+                </div>
+              </div>
             </div>
           </div>
           <div class="item">
