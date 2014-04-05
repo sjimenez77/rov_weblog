@@ -31,14 +31,20 @@ class DefaultController extends Controller
         	0
         );
 
-        // View some variables with ladyBug
-        $this->get('ladybug')->log($lastArticles);
-        $this->get('ladybug')->log($request);
-        $this->get('ladybug')->log($session);
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
 
         return $this->render('ROVStartBundle:Default:home.html.twig', array(
         	'articles'      => $lastArticles,
             'page'          => 'home',
+            'form_search'   => $formSearch->createView(),
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
             'error'         => $error
         ));

@@ -183,10 +183,8 @@ class DefaultController extends Controller
      * This action is not able to be reversed.
      * @return [object] Twig template
      */
-    public function deleteAction()
+    public function deleteAction(Request $request)
     {
-        $request = $this->getRequest();
-
         if ($request->getMethod() == 'POST') {
             
             $user = $this->get('security.context')->getToken()->getUser();
@@ -224,5 +222,49 @@ class DefaultController extends Controller
         }
 
         return $this->redirect($this->generateUrl('home'));
+    }
+
+    /**
+     * Shows the form to obtain a new password and sends an email with the new generated one
+     * @param  Request $request [description]
+     * @return [object] Twig template
+     */
+    public function passwordAction(Request $request)
+    {
+        $session = $request->getSession();
+        // get the login error if there is one
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $defaultData = array();
+        $newPasswordForm = $this->createFormBuilder($defaultData)
+                ->add('email', 'email', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your email'
+                    )
+                ))
+                ->getForm();
+
+        if ($this->get('security.context')->isGranted('ROLE_USER')) 
+        {
+            $this->get('session')->getFlashBag()->add('error',
+                'You can change here your password'
+            );
+            
+            return $this->redirect($this->generateUrl('rov_users_profile'));
+        }
+        else
+        {
+            return $this->render('ROVUsersBundle:Default:getPassword.html.twig', array(
+                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                'error'         => $error,
+                'new_password_form' => $newPasswordForm->createView(),
+            ));
+        }
     }
 }

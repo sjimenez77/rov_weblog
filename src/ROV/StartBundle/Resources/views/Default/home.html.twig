@@ -47,33 +47,39 @@
 
 		<div class="row">
 			<div class="col-lg-12 text-center">
-				<h2>{{ 'Last articles'|trans }}</h2>
-				<hr>
+				<h2>{{ 'Last articles published'|trans }}</h2>
 			</div>
+			{% set numArticles = articles|length %}
 			{% for article in articles %}
-			<div class="col-lg-4 col-md-4 col-sm-6" style="height: 300px; background-image:url('{{ article.image }}');">
-				<h4 style="background:rgba(255,255,255,0.8); margin:-15px; padding: 30px 15px 15px 15px; min-height: 5em;"><a href="{{ path('rov_blog_article', { 'slug' : article.slug }) }}">{{ article.title }}</a></h4>
-				<p style="color: white; background:rgba(221,72,20,0.8); margin: 15px -15px; padding: 15px 15px 15px 15px;"><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s') }}</p>
+			<div class="{% if numArticles == 3 %}col-lg-4 col-md-4 col-sm-12{% else %}col-lg-12{% endif %}" style="height: 300px; background-image:url('{{ article.image }}'); background-position: 50% 50%; background-size: cover;">
+				<h4 style="background:rgba(255,255,255,0.8); margin:0px -15px -15px -15px; padding: 15px 15px 15px 15px; min-height: 5em; border-top: 1px solid rgb(51, 51, 51);"><a href="{{ path('rov_blog_article', { 'slug' : article.slug }) }}">{{ article.title }}</a></h4>
+				<p style="color: white; background:rgba(221,72,20,0.6); margin: 15px -15px; padding: 15px 15px 15px 15px;"><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s') }}</p>
 			</div>
 			{% endfor %}
+		</div><!-- /.row -->
+		<div class="row well" style="margin-top: -1em">
+			{{ form_start(form_search, {'method': 'POST', 'action': path('rov_blog_article_search') }) }}
+				<h4>{{ 'Articles search'|trans }}</h4>
+				<div class="input-group">
+					{{ form_widget(form_search.search) }}
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+					</span>
+				</div><!-- /input-group -->
+			{{ form_end(form_search) }}
+		</div><!-- /well -->
+		<div class="row well">
+			<div class="col-lg-8 col-md-8">
+				<h3>{{ appname }}</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, voluptas repellat nemo dolorum sapiente dignissimos beatae dolore optio cupiditate laborum quasi deserunt sint incidunt assumenda officia culpa quisquam magni doloremque.</p>
+			</div>
+			<div class="col-lg-4 col-md-4">
+				<p>&nbsp;</p>
+				<a class="btn btn-lg btn-primary pull-right" href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a>
+			</div>
 		</div><!-- /.row -->
 
 	</div><!-- /.container -->
 
 </div><!-- /.section -->
-
-<div class="container">
-
-	<div class="row well">
-		<div class="col-lg-8 col-md-8">
-			<h3>{{ appname }}</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, voluptas repellat nemo dolorum sapiente dignissimos beatae dolore optio cupiditate laborum quasi deserunt sint incidunt assumenda officia culpa quisquam magni doloremque.</p>
-		</div>
-		<div class="col-lg-4 col-md-4">
-			<p>&nbsp;</p>
-			<a class="btn btn-lg btn-primary pull-right" href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a>
-		</div>
-	</div><!-- /.row -->
-
-</div><!-- /.container -->
 {% endblock %}

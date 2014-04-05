@@ -663,32 +663,32 @@
 				<target>¿A qué estás esperando?</target>
 			</trans-unit>
 			<trans-unit id="166">
-				<source></source>
-				<target></target>
+				<source>Last articles published</source>
+				<target>Últimos artículos publicados</target>
 			</trans-unit>
 			<trans-unit id="167">
-				<source></source>
-				<target></target>
+				<source>Have you forgotten your password?</source>
+				<target>¿Has olvidado tu contraseña?</target>
 			</trans-unit>
 			<trans-unit id="168">
-				<source></source>
-				<target></target>
+				<source>Get a new password</source>
+				<target>Obtén una nueva contraseña</target>
 			</trans-unit>
 			<trans-unit id="169">
-				<source></source>
-				<target></target>
+				<source>Type your email and password to sign in</source>
+				<target>Introduzca su email y su contraseña para entrar</target>
 			</trans-unit>
 			<trans-unit id="170">
-				<source></source>
-				<target></target>
+				<source>A new password will be generated and sent to the email address typed if it is in use in our users database</source>
+				<target>Una nueva contraseña será generada y enviada al email introducido si está en uso en nuestra base de datos de usuarios</target>
 			</trans-unit>
 			<trans-unit id="171">
-				<source></source>
-				<target></target>
+				<source>You can change here your password</source>
+				<target>Puede cambiar aquí su contraseña</target>
 			</trans-unit>
 			<trans-unit id="172">
-				<source></source>
-				<target></target>
+				<source>Type your email to get a new password</source>
+				<target>Escriba su email para obtener una nueva contraseña</target>
 			</trans-unit>
 			<trans-unit id="173">
 				<source></source>

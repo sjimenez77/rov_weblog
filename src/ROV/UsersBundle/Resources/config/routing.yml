@@ -19,3 +19,7 @@ rov_users_register:
 rov_users_delete:
     pattern:  /delete
     defaults: { _controller:ROVUsersBundle:Default:delete }
+
+rov_users_new_password:
+    pattern:  /password
+    defaults: { _controller:ROVUsersBundle:Default:password }
