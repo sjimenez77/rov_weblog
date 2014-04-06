@@ -691,28 +691,28 @@
 				<target>Escriba su email para obtener una nueva contraseña</target>
 			</trans-unit>
 			<trans-unit id="173">
-				<source></source>
-				<target></target>
+				<source>Email address</source>
+				<target>Dirección de correo electrónico</target>
 			</trans-unit>
 			<trans-unit id="174">
-				<source></source>
-				<target></target>
+				<source>Email address unknown</source>
+				<target>Dirección de correo electrónico desconocida</target>
 			</trans-unit>
 			<trans-unit id="175">
-				<source></source>
-				<target></target>
+				<source>Check your mailbox and sign in with the new password</source>
+				<target>Comprueba tu buzón de correo y entra con la nueva contraseña</target>
 			</trans-unit>
 			<trans-unit id="176">
-				<source></source>
-				<target></target>
+				<source>Email sent by</source>
+				<target>Email enviado por</target>
 			</trans-unit>
 			<trans-unit id="177">
-				<source></source>
-				<target></target>
+				<source>New password</source>
+				<target>Contraseña nueva</target>
 			</trans-unit>
 			<trans-unit id="178">
-				<source></source>
-				<target></target>
+				<source>Your new password is</source>
+				<target>Su nueva contraseña es</target>
 			</trans-unit>
 			<trans-unit id="179">
 				<source></source>

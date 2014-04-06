@@ -252,6 +252,7 @@ class DefaultController extends Controller
 
         if ($this->get('security.context')->isGranted('ROLE_USER')) 
         {
+            // User granted can change the password in the profile page
             $this->get('session')->getFlashBag()->add('error',
                 'You can change here your password'
             );
@@ -260,11 +261,88 @@ class DefaultController extends Controller
         }
         else
         {
-            return $this->render('ROVUsersBundle:Default:getPassword.html.twig', array(
-                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-                'error'         => $error,
-                'new_password_form' => $newPasswordForm->createView(),
-            ));
+            $newPasswordForm->handleRequest($request);
+            if ($newPasswordForm->isValid())
+            {
+                $data = $newPasswordForm->getData();
+                // Check if the user exists
+                $em = $this->getDoctrine()->getManager();
+                $userToFind = $em->getRepository('ROVUsersBundle:User')->findOneBy(array('email' => $data['email']));
+
+                if ($userToFind)
+                {
+                    // New random password
+                    $newPasswordString = substr(md5(uniqid($data['email'])), 0, 8);
+                    // Encode the new password
+                    $encoder = $this->get('security.encoder_factory')
+                                    ->getEncoder($userToFind);
+                    $newpassword = $encoder->encodePassword(
+                        $newPasswordString,
+                        $userToFind->getSalt()
+                    );
+                    // Set the new encoded password
+                    $userToFind->setPassword($newpassword);
+                    // Persist 
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($userToFind);
+                    $em->flush();
+
+                    // Send the new password
+                    $message = \Swift_Message::newInstance()
+                        ->setContentType('text/html')
+                        ->setCharset('UTF-8')
+                        ->setSubject($this->get('translator')->trans('New password'))
+                        ->setFrom(array(
+                            $this->container->getParameter('mailer_user') => $this->container->getParameter('rov_global_title')
+                            )
+                        )
+                        ->setTo($data['email'])
+                        ->setBody(
+                            $this->renderView(
+                                '::email_contact.html.twig',
+                                array(
+                                    'name' => $userToFind->getName(),
+                                    'surname' => $userToFind->getSurname(),
+                                    'subject' => $this->get('translator')->trans('New password'),
+                                    'email' => $userToFind->getEmail(),
+                                    'newpassword' => true,
+                                    'message' => $this->get('translator')->trans('Your new password is').' '.$newPasswordString
+                                    )
+                                )
+                            )
+                        ;
+
+                    $this->get('mailer')->send($message);
+
+                    $this->get('session')->getFlashBag()->add('success',
+                        'Check your mailbox and sign in with the new password'
+                    );
+                    
+                    return $this->redirect($this->generateUrl('rov_users_login'));
+                }
+                else
+                {
+                    // User does not exist
+                    $this->get('session')->getFlashBag()->add('error',
+                        'Email address unknown'
+                    );
+
+                    return $this->render('ROVUsersBundle:Default:getPassword.html.twig', array(
+                        'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                        'error'         => $error,
+                        'new_password_form' => $newPasswordForm->createView(),
+                    ));                
+                }
+            }
+            else
+            {
+                // Show the form
+                return $this->render('ROVUsersBundle:Default:getPassword.html.twig', array(
+                    'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                    'error'         => $error,
+                    'new_password_form' => $newPasswordForm->createView(),
+                ));                
+            }
         }
     }
 }

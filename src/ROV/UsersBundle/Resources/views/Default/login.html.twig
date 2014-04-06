@@ -28,12 +28,19 @@
 								<strong>{{ 'Warning'|trans }}:</strong> {{ error.message|trans }}
 							</div>
 							{% endif %}
+							{# Flashbag session success messages #}
+							{% for message in app.session.flashbag.get('error') %}
+							<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ message|trans }}</div>
+							{% endfor %}
+							{% for message in app.session.flashbag.get('success') %}
+							<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ message|trans }}</div>
+							{% endfor %}
 							<div class="form-group">
-								<label for="username">{{ 'Dirección de correo electrónico'|trans }}</label>
+								<label for="username">{{ 'Email address'|trans }}</label>
 								<input type="email" class="form-control" id="username" name="_username" placeholder="{{ 'Type your email'|trans }}">
 							</div>
 							<div class="form-group">
-								<label for="password">{{ 'Contraseña'|trans }}</label>
+								<label for="password">{{ 'Password'|trans }}</label>
 								<input type="password" class="form-control" id="password" name="_password" placeholder="{{ 'Type your password'|trans }}">
 							</div>
 							<div class="checkbox">
@@ -41,7 +48,8 @@
 									<input type="checkbox" id="remember_me" name="_remember_me"> {{ 'Remember me'|trans }}
 								</label>
 							</div>
-							<button type="submit" class="btn btn-default">{{ 'Sign in'|trans }}</button>
+							<button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> {{ 'Sign in'|trans }}</button>
+							<a href="{{ path('rov_users_new_password') }}" class="btn btn-info pull-right">{{ 'Have you forgotten your password?'|trans }}</a>
 						</form>
 					</div>
 				</div>
