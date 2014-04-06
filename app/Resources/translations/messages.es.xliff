@@ -755,8 +755,8 @@
 				<target>¿Le gustaría contactar conmigo?</target>
 			</trans-unit>
 			<trans-unit id="189">
-				<source></source>
-				<target></target>
+				<source>do you want to see your profile page?</source>
+				<target>¿quiere ver su página de perfil?</target>
 			</trans-unit>
 			<trans-unit id="190">
 				<source></source>

@@ -34,8 +34,11 @@
 			<div class="col-lg-12">
 				<h2>{{ appname }}: {{ 'About wine and other things'|trans }}</h2>
 				<p>{{ 'A website dedicated to the culture of wine, organic farming, news and more'|trans }}</p>
-				{% if not is_granted('ROLE_USER') %}<a class="btn btn-lg btn-info" href="{{ path('rov_users_register') }}">{{ 'Not an user yet?'|trans }} {{ 'Sign up now'|trans }}</a>
-				{% else %}<a class="btn btn-lg btn-info" href="{{ path('rov_users_profile') }}">{{ 'Hello'|trans }} {{ app.user.name|e }}</a>
+				{% if not is_granted('ROLE_USER') %}<a class="btn btn-lg btn-info hidden-xs" href="{{ path('rov_users_register') }}">{{ 'Not an user yet?'|trans }} {{ 'Sign up now'|trans }}</a>
+				{% else %}<a class="btn btn-lg btn-info hidden-xs" href="{{ path('rov_users_profile') }}">{{ 'Hello'|trans }} {{ app.user.name|e }}, {{ 'do you want to see your profile page?'|trans }}</a>
+				{% endif %}
+				{% if not is_granted('ROLE_USER') %}<a class="btn btn-info visible-xs" href="{{ path('rov_users_register') }}">{{ 'Not an user yet?'|trans }} {{ 'Sign up now'|trans }}</a>
+				{% else %}<a class="btn btn-info visible-xs" href="{{ path('rov_users_profile') }}">{{ 'Hello'|trans }} {{ app.user.name|e }}, {{ 'do you want to see your profile page?'|trans }}</a>
 				{% endif %}
 			</div>
 		</div><!-- /.row -->

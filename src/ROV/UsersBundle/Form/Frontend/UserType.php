@@ -12,24 +12,24 @@ class UserType extends AbstractType
     {
         $builder
             ->add('name', 'text', array(
+                'required' => true,
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Type your name',
-                    'required' => true
                     )
                 ))
             ->add('surname', 'text', array(
+                'required' => true,
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Type your surname',
-                    'required' => true
                     )
                 ))
             ->add('email', 'email', array(
+                'required' => true,
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Type your email',
-                    'required' => true
                     )
                 ))
             ->add('password', 'repeated', array(
@@ -304,7 +304,7 @@ class UserType extends AbstractType
                     'ZW' => 'Zimbabwe'
                     )
                 ))
-            ->add('address', 'text', array(
+            ->add('address', 'textarea', array(
                 'attr' => array('class' => 'form-control')
                 ))
             ->add('company', 'text', array(
