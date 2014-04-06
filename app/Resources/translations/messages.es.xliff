@@ -91,7 +91,7 @@
 				<target>Recuérdame</target>
 			</trans-unit>
 			<trans-unit id="23">
-				<source>Not a user yet?</source>
+				<source>Not an user yet?</source>
 				<target>¿Todavía no es usuario?</target>
 			</trans-unit>
 			<trans-unit id="24">
@@ -660,7 +660,7 @@
 			</trans-unit>
 			<trans-unit id="165">
 				<source>What are you waiting for?</source>
-				<target>¿A qué estás esperando?</target>
+				<target>¿A qué está esperando?</target>
 			</trans-unit>
 			<trans-unit id="166">
 				<source>Last articles published</source>
@@ -715,44 +715,44 @@
 				<target>Su nueva contraseña es</target>
 			</trans-unit>
 			<trans-unit id="179">
-				<source></source>
-				<target></target>
+				<source>A website dedicated to the culture of wine, organic farming, news and more</source>
+				<target>Un sitio web dedicado a la cultura del vino, agricultura ecológica, novedades y muchas más cosas</target>
 			</trans-unit>
 			<trans-unit id="180">
-				<source></source>
-				<target></target>
+				<source>Hello</source>
+				<target>Hola</target>
 			</trans-unit>
 			<trans-unit id="181">
-				<source></source>
-				<target></target>
+				<source>Find out the most important innovations in the world of wine, organic agriculture and science with</source>
+				<target>Entérate de las novedades más importantes en el mundo del vino, agricultura ecológica y ciencia con</target>
 			</trans-unit>
 			<trans-unit id="182">
-				<source></source>
-				<target></target>
+				<source>Sign up and comment</source>
+				<target>Regístrate y comenta</target>
 			</trans-unit>
 			<trans-unit id="183">
-				<source></source>
-				<target></target>
+				<source>Contact me</source>
+				<target>Contacta conmigo</target>
 			</trans-unit>
 			<trans-unit id="184">
-				<source></source>
-				<target></target>
+				<source>or search by topic, category or tag</source>
+				<target>o busque por temas, categorías o etiquetas</target>
 			</trans-unit>
 			<trans-unit id="185">
-				<source></source>
-				<target></target>
+				<source>Feel free to contribute with your comments in the articles</source>
+				<target>No dude en contribuir con sus comentarios en los artículos</target>
 			</trans-unit>
 			<trans-unit id="186">
-				<source></source>
-				<target></target>
+				<source>and tell us everything you want</source>
+				<target>y cuéntenos todo lo que quiera</target>
 			</trans-unit>
 			<trans-unit id="187">
-				<source></source>
-				<target></target>
+				<source>Do you need expert advice? You may need help to publicize your news or marketing your new products.</source>
+				<target>¿Necesita un asesoramiento experto? Es posible que necesite ayuda en dar a conocer sus novedades o comercializar sus productos.</target>
 			</trans-unit>
 			<trans-unit id="188">
-				<source></source>
-				<target></target>
+				<source>Would you like to contact me?</source>
+				<target>¿Le gustaría contactar conmigo?</target>
 			</trans-unit>
 			<trans-unit id="189">
 				<source></source>
