@@ -36,6 +36,7 @@
 				{% endfor %}
 
 				{# Show the article #}
+				<h1>{{ article.title }}</h1>
 				<hr>
 				{# {{ article.updated|localizeddate('full', 'medium', locale, "Europe/Madrid") }} #}
 				<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s') }}</p>
@@ -43,7 +44,7 @@
 				<div class="img_blog" style="background-image:url('{{ article.image }}');"></div>
 				<hr>
 				<p class="lead">{{ article.subtitle }}</p>
-				<p>{{ article.content|raw }}</p>
+				<p class="text-justify article">{{ article.content|raw }}</p>
 
 				<a class="btn btn-primary btn-xs" href="#" disabled>{{ 'Category'|trans }} <i class="fa fa-arrow-circle-right"></i></a>
 				<a class="btn btn-primary btn-xs" href="{{ path('rov_blog_article_category', { 'slug': article.category.slug }) }}" title="{{ 'Click to see all the articles from this category'|trans }}">{{ article.category.name|trans }}</a>
@@ -74,7 +75,7 @@
 				{% else %}
 				<blockquote>
 					<p>{{ 'Please, sign in to comment articles'|trans }}</p>
-					<p class="text-muted">{{ 'Not a user yet?'|trans }} <a href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a></p>
+					<p class="text-muted">{{ 'Not an user yet?'|trans }} <a href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a></p>
 				</blockquote>
 				{% endif %}
 				<hr>
