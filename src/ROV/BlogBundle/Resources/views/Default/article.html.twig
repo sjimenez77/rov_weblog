@@ -44,7 +44,11 @@
 				<div class="img_blog" style="background-image:url('{{ article.image }}');"></div>
 				<hr>
 				<p class="lead">{{ article.subtitle }}</p>
-				<p class="text-justify article">{{ article.content|raw }}</p>
+				<div class="text-justify article">
+					<p>
+						{{ article.content|raw }}
+					</p>
+				</div>
 
 				<a class="btn btn-primary btn-xs" href="#" disabled>{{ 'Category'|trans }} <i class="fa fa-arrow-circle-right"></i></a>
 				<a class="btn btn-primary btn-xs" href="{{ path('rov_blog_article_category', { 'slug': article.category.slug }) }}" title="{{ 'Click to see all the articles from this category'|trans }}">{{ article.category.name|trans }}</a>
