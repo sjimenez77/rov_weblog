@@ -58,12 +58,21 @@
 									<!-- Button trigger modal -->
 									<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#newTag" style="margin-top:5px">{{ 'Create a new tag'|trans }}</button>
 								</fieldset>
+								<br>
+								<div class="panel panel-default">
+									<div class="panel-heading">{{ 'Options menu'|trans }}</div>
+									<div class="panel-body">
+										<button type="submit" class="btn btn-success btn-block"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;{{ 'Save changes'|trans }}</button>
+										<a href="{{ path('rov_blog_preview_article', { 'article_id': article_id }) }}" id="preview" class="btn btn-warning btn-block"><i class="fa fa-external-link-square"></i>&nbsp;&nbsp;{{ 'Click to preview'|trans }}</a>
+										<button type="button" data-toggle="modal" class="btn btn-danger btn-block" data-target="#sureDeleteArticle"><i class="icon-trash icon-white"></i><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;{{ 'Delete article'|trans }}</button>
+									</div>
+								</div>
 							</div>
 						</div>
 						<hr>
-						<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;{{ 'Save changes'|trans }}</button>
+						<button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;{{ 'Save changes'|trans }}</button>
 						<a class="btn btn-default" href="{{ path('rov_blog_manage_articles') }}">{{ 'Back'|trans }}</a>
-						<button type="button" data-toggle="modal" class="btn btn-danger pull-right" data-target="#sureDeleteArticle"><i class="icon-trash icon-white"></i><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;{{ 'Delete article'|trans }}</button>
+						
 					{{ form_end(edit_article_form) }}
 					<!-- New Category Modal -->
 					<div class="modal fade" id="newCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -105,7 +114,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- New Tag Modal -->
+					<!-- Delete Article Modal -->
 					<div class="modal fade" id="sureDeleteArticle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">

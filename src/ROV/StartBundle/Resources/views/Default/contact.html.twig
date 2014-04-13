@@ -18,7 +18,7 @@
 
 		<div class="row">
 
-			<div class="col-sm-8">
+			<div class="col-sm-9 col-xs-12">
 				<div class="panel panel-primary">
 					<div class="panel-heading">{{ 'Please fill out this form in order to cantact with me'|trans }}</div>
 					{{ form_start(contact_form, {'method': 'POST', 'action': path('rov_start_contact') }) }}
@@ -42,15 +42,27 @@
 					{{ form_end(contact_form) }}
 				</div>
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-3 hidden-xs">
+				<img src="{{ asset('images/raquel_up4wine.jpg') }}" alt="" class="img-rounded img-responsive">
 				<h3>Raquel Olivas Verdejo</h3>
-				<h4>Dra. en Ciencia e Ingeniería Agrarias<br>Licenciada en Enología<br>Experta en comercialización de vinos</h4>
-				<p>
-					Cuenca 9, 2K<br>
-					02002 Albacete<br>
-					{{ 'Spain'|trans }}
-				</p>
-				<p><i class="fa fa-envelope-o"></i> <abbr title="Email">E</abbr>: <a href="mailto:raqueloverdejo@gmail.com">raqueloverdejo@gmail.com</a></p>
+				<h4>Dra. en Ciencia e Ingeniería Agrarias<br>Licenciada en Enología</h4>
+				<p><i class="fa fa-envelope-o"></i> <a href="mailto:raqueloverdejo@gmail.com">raqueloverdejo@gmail.com</a></p>
+				<ul class="list-unstyled list-inline list-social-icons">
+					{# <li class="tooltip-social facebook-link"><a href="#facebook-page" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a></li> #}
+					<li class="tooltip-social linkedin-link"><a href="http://es.linkedin.com/in/raquelolivasverdejo" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
+					<li class="tooltip-social twitter-link"><a href="https://twitter.com/racheverdejo" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+					{# <li class="tooltip-social google-plus-link"><a href="https://profiles.google.com/u/0/116471812367206623209/about" data-toggle="tooltip" data-placement="top" title="Google+"><i class="fa fa-google-plus-square fa-2x"></i></a></li> #}
+				</ul>
+			</div>
+		</div>
+		<div class="row visible-xs hidden-sm">
+			<div class="col-xs-4">
+				<h4><img src="{{ asset('images/raquel_up4wine.jpg') }}" alt="" class="img-rounded img-responsive"></h4>
+			</div>
+			<div class="col-xs-8">
+				<h4>Raquel Olivas Verdejo</h4>
+				<h5>Dra. en Ciencia e Ingeniería Agrarias<br>Licenciada en Enología</h5>
+				<p><i class="fa fa-envelope-o"></i> <a href="mailto:raqueloverdejo@gmail.com">raqueloverdejo@gmail.com</a></p>
 				<ul class="list-unstyled list-inline list-social-icons">
 					{# <li class="tooltip-social facebook-link"><a href="#facebook-page" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a></li> #}
 					<li class="tooltip-social linkedin-link"><a href="http://es.linkedin.com/in/raquelolivasverdejo" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa fa-linkedin-square fa-2x"></i></a></li>

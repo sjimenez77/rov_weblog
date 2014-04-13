@@ -759,20 +759,20 @@
 				<target>¿quiere ver su página de perfil?</target>
 			</trans-unit>
 			<trans-unit id="190">
-				<source></source>
-				<target></target>
+				<source>You are not allowed to preview the article</source>
+				<target>A usted no le está permitido previsualizar el artículo</target>
 			</trans-unit>
 			<trans-unit id="191">
-				<source></source>
-				<target></target>
+				<source>Preview</source>
+				<target>Vista previa</target>
 			</trans-unit>
 			<trans-unit id="192">
-				<source></source>
-				<target></target>
+				<source>Click to preview</source>
+				<target>Haga clic para previsualizar</target>
 			</trans-unit>
 			<trans-unit id="193">
-				<source></source>
-				<target></target>
+				<source>Options menu</source>
+				<target>Menú de opciones</target>
 			</trans-unit>
 			<trans-unit id="194">
 				<source></source>

@@ -23,6 +23,10 @@ rov_blog_edit_article:
     pattern:  /admin/edit/{article_id}
     defaults: { _controller: ROVBlogBundle:Default:editArticle }
 
+rov_blog_preview_article:
+    pattern:  /admin/preview/{article_id}
+    defaults: { _controller: ROVBlogBundle:Default:previewArticle }
+
 rov_blog_delete_article:
     pattern:  /admin/delete/{article_id}
     defaults: { _controller: ROVBlogBundle:Default:deleteArticle }

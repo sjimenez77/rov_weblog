@@ -108,7 +108,7 @@ class DefaultController extends Controller
         );
 
         if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') ||
-           ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') && $article->getAuthor() == $user))
+           ($this->get('security.context')->isGranted('ROLE_ADMIN') && $article->getAuthor() == $user))
         {
             $moderator = true;
         } else {
@@ -262,6 +262,84 @@ class DefaultController extends Controller
             'new_tag_form'      => $formNewTag->createView(),
             'error'             => $error
         ));
+    }
+
+    /**
+     * Show the preview from an article
+     * @param  Request $request
+     * @param  integer $article_id 
+     * @return object           Twig template
+     */
+    public function previewArticleAction(Request $request, $article_id)
+    {
+        $session = $request->getSession();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($article->getAuthor() == $user))
+        {
+            // Super user and author
+            //////////////////////////////////////////////////////
+            // Lateral Wells info
+            $defaultData = array();
+            $formSearch = $this->createFormBuilder($defaultData)
+                    ->add('search', 'text', array(
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Type your search'
+                        )
+                    ))
+                    ->getForm();
+
+            $category = new Category();
+            $formNewCategory = $this->createForm(new CategoryType(), $category);
+            $tag = new Tag();
+            $formNewTag = $this->createForm(new TagType(), $tag);
+            $categories = $em->getRepository('ROVBlogBundle:Category')->findBy(
+                    array(),
+                    array('name' => 'ASC')
+                );
+            $tags = $em->getRepository('ROVBlogBundle:Tag')->findBy(
+                    array(),
+                    array('name' => 'ASC')
+                );
+            // Article
+            $article = $em->getRepository('ROVBlogBundle:Article')->findOneBy(array('id' => $article_id));
+            // Check whether the article exists and it is already published
+            if (!$article)
+            {
+                $this->get('session')->getFlashBag()->add('error',
+                    'The article does not exist or is not published yet'
+                );
+
+                return $this->redirect($this->generateUrl('rov_blog_homepage'));
+            }
+
+            return $this->render('ROVBlogBundle:Default:preview.html.twig', array(
+                'article'           => $article,
+                'categories'        => $categories,
+                'tags'              => $tags,
+                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+                'form_search'       => $formSearch->createView(),
+                'new_category_form' => $formNewCategory->createView(),
+                'new_tag_form'      => $formNewTag->createView(),
+                'error'             => $error
+            ));
+
+        } else {
+            // User is not the author
+            $this->get('session')->getFlashBag()->add('error',
+                'You are not allowed to preview the article'
+            );
+
+            return $this->redirect($this->generateUrl('rov_blog_homepage'));
+        }
+
     }
 
     /**
