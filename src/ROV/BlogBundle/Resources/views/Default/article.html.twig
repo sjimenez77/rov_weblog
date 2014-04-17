@@ -38,9 +38,16 @@
 				{# Show the article #}
 				<h1>{{ article.title }}</h1>
 				<hr>
-				{# {{ article.updated|localizeddate('full', 'medium', locale, "Europe/Madrid") }} #}
-				<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s') }}</p>
-				<hr>
+				<div class="row" style="height: 50px; max-height: 50px">
+					<div class="col-sm-8 col-xs-6">
+						{# {{ article.updated|localizeddate('full', 'medium', locale, "Europe/Madrid") }} #}
+						<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s') }}</p>
+					</div>
+					<div class="col-sm-4 col-xs-6">
+						{# Share button #}
+						<div id="share-button" class='share-button share-button-top'></div>
+					</div>
+				</div>
 				<div class="img_blog" style="background-image:url('{{ article.image }}');"></div>
 				<hr>
 				<p class="lead">{{ article.subtitle }}</p>
@@ -232,3 +239,26 @@
 
 	</div><!-- container -->
 {% endblock %}
+{% block js %}
+	{# Share button creation #}
+	{{ parent() }}
+	<script>
+	var share = new Share('.share-button', {
+		title:	"{{ article.title }}",
+		text:	"{{ article.subtitle }}",
+		image:	"{{ article.image }}", 
+		ui: {
+			button_text: "{{ 'Share'|trans }}",
+		},
+		networks: {
+			twitter: {
+				text: "{{ article.title }}"
+			},
+			facebook: {
+				app_id: "231832550347543",
+			}
+		}
+	});
+	</script>
+{% endblock %}
+
