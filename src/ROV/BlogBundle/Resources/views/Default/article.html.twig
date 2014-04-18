@@ -41,8 +41,8 @@
 				<div class="row" style="height: 50px; max-height: 50px">
 					<div class="col-sm-8 col-xs-6">
 						{# {{ article.updated|localizeddate('full', 'medium', locale, "Europe/Madrid") }} #}
-						<p class="visible-xs"><strong><i class="fa fa-clock-o"></i> {{ article.updated|date('d/m/Y H:i:s') }}</strong></p>
-						<p class="hidden-xs"><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s') }}</p>
+						<p class="visible-xs"><strong><i class="fa fa-clock-o"></i> {{ article.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</strong></p>
+						<p class="hidden-xs"><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</p>
 					</div>
 					<div class="col-sm-4 col-xs-6">
 						{# Share button #}
@@ -107,7 +107,7 @@
 				<hr>
 				{% for comment in comments %}
 				{# comment.date|localizeddate('full', 'medium', locale, "Europe/Madrid") #}
-				<h4 class="text-primary"><span class="label label-info"><i class="fa fa-comment"></i> {{ comment.number }}</span> {{ comment.user.name }} {{ comment.user.surname }} <small>{{ comment.date|date('d/m/Y H:i:s') }}</small></h4>
+				<h4 class="text-primary"><span class="label label-info"><i class="fa fa-comment"></i> {{ comment.number }}</span> {{ comment.user.name }} {{ comment.user.surname }} <small>{{ comment.date|date('d/m/Y H:i:s', 'Europe/Madrid') }}</small></h4>
 				<p>{{ comment.content }}</p>
 				{% if moderator and not comment.accepted %}
 				<div class="btn-group">

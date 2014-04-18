@@ -51,7 +51,7 @@
 					<div class="col-sm-9">
 						{# Fecha y hora traducidas con php_intl no funcionana en Hostinger #}
 						{# article.updated|localizeddate('full', 'medium', locale, "Europe/Madrid") #}
-						<strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s') }}
+						<strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}
 					</div>
 					<div class="col-sm-3">
 						<span class="label label-primary"><i class="fa fa-comments"></i>

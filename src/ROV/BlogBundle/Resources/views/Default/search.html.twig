@@ -62,11 +62,7 @@
 							<tr>
 								<td>{{ article.title[:50] }}{% if article.title|length > 50 %}...{% endif %}</td>
 								<td>{{ article.subtitle[:50] }}{% if article.subtitle|length > 50 %}...{% endif %}</td>
-								{% if locale == 'es' %}
-								<td>{{ article.updated|localizeddate('medium', 'medium', locale, "Europe/Madrid") }}</td>
-								{% else %}
-								<td>{{ article.updated|date("F jS \\a \\t g:ia", "Europe/Madrid") }}</td>
-								{% endif %}
+								<td>{{ article.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</td>
 								<td>
 									<a class="btn btn-primary btn-xs btn-block" href="{{ path('rov_blog_article', { 'slug': article.slug }) }}" role="button">{{ 'Read article'|trans }}</a>
 									{% if is_granted('ROLE_SUPER_ADMIN') or (is_granted('ROLE_ADMIN') and article.author == app.user) %}<a class="btn btn-default btn-xs btn-block" href="{{ path('rov_blog_edit_article', { 'article_id': article.id }) }}" role="button">{{ 'Edit'|trans }}</a>{% endif %}

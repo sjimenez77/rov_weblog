@@ -39,7 +39,7 @@
 				<h1>{{ article.title }}</h1>
 				<hr>
 				{# {{ article.updated|localizeddate('full', 'medium', locale, "Europe/Madrid") }} #}
-				<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s') }}</p>
+				<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</p>
 				<hr>
 				<div class="img_blog" style="background-image:url('{{ article.image }}');"></div>
 				<hr>
