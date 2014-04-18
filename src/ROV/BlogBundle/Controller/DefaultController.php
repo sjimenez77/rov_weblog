@@ -680,7 +680,7 @@ class DefaultController extends Controller
                 SELECT a, u, c, t FROM ROVBlogBundle:Article a 
                 JOIN a.author u
                 JOIN a.category c
-                JOIN a.tags t
+                LEFT JOIN a.tags t
                 WHERE a.published = :published
                 AND (a.title LIKE :search
                     OR a.subtitle LIKE :search
