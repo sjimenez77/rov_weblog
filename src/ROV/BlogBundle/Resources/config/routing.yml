@@ -1,7 +1,6 @@
 rov_blog_article_search:
     pattern:  /search
     defaults: { _controller: ROVBlogBundle:Default:articleSearch }
-    methods:  [POST]
 
 rov_blog_article_category:
     pattern:  /category/{slug}/{page}

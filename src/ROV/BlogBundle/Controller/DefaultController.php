@@ -731,9 +731,14 @@ class DefaultController extends Controller
         else
         {
             $this->get('session')->getFlashBag()->add('error',
-                'Search error'
+                'You have changed the language settings, so you must type a new search'
             );
-            return $this->redirect($this->generateUrl('rov_blog_homepage'));
+
+            return $this->render('ROVBlogBundle:Default:emptySearch.html.twig', array(
+                'form_search'       => $formSearch->createView(),
+                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+                'error'             => $error
+            ));
         }
     }
 

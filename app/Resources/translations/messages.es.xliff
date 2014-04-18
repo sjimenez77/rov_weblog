@@ -779,12 +779,12 @@
 				<target>Compartir</target>
 			</trans-unit>
 			<trans-unit id="195">
-				<source></source>
-				<target></target>
+				<source>You have changed the language settings, so you must type a new search</source>
+				<target>Ha cambiado la configuración del idioma, por lo que debe escribir una nueva búsqueda</target>
 			</trans-unit>
 			<trans-unit id="196">
-				<source></source>
-				<target></target>
+				<source>Type your new search</source>
+				<target>Escriba su nueva búsqueda</target>
 			</trans-unit>
 			<trans-unit id="197">
 				<source></source>
