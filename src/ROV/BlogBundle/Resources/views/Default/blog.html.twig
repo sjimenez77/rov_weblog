@@ -70,8 +70,11 @@
 				<hr>
 				<a href="{{ path('rov_blog_article', { 'slug': article.slug })}}"><div class="img_blog" style="background-image:url('{{ article.image }}');"></div></a>
 				<hr>
-				<p>{{ article.subtitle }}</p>
-				<a class="btn btn-primary" href="{{ path('rov_blog_article', { 'slug': article.slug })}}">{{ 'Read more'|trans }} <i class="fa fa-angle-right"></i></a>
+				<h4>{{ article.subtitle }}</h4>
+				<p class="text-justify">
+					{{ article.content|striptags|replace({"&nbsp;": " ", "nbsp;": " "})|truncate(400, true) }}
+				</p>
+				<p><a class="btn btn-primary" href="{{ path('rov_blog_article', { 'slug': article.slug })}}">{{ 'Read more'|trans }} <i class="fa fa-angle-right"></i></a></p>
 				{% if is_granted('ROLE_SUPER_ADMIN') or (is_granted('ROLE_ADMIN') and article.author == app.user) %}
 				<a class="btn btn-default pull-right" href="{{ path('rov_blog_edit_article', { 'article_id': article.id })}}"><i class="fa fa-pencil-square-o"></i> {{ 'Edit article'|trans }}</a>
 				{% endif %}
