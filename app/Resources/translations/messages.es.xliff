@@ -863,8 +863,8 @@
 				<target>Lista de usuarios</target>
 			</trans-unit>
 			<trans-unit id="216">
-				<source></source>
-				<target></target>
+				<source>Register date</source>
+				<target>Fecha de registro</target>
 			</trans-unit>
 			<trans-unit id="217">
 				<source></source>
