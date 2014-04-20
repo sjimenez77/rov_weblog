@@ -52,15 +52,19 @@ class DefaultController extends Controller
         $tag = new Tag();
         $formNewTag = $this->createForm(new TagType(), $tag);
 
+        // Categories
         $categories = $em->getRepository('ROVBlogBundle:Category')->findBy(
                 array(),
                 array('name' => 'ASC')
             );
+        
+        // Tags
         $tags = $em->getRepository('ROVBlogBundle:Tag')->findBy(
                 array(),
                 array('name' => 'ASC')
             );
-
+        
+        // Last articles
         $query = $em->createQuery('
             SELECT a, u FROM ROVBlogBundle:Article a
             JOIN a.author u
@@ -70,17 +74,31 @@ class DefaultController extends Controller
         $query->setMaxResults($numberPosts);
         $query->setFirstResult(($page-1) * $numberPosts);
         $lastArticles = $query->getResult();
-
+        
+        // Remaining articles
         $queryCount = $em->createQuery('SELECT a FROM ROVBlogBundle:Article a WHERE a.published = :published');
         $queryCount->setParameter('published', true);
         $queryCount->setFirstResult(($page) * $numberPosts);
         $articlesLeft = $queryCount->getResult();
+        
+        // Number of articles by month
+        $now = new \DateTime();
+        $year = $now->format('Y');
+        $queryByMonth = $em->createQuery('
+            SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+            FROM ROVBlogBundle:Article a
+            WHERE SUBSTRING(a.updated, 1, 4) >= :year
+            GROUP BY month
+            ');
+        $queryByMonth->setParameter('year', ($year - 1));
+        $articlesByMonth = $queryByMonth->getResult();
 
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
             'page'              => $page,
             'form_search'       => $formSearch->createView(),
         	'articles'          => $lastArticles,
             'articlesLeft'      => $articlesLeft,
+            'articlesMonth'     => $articlesByMonth,
             'categories'        => $categories,
             'tags'              => $tags,
             'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
@@ -249,6 +267,18 @@ class DefaultController extends Controller
         }
         $article->setComments($comments);
 
+        // Number of articles by month
+        $now = new \DateTime();
+        $year = $now->format('Y');
+        $queryByMonth = $em->createQuery('
+            SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+            FROM ROVBlogBundle:Article a
+            WHERE SUBSTRING(a.updated, 1, 4) >= :year
+            GROUP BY month
+            ');
+        $queryByMonth->setParameter('year', ($year - 1));
+        $articlesByMonth = $queryByMonth->getResult();
+
         return $this->render('ROVBlogBundle:Default:article.html.twig', array(
             'article'           => $article,
             'comments'          => $comments,
@@ -257,6 +287,7 @@ class DefaultController extends Controller
             'form_search'       => $formSearch->createView(),
             'categories'        => $categories,
             'tags'              => $tags,
+            'articlesMonth'     => $articlesByMonth,
             'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
             'new_category_form' => $formNewCategory->createView(),
             'new_tag_form'      => $formNewTag->createView(),
@@ -320,10 +351,23 @@ class DefaultController extends Controller
                 return $this->redirect($this->generateUrl('rov_blog_homepage'));
             }
 
+            // Number of articles by month
+            $now = new \DateTime();
+            $year = $now->format('Y');
+            $queryByMonth = $em->createQuery('
+                SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+                FROM ROVBlogBundle:Article a
+                WHERE SUBSTRING(a.updated, 1, 4) >= :year
+                GROUP BY month
+                ');
+            $queryByMonth->setParameter('year', ($year - 1));
+            $articlesByMonth = $queryByMonth->getResult();
+
             return $this->render('ROVBlogBundle:Default:preview.html.twig', array(
                 'article'           => $article,
                 'categories'        => $categories,
                 'tags'              => $tags,
+                'articlesMonth'     => $articlesByMonth,
                 'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
                 'form_search'       => $formSearch->createView(),
                 'new_category_form' => $formNewCategory->createView(),
@@ -552,12 +596,25 @@ class DefaultController extends Controller
 
         $category = $em->getRepository('ROVBlogBundle:Category')->findOneBy(array('slug' => $slug));
 
+        // Number of articles by month
+        $now = new \DateTime();
+        $year = $now->format('Y');
+        $queryByMonth = $em->createQuery('
+            SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+            FROM ROVBlogBundle:Article a
+            WHERE SUBSTRING(a.updated, 1, 4) >= :year
+            GROUP BY month
+            ');
+        $queryByMonth->setParameter('year', ($year - 1));
+        $articlesByMonth = $queryByMonth->getResult();
+
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
             'page'              => $page,
             'category_url'      => $category,
             'form_search'       => $formSearch->createView(),
             'articles'          => $lastArticles,
             'articlesLeft'      => $articlesLeft,
+            'articlesMonth'     => $articlesByMonth,
             'categories'        => $categories,
             'tags'              => $tags,
             'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
@@ -635,12 +692,25 @@ class DefaultController extends Controller
 
         $tag = $em->getRepository('ROVBlogBundle:Tag')->findOneBy(array('slug' => $slug));
 
+        // Number of articles by month
+        $now = new \DateTime();
+        $year = $now->format('Y');
+        $queryByMonth = $em->createQuery('
+            SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+            FROM ROVBlogBundle:Article a
+            WHERE SUBSTRING(a.updated, 1, 4) >= :year
+            GROUP BY month
+            ');
+        $queryByMonth->setParameter('year', ($year - 1));
+        $articlesByMonth = $queryByMonth->getResult();
+
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
             'page'              => $page,
             'tag_url'           => $tag,
             'form_search'       => $formSearch->createView(),
             'articles'          => $lastArticles,
             'articlesLeft'      => $articlesLeft,
+            'articlesMonth'     => $articlesByMonth,
             'categories'        => $categories,
             'tags'              => $tags,
             'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
@@ -731,6 +801,18 @@ class DefaultController extends Controller
         $queryCount->setFirstResult(($page) * $numberPosts);
         $articlesLeft = $queryCount->getResult();
 
+        // Number of articles by month
+        $now = new \DateTime();
+        $year = $now->format('Y');
+        $queryByMonth = $em->createQuery('
+            SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+            FROM ROVBlogBundle:Article a
+            WHERE SUBSTRING(a.updated, 1, 4) >= :year
+            GROUP BY month
+            ');
+        $queryByMonth->setParameter('year', ($year - 1));
+        $articlesByMonth = $queryByMonth->getResult();
+
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
             'page'              => $page,
             'year_url'          => $year,
@@ -738,6 +820,7 @@ class DefaultController extends Controller
             'form_search'       => $formSearch->createView(),
             'articles'          => $lastArticles,
             'articlesLeft'      => $articlesLeft,
+            'articlesMonth'     => $articlesByMonth,
             'categories'        => $categories,
             'tags'              => $tags,
             'last_username'     => $session->get(SecurityContext::LAST_USERNAME),

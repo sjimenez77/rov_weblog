@@ -239,6 +239,25 @@
 					</div>
 				</div>
 				{% endif %}
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4 class="panel-title">{{ 'Articles in the last months'|trans }}</h4>
+					</div>
+					<div class="panel-body">
+						<div class="col-xs-12">
+							<p>{{ 'Click in any month to see the articles published in that date'|trans }}</p>
+							<div class="list-group">
+							{% for groupMonth in articlesMonth %}
+								<a href="{{ path('rov_blog_article_date', { 'year': groupMonth.year, 'month': groupMonth.month }) }}" class="list-group-item">
+									<span class="badge">{{ groupMonth.total }}</span>
+									{{ (groupMonth.year ~ '-' ~ groupMonth.month ~ '-' ~ '01')|date('F')|trans }} {{ groupMonth.year }} 
+								</a>
+							{% endfor %}
+							</div>
+						</div>
+					</div>
+					<div class="panel-footer">{{ 'For older articles you can use the search engine'|trans }}</div>
+				</div>
 			</div>
 		</div>
 

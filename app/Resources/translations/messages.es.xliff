@@ -843,16 +843,16 @@
 				<target>Diciembre</target>
 			</trans-unit>
 			<trans-unit id="211">
-				<source></source>
-				<target></target>
+				<source>Click in any month to see the articles published in that date</source>
+				<target>Haga clic en cualquier mes para ver los artículos publicados en esa fecha</target>
 			</trans-unit>
 			<trans-unit id="212">
-				<source></source>
-				<target></target>
+				<source>Articles in the last months</source>
+				<target>Artículos en los últimos meses</target>
 			</trans-unit>
 			<trans-unit id="213">
-				<source></source>
-				<target></target>
+				<source>For older articles you can use the search engine</source>
+				<target>Para los artículos más antiguos puede utilizar el buscador</target>
 			</trans-unit>
 			<trans-unit id="214">
 				<source></source>
