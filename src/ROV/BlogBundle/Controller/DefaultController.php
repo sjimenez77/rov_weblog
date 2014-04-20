@@ -88,9 +88,11 @@ class DefaultController extends Controller
             SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
             FROM ROVBlogBundle:Article a
             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+            AND a.published = :published
             GROUP BY month
             ');
         $queryByMonth->setParameter('year', ($year - 1));
+        $queryByMonth->setParameter('published', true);
         $articlesByMonth = $queryByMonth->getResult();
 
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
@@ -274,9 +276,11 @@ class DefaultController extends Controller
             SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
             FROM ROVBlogBundle:Article a
             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+            AND a.published = :published
             GROUP BY month
             ');
         $queryByMonth->setParameter('year', ($year - 1));
+        $queryByMonth->setParameter('published', true);
         $articlesByMonth = $queryByMonth->getResult();
 
         return $this->render('ROVBlogBundle:Default:article.html.twig', array(
@@ -603,9 +607,11 @@ class DefaultController extends Controller
             SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
             FROM ROVBlogBundle:Article a
             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+            AND a.published = :published
             GROUP BY month
             ');
         $queryByMonth->setParameter('year', ($year - 1));
+        $queryByMonth->setParameter('published', true);
         $articlesByMonth = $queryByMonth->getResult();
 
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
@@ -699,9 +705,11 @@ class DefaultController extends Controller
             SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
             FROM ROVBlogBundle:Article a
             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+            AND a.published = :published
             GROUP BY month
             ');
         $queryByMonth->setParameter('year', ($year - 1));
+        $queryByMonth->setParameter('published', true);
         $articlesByMonth = $queryByMonth->getResult();
 
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
@@ -808,9 +816,11 @@ class DefaultController extends Controller
             SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
             FROM ROVBlogBundle:Article a
             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+            AND a.published = :published
             GROUP BY month
             ');
         $queryByMonth->setParameter('year', ($year - 1));
+        $queryByMonth->setParameter('published', true);
         $articlesByMonth = $queryByMonth->getResult();
 
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
