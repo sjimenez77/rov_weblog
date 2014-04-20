@@ -14,6 +14,12 @@ rov_blog_article_tag:
     requirements:
         page:  \d+
 
+rov_blog_article_date:
+    pattern:  /date/{year}/{month}/{page}
+    defaults: { _controller: ROVBlogBundle:Default:articleDate, month: 0, page: 1 }
+    requirements:
+        page:  \d+
+
 rov_blog_new_article:
     pattern:  /admin/new
     defaults: { _controller: ROVBlogBundle:Default:newArticle }

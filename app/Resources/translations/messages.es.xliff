@@ -787,22 +787,222 @@
 				<target>Escriba su nueva búsqueda</target>
 			</trans-unit>
 			<trans-unit id="197">
-				<source></source>
-				<target></target>
+				<source>Year</source>
+				<target>Año</target>
 			</trans-unit>
 			<trans-unit id="198">
-				<source></source>
-				<target></target>
+				<source>Year and month</source>
+				<target>Año y mes</target>
 			</trans-unit>
 			<trans-unit id="199">
-				<source></source>
-				<target></target>
+				<source>January</source>
+				<target>Enero</target>
 			</trans-unit>
 			<trans-unit id="200">
+				<source>February</source>
+				<target>Febrero</target>
+			</trans-unit>
+			<trans-unit id="201">
+				<source>March</source>
+				<target>Marzo</target>
+			</trans-unit>
+			<trans-unit id="202">
+				<source>April</source>
+				<target>Abril</target>
+			</trans-unit>
+			<trans-unit id="203">
+				<source>May</source>
+				<target>Mayo</target>
+			</trans-unit>
+			<trans-unit id="204">
+				<source>June</source>
+				<target>Junio</target>
+			</trans-unit>
+			<trans-unit id="205">
+				<source>July</source>
+				<target>Julio</target>
+			</trans-unit>
+			<trans-unit id="206">
+				<source>August</source>
+				<target>Agosto</target>
+			</trans-unit>
+			<trans-unit id="207">
+				<source>September</source>
+				<target>Septiembre</target>
+			</trans-unit>
+			<trans-unit id="208">
+				<source>October</source>
+				<target>Octubre</target>
+			</trans-unit>
+			<trans-unit id="209">
+				<source>November</source>
+				<target>Noviembre</target>
+			</trans-unit>
+			<trans-unit id="210">
+				<source>December</source>
+				<target>Diciembre</target>
+			</trans-unit>
+			<trans-unit id="211">
 				<source></source>
 				<target></target>
 			</trans-unit>
-			<trans-unit id="201">
+			<trans-unit id="212">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="213">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="214">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="215">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="216">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="217">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="218">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="219">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="220">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="221">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="222">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="223">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="224">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="225">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="226">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="227">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="228">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="229">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="230">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="231">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="232">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="233">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="234">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="235">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="236">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="237">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="238">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="239">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="240">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="241">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="242">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="243">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="244">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="245">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="246">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="247">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="248">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="249">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="250">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="251">
 				<source></source>
 				<target></target>
 			</trans-unit>

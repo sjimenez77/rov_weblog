@@ -485,8 +485,10 @@ class DefaultController extends Controller
     }
 
     /**
-     * Show paginated blog articles
+     * Show paginated blog articles by category
      * @param  Request $request [description]
+     * @param  string  $slug 
+     * @param  integer $page 
      * @return object           Twig template
      */
     public function articleCategoryAction(Request $request, $slug, $page)
@@ -566,8 +568,10 @@ class DefaultController extends Controller
     }
 
     /**
-     * Show paginated blog articles
+     * Show paginated blog articles by tag
      * @param  Request $request [description]
+     * @param  string  $slug 
+     * @param  integer $page 
      * @return object           Twig template
      */
     public function articleTagAction(Request $request, $slug, $page)
@@ -633,7 +637,104 @@ class DefaultController extends Controller
 
         return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
             'page'              => $page,
-            'tag_url'               => $tag,
+            'tag_url'           => $tag,
+            'form_search'       => $formSearch->createView(),
+            'articles'          => $lastArticles,
+            'articlesLeft'      => $articlesLeft,
+            'categories'        => $categories,
+            'tags'              => $tags,
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'new_category_form' => $formNewCategory->createView(),
+            'new_tag_form'      => $formNewTag->createView(),
+            'error'             => $error
+        ));
+    }
+
+    /**
+     * Show paginated blog articles by date
+     * @param  Request $request [description]
+     * @param  integer $year 
+     * @param  integer $month 
+     * @param  integer $page 
+     * @return object           Twig template
+     */
+    public function articleDateAction(Request $request, $year, $month, $page)
+    {
+        $numberPosts = 3;
+
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
+
+        $category = new Category();
+        $formNewCategory = $this->createForm(new CategoryType(), $category);
+        $tag = new Tag();
+        $formNewTag = $this->createForm(new TagType(), $tag);
+
+        $categories = $em->getRepository('ROVBlogBundle:Category')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+        $tags = $em->getRepository('ROVBlogBundle:Tag')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        // Check if month parameter is set
+        if ($month > 0)
+        {
+            $startDate = new \DateTime($year.'-'.$month.'-'.'01');
+            $endDate = new \DateTime($year.'-'.($month+1).'-'.'01');            
+        }
+        else
+        {
+            $startDate = new \DateTime($year.'-01-01');
+            $endDate = new \DateTime(($year+1).'-01-01');            
+        }
+
+        $query = $em->createQuery('
+            SELECT a, u FROM ROVBlogBundle:Article a 
+            JOIN a.author u
+            WHERE a.published = :published
+            AND a.updated >= :start
+            AND a.updated < :end
+            ORDER BY a.updated DESC');
+        $query->setParameter('published', true);
+        $query->setParameter('start', $startDate);
+        $query->setParameter('end', $endDate);
+        $query->setMaxResults($numberPosts);
+        $query->setFirstResult(($page-1) * $numberPosts);
+        $lastArticles = $query->getResult();
+
+        $queryCount = $em->createQuery('
+            SELECT a FROM ROVBlogBundle:Article a 
+            WHERE a.published = :published
+            AND a.updated >= :start
+            AND a.updated < :end');
+        $queryCount->setParameter('published', true);
+        $queryCount->setParameter('start', $startDate);
+        $queryCount->setParameter('end', $endDate);
+        $queryCount->setFirstResult(($page) * $numberPosts);
+        $articlesLeft = $queryCount->getResult();
+
+        return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
+            'page'              => $page,
+            'year_url'          => $year,
+            'month_url'         => $month,
             'form_search'       => $formSearch->createView(),
             'articles'          => $lastArticles,
             'articlesLeft'      => $articlesLeft,

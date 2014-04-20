@@ -19,6 +19,16 @@
 					<li><a href="{{ path('rov_blog_homepage') }}">{{ 'Articles list'|trans }}</a></li>
 					<li>{{ 'Tag'|trans }}</li>
 					<li class="active">{{ tag_url.name|trans }}</li>
+					{% elseif year_url is defined %}
+					<li><a href="{{ path('rov_blog_homepage') }}">{{ 'Articles list'|trans }}</a></li>
+					{% if month_url != 0 %}
+					<li>{{ 'Year and month'|trans }}</li>
+					<li>{{ year_url }}</li>					
+					<li class="active">{{ (year_url ~ '-' ~ month_url ~ '-' ~ '01')|date('F')|trans }}</li>					
+					{% else %}
+					<li>{{ 'Year'|trans }}</li>
+					<li class="active">{{ year_url }}</li>					
+					{% endif %}
 					{% else %}
 					<li class="active">{{ 'Articles list'|trans }}</li>
 					{% endif %}
@@ -81,13 +91,27 @@
 				<hr>
 				{% endfor %}
 				<ul class="pager">
-					{% if page > 1 %}<li class="previous"><a href="{{ path('rov_blog_homepage', { 'page': (page-1) })}}"><i class="fa fa-arrow-circle-o-left"></i> {{ 'Previous'|trans }}</a></li>{% endif %}
+					{% if page > 1 %}
+					<li class="previous">
+						{% if category_url is defined %}
+						<a href="{{ path('rov_blog_article_category', { 'slug': category_url.slug, 'page': (page-1) }) }}"><i class="fa fa-arrow-circle-o-left"></i> {{ 'Previous'|trans }}</a>
+						{% elseif tag_url is defined %}
+						<a href="{{ path('rov_blog_article_tag', { 'slug': tag_url, 'page': (page-1) }) }}"><i class="fa fa-arrow-circle-o-left"></i> {{ 'Previous'|trans }}</a>
+						{% elseif year_url is defined %}
+						<a href="{{ path('rov_blog_article_date', { 'year': year_url, 'month': month_url, 'page': (page-1) }) }}"><i class="fa fa-arrow-circle-o-left"></i> {{ 'Previous'|trans }}</a>
+						{% else %}
+						<a href="{{ path('rov_blog_homepage', { 'page': (page-1) })}}"><i class="fa fa-arrow-circle-o-left"></i> {{ 'Previous'|trans }}</a>
+						{% endif %}
+					</li>
+					{% endif %}
 					{% if articlesLeft|length > 0 %}
 					<li class="next">
 						{% if category_url is defined %}
 						<a href="{{ path('rov_blog_article_category', { 'slug': category_url.slug, 'page': (page+1) }) }}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
 						{% elseif tag_url is defined %}
 						<a href="{{ path('rov_blog_article_tag', { 'slug': tag_url, 'page': (page+1) }) }}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
+						{% elseif year_url is defined %}
+						<a href="{{ path('rov_blog_article_date', { 'year': year_url, 'month': month_url, 'page': (page+1) }) }}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
 						{% else %}
 						<a href="{{ path('rov_blog_homepage', { 'page': (page+1) })}}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
 						{% endif %}
