@@ -1,0 +1,72 @@
+{% extends '::frontend_bootstrap.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Blog <small>{{ 'Preview'|trans }}</small></h1>
+				<ol class="breadcrumb">
+					<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
+					<li><a href="{{ path('rov_blog_manage_articles') }}">{{ 'Manage articles'|trans }}</a></li>
+					<li>{{ 'Preview'|trans }}</li>
+					<li class="active">{{ article.title }}</li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-lg-8">
+				{# Flashbag session success messages #}
+				{% for message in app.session.flashbag.get('error') %}
+				<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>ERROR:</strong> {{ message|trans }}
+				</div>
+				{% endfor %}
+				{% for message in app.session.flashbag.get('success') %}
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					{{ message|trans }}
+				</div>
+				{% endfor %}
+
+				{# Show the article #}
+				<h1>{{ article.title }}</h1>
+				<hr>
+				{# {{ article.updated|localizeddate('full', 'medium', locale, "Europe/Madrid") }} #}
+				<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</p>
+				<hr>
+				<div class="img_blog" style="background-image:url('{{ article.image }}');"></div>
+				<hr>
+				<p class="lead">{{ article.subtitle }}</p>
+				<div class="text-justify article">
+					<p>
+						{{ article.content|raw }}
+					</p>
+				</div>
+
+				<a class="btn btn-primary btn-xs" href="#" disabled>{{ 'Category'|trans }} <i class="fa fa-arrow-circle-right"></i></a>
+				<a class="btn btn-primary btn-xs" href="{{ path('rov_blog_article_category', { 'slug': article.category.slug }) }}" title="{{ 'Click to see all the articles from this category'|trans }}">{{ article.category.name|trans }}</a>
+				<br><br>
+
+				<a class="btn btn-info btn-xs" href="#" disabled>{{ 'Tags'|trans }} <i class="fa fa-arrow-circle-right"></i></a>
+				{% for tag in article.tags %}
+				<a class="btn btn-info btn-xs" href="{{ path('rov_blog_article_tag', { 'slug': tag.slug }) }}" title="{{ 'Click to see all the articles with this tag'|trans }}">{{ tag.name|trans }}</a>
+				{% endfor %}
+				<hr>
+
+				<a class="btn btn-default btn-block" href="{{ path('rov_blog_edit_article', { 'article_id': article.id })}}"><i class="fa fa-pencil-square-o"></i> {{ 'Edit article'|trans }}</a>
+				<p>&nbsp;</p>
+				
+			</div>
+
+			{% include 'ROVBlogBundle:Default:rightPanelFull.html.twig' %}
+		</div>
+
+	</div><!-- container -->
+{% endblock %}
