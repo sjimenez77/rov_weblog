@@ -855,12 +855,12 @@
 				<target>Para los artículos más antiguos puede utilizar el buscador</target>
 			</trans-unit>
 			<trans-unit id="214">
-				<source></source>
-				<target></target>
+				<source>You do not have enough privileges to access to the users list</source>
+				<target>Usted no tiene suficientes privilegios para acceder a la lista de usuarios</target>
 			</trans-unit>
 			<trans-unit id="215">
-				<source></source>
-				<target></target>
+				<source>Users list</source>
+				<target>Lista de usuarios</target>
 			</trans-unit>
 			<trans-unit id="216">
 				<source></source>

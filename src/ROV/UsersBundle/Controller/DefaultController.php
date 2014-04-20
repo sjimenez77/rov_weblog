@@ -345,4 +345,41 @@ class DefaultController extends Controller
             }
         }
     }
+
+    /**
+     * Lists the registered users
+     * @param  Request $request [description]
+     * @return [object] Twig template
+     */
+    public function userListAction(Request $request)
+    {
+        $session = $request->getSession();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $users = $em->getRepository('ROVUsersBundle:User')->findBy(array(), array('registerDate'=>'desc'));;
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+        {
+            // Show the form
+            return $this->render('ROVUsersBundle:Default:usersList.html.twig', array(
+                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                'error'         => $error,
+                'users'         => $users,
+            ));
+        }
+        else
+        {
+            $this->get('session')->getFlashBag()->add('error',
+                'You do not have enough privileges to access to the users list'
+            );
+
+            return $this->redirect($this->generateUrl('rov_blog_homepage'));
+        }
+    }
 }

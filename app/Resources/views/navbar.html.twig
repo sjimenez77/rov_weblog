@@ -62,7 +62,7 @@
                         <li class="dropdown-header">{{ 'Administrator options'|trans }}</li>
                         <li><a href="{{ path('rov_blog_new_article') }}">{{ 'Write a new article'|trans }}</a></li>
                         <li><a href="{{ path('rov_blog_manage_articles') }}">{{ 'Manage articles'|trans }}</a></li>
-                        <li><a href="#">{{ 'Registered users control'|trans }}</a></li>
+                        <li><a href="{{ path('rov_users_list') }}">{{ 'Registered users control'|trans }}</a></li>
                     </ul>
                 </li>
                 {% endif %}
