@@ -133,13 +133,17 @@
 	var share = new Share('.share-button', {
 		title:	"{{ article.title }}",
 		text:	"{{ article.subtitle }}",
-		image:	"{{ article.image }}", 
+		image:	"{{ article.image }}",
 		ui: {
+			flyout: "top center",
+			button_font: "Ubuntu",
 			button_text: "{{ 'Share'|trans }}",
+			button_background: "rgb(221, 72, 20)",
+			button_color: "#FFF"
 		},
 		networks: {
 			twitter: {
-				text: "{{ article.title }}"
+				text: "{{ article.title }} @racheverdejo"
 			},
 			facebook: {
 				app_id: "231832550347543",
