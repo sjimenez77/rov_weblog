@@ -867,16 +867,16 @@
 				<target>Fecha de registro</target>
 			</trans-unit>
 			<trans-unit id="217">
-				<source></source>
-				<target></target>
+				<source>biodynamic</source>
+				<target>biodinámico</target>
 			</trans-unit>
 			<trans-unit id="218">
-				<source></source>
-				<target></target>
+				<source>organic</source>
+				<target>ecológico</target>
 			</trans-unit>
 			<trans-unit id="219">
-				<source></source>
-				<target></target>
+				<source>organic farming</source>
+				<target>agricultura ecológica</target>
 			</trans-unit>
 			<trans-unit id="220">
 				<source></source>
