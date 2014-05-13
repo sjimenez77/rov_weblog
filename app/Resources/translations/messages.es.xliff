@@ -879,28 +879,28 @@
 				<target>agricultura ecológica</target>
 			</trans-unit>
 			<trans-unit id="220">
-				<source></source>
-				<target></target>
+				<source>Grenache</source>
+				<target>Garnacha</target>
 			</trans-unit>
 			<trans-unit id="221">
-				<source></source>
-				<target></target>
+				<source>Spanish</source>
+				<target>Español</target>
 			</trans-unit>
 			<trans-unit id="222">
-				<source></source>
-				<target></target>
+				<source>Tasting notes</source>
+				<target>Notas de cata</target>
 			</trans-unit>
 			<trans-unit id="223">
-				<source></source>
-				<target></target>
+				<source>Variety</source>
+				<target>Variedad</target>
 			</trans-unit>
 			<trans-unit id="224">
-				<source></source>
-				<target></target>
+				<source>Wine</source>
+				<target>Vino</target>
 			</trans-unit>
 			<trans-unit id="225">
-				<source></source>
-				<target></target>
+				<source>wine</source>
+				<target>vino</target>
 			</trans-unit>
 			<trans-unit id="226">
 				<source></source>
