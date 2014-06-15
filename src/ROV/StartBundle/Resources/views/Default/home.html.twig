@@ -57,13 +57,13 @@
 			</div>
 			{% set numArticles = articles|length %}
 			{% for article in articles %}
-			<div class="{% if numArticles == 3 %}col-lg-4 col-md-4 col-sm-12{% else %}col-lg-12{% endif %}" style="height: 300px; background-image:url('{{ article.image }}'); background-position: 50% 50%; background-size: cover;">
+			<div class="{% if numArticles >= 3 %}col-lg-4 col-md-4 col-sm-12{% else %}col-lg-12{% endif %}" style="height: 300px; background-image:url('{{ article.image }}'); background-position: 50% 50%; background-size: cover;">
 				<h4 style="background:rgba(255,255,255,0.8); margin:0px -15px -15px -15px; padding: 15px 15px 15px 15px; min-height: 5em;"><a href="{{ path('rov_blog_article', { 'slug' : article.slug }) }}">{{ article.title }}</a></h4>
 				<p style="color: white; background:rgba(221,72,20,0.6); margin: 15px -15px; padding: 15px 15px 15px 15px;"><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ article.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</p>
 			</div>
 			{% endfor %}
 		</div><!-- /.row -->
-		<div class="row well" style="margin-top: -1em">
+		<div class="row well" style="margin-top: -0.5em">
 			{{ form_start(form_search, {'method': 'POST', 'action': path('rov_blog_article_search') }) }}
 				<h4>{{ 'Articles search'|trans }}</h4>
 				<div class="input-group">
