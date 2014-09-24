@@ -903,12 +903,12 @@
 				<target>vino</target>
 			</trans-unit>
 			<trans-unit id="226">
-				<source></source>
-				<target></target>
+				<source>Write a new wine review</source>
+				<target>Escribir una nueva reseña de vino</target>
 			</trans-unit>
 			<trans-unit id="227">
-				<source></source>
-				<target></target>
+				<source>Manage wine reviews</source>
+				<target>Gestionar reseñas de vinos</target>
 			</trans-unit>
 			<trans-unit id="228">
 				<source></source>

@@ -59,9 +59,13 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;{{ 'Administration'|trans }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-header">{{ 'Administrator options'|trans }}</li>
+                        <li class="dropdown-header">{{ 'Articles'|trans }}</li>
                         <li><a href="{{ path('rov_blog_new_article') }}">{{ 'Write a new article'|trans }}</a></li>
                         <li><a href="{{ path('rov_blog_manage_articles') }}">{{ 'Manage articles'|trans }}</a></li>
+                        <li class="dropdown-header">{{ 'Wine'|trans }}</li>
+                        <li><a href="{{ path('rov_blog_new_wine') }}">{{ 'Write a new wine review'|trans }}</a></li>
+                        <li><a href="{{ path('rov_blog_manage_wines') }}">{{ 'Manage wine reviews'|trans }}</a></li>
+                        <li class="dropdown-header">{{ 'Administrator options'|trans }}</li>
                         <li><a href="{{ path('rov_users_list') }}">{{ 'Registered users control'|trans }}</a></li>
                     </ul>
                 </li>

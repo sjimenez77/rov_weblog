@@ -24,9 +24,25 @@ rov_blog_new_article:
     pattern:  /admin/new
     defaults: { _controller: ROVBlogBundle:Default:newArticle }
 
+rov_blog_new_wine:
+    pattern:  /admin/new/wine
+    defaults: { _controller: ROVBlogBundle:Wine:newWine }
+
+rov_blog_new_zone:
+    pattern:  /admin/new/zone
+    defaults: { _controller: ROVBlogBundle:Wine:newZone }
+
+rov_blog_new_winery:
+    pattern:  /admin/new/winery
+    defaults: { _controller: ROVBlogBundle:Wine:newWinery }
+
 rov_blog_edit_article:
     pattern:  /admin/edit/{article_id}
     defaults: { _controller: ROVBlogBundle:Default:editArticle }
+
+rov_blog_edit_wine:
+    pattern:  /admin/new/wine
+    defaults: { _controller: ROVBlogBundle:Wine:editWine }
 
 rov_blog_preview_article:
     pattern:  /admin/preview/{article_id}
@@ -43,6 +59,10 @@ rov_blog_manage_articles:
 rov_blog_manage_category:
     pattern:  /admin/manage/category/{slug}
     defaults: { _controller: ROVBlogBundle:Default:manageCategory }
+
+rov_blog_manage_wines:
+    pattern:  /admin/manage/wine
+    defaults: { _controller: ROVBlogBundle:Wine:manageWines }
 
 rov_blog_manage_tag:
     pattern:  /admin/manage/tag/{slug}
