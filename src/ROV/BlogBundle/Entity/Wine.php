@@ -3,12 +3,15 @@
 namespace ROV\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Wine
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @Vich\Uploadable
  */
 class Wine
 {
@@ -42,6 +45,22 @@ class Wine
      * @ORM\Column(name="type", type="string", length=3)
      */
     private $type;
+
+    /**
+     * @var File $imageFile
+     *
+     * @Vich\UploadableField(mapping="wine_image", fileNameProperty="imageName")
+     *
+     * This is not a mapped field of entity metadata, just a simple property.
+     */
+    private $imageFile;
+
+    /**
+     * @var string $imageName
+     *
+     * @ORM\Column(type="string", length=255, name="image_name")
+     */
+    private $imageName;
 
     /**
      * @var string
@@ -79,6 +98,20 @@ class Wine
     private $year;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated", type="datetime")
+     */
+    private $updated;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="published", type="boolean")
@@ -91,6 +124,8 @@ class Wine
     public function __construct()
     {
         $this->published = false;
+        $this->created = new \DateTime();
+        $this->updated = new \DateTime();
     }
 
     /**
@@ -170,6 +205,50 @@ class Wine
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     */
+    public function setImageFile(File $image)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param string $imageName
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
     }
 
     /**
@@ -285,6 +364,52 @@ class Wine
     public function getYear()
     {
         return $this->year;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Blog
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Blog
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 
     /**
