@@ -77,3 +77,12 @@ swiftmailer:
     password:  "%mailer_password%"
     port:      2525
     spool:     { type: memory }
+
+# Vich Uploader
+vich_uploader:
+    db_driver: orm
+    mappings:
+        product_image:
+            uri_prefix:         /images/uploads
+            upload_destination: %kernel.root_dir%/../web/images/uploads
+

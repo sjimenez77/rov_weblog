@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),
             new ROV\BlogBundle\ROVBlogBundle(),
             new ROV\UsersBundle\ROVUsersBundle(),
             new ROV\StartBundle\ROVStartBundle(),
