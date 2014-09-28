@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Region
  *
- * @ORM\Table()
+ * @ORM\Table(name="Region")
  * @ORM\Entity
  */
 class Region

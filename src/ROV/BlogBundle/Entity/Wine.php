@@ -9,7 +9,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * Wine
  *
- * @ORM\Table()
+ * @ORM\Table(name="Wine")
  * @ORM\Entity
  * @Vich\Uploadable
  */
