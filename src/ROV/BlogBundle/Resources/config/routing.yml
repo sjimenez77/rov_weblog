@@ -80,6 +80,12 @@ rov_blog_article:
     pattern:  /article/{slug}
     defaults: { _controller: ROVBlogBundle:Default:article }
 
+rov_blog_wine_homepage:
+    pattern:  /wines/{page}
+    defaults: { _controller: ROVBlogBundle:Wine:wineHome, page: 1 }
+    requirements:
+        page:  \d+
+
 rov_blog_homepage:
     pattern:  /{page}
     defaults: { _controller: ROVBlogBundle:Default:blogHome, page: 1 }

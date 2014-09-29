@@ -19,6 +19,11 @@ use ROV\BlogBundle\Util\Util;
 
 class WineController extends Controller
 {
+	public function wineHomeAction(Request $request, $page)
+	{
+		# code...
+	}
+
 	public function newZoneAction(Request $request)
 	{
 		# code...

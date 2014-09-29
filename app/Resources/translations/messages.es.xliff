@@ -911,8 +911,8 @@
 				<target>Gestionar reseñas de vinos</target>
 			</trans-unit>
 			<trans-unit id="228">
-				<source></source>
-				<target></target>
+				<source>Last wines</source>
+				<target>Últimos vinos</target>
 			</trans-unit>
 			<trans-unit id="229">
 				<source></source>
