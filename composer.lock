@@ -198,7 +198,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -274,7 +274,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -404,7 +404,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 },
                 {
                     "name": "Symfony Community",
@@ -475,7 +477,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -529,7 +531,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1549,20 +1551,22 @@
         },
         {
             "name": "symfony/icu",
-            "version": "v1.0.1",
+            "version": "v1.2.2",
             "target-dir": "Symfony/Component/Icu",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Icu.git",
-                "reference": "fdba214b1e087c149843bde976263c53ac10c975"
+                "reference": "d4d85d6055b87f394d941b45ddd3a9173e1e3d2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Icu/zipball/fdba214b1e087c149843bde976263c53ac10c975",
-                "reference": "fdba214b1e087c149843bde976263c53ac10c975",
+                "url": "https://api.github.com/repos/symfony/Icu/zipball/d4d85d6055b87f394d941b45ddd3a9173e1e3d2a",
+                "reference": "d4d85d6055b87f394d941b45ddd3a9173e1e3d2a",
                 "shasum": ""
             },
             "require": {
+                "ext-intl": "*",
+                "lib-icu": ">=4.4",
                 "php": ">=5.3.3",
                 "symfony/intl": "~2.3"
             },
@@ -1592,7 +1596,7 @@
                 "icu",
                 "intl"
             ],
-            "time": "2013-10-04 09:12:07"
+            "time": "2014-07-25 09:58:17"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -1712,16 +1716,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.5.4",
+            "version": "v2.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "3a369dddea56596df91977d8c2083e70784852f2"
+                "reference": "2aef97bbc95d0c4ae63537cca81bd6d984427d81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/3a369dddea56596df91977d8c2083e70784852f2",
-                "reference": "3a369dddea56596df91977d8c2083e70784852f2",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/2aef97bbc95d0c4ae63537cca81bd6d984427d81",
+                "reference": "2aef97bbc95d0c4ae63537cca81bd6d984427d81",
                 "shasum": ""
             },
             "require": {
@@ -1822,7 +1826,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2014-09-03 09:51:48"
+            "time": "2014-09-28 17:33:53"
         },
         {
             "name": "twig/extensions",
