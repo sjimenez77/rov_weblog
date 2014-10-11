@@ -1,0 +1,53 @@
+{% extends '::frontend_bootstrap.html.twig' %}
+
+{% block title %}{{ 'Wines'|trans }}{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Blog <small>{{ 'Wine reviews'|trans }}</small></h1>
+				<ol class="breadcrumb">
+					<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
+					{% if region_url is defined %}
+					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine reviews'|trans }}</a></li>
+					<li>{{ 'Category'|trans }}</li>
+					<li class="active">{{ category_url.name|trans }}</li>
+					{% elseif winery_url is defined %}
+					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine reviews'|trans }}</a></li>
+					<li>{{ 'Tag'|trans }}</li>
+					<li class="active">{{ tag_url.name|trans }}</li>
+					{% elseif year_url is defined %}
+					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine reviews'|trans }}</a></li>
+					{% if month_url != 0 %}
+					<li>{{ 'Year and month'|trans }}</li>
+					<li>{{ year_url }}</li>					
+					<li class="active">{{ (year_url ~ '-' ~ month_url ~ '-' ~ '01')|date('F')|trans }}</li>					
+					{% else %}
+					<li>{{ 'Year'|trans }}</li>
+					<li class="active">{{ year_url }}</li>					
+					{% endif %}
+					{% else %}
+					<li class="active">{{ 'Articles list'|trans }}</li>
+					{% endif %}
+				</ol>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8">
+				{# Flashbag session success messages #}
+				{% for message in app.session.flashbag.get('error') %}
+				<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>ERROR:</strong> {{ message|trans }}
+				</div>
+				{% endfor %}
+				{% for message in app.session.flashbag.get('success') %}
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					{{ message|trans }}
+				</div>
+				{% endfor %}

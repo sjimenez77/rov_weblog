@@ -6,25 +6,122 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 
-use ROV\BlogBundle\Entity\Article;
-use ROV\BlogBundle\Entity\Comment;
-use ROV\BlogBundle\Entity\Tag;
-use ROV\BlogBundle\Entity\Category;
-use ROV\BlogBundle\Form\Backend\ArticleType;
-use ROV\BlogBundle\Form\Backend\CategoryType;
-use ROV\BlogBundle\Form\Backend\TagType;
-use ROV\BlogBundle\Form\Frontend\CommentType;
+use ROV\BlogBundle\Entity\Region;
+use ROV\BlogBundle\Entity\Winery;
+use ROV\BlogBundle\Entity\Wine;
+use ROV\BlogBundle\Form\Backend\RegionType;
+use ROV\BlogBundle\Form\Backend\WineryType;
+use ROV\BlogBundle\Form\Backend\WineType;
 
 use ROV\BlogBundle\Util\Util;
 
 class WineController extends Controller
 {
-	public function wineHomeAction(Request $request, $page)
+	/**
+	 * Show paginated wine reviews
+	 * @param  Request $request [description]
+	 * @param  integer $page    [description]
+	 * @return Twig template
+	 */
+	public function wineReviewsAction(Request $request, $page)
+	{
+		$numberPosts = 3;
+
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        // Search form
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
+
+        // Get regions
+        $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        // Get wineries
+        $wineries = $em->getRepository('ROVBlogBundle:Winery')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        // Get last wine reviews
+        $query = $em->createQuery(
+        	'SELECT w, wry, r FROM ROVBlogBundle:Wine w
+        	 JOIN w.winery wry
+        	 JOIN wry.region r
+        	 WHERE w.published = :published
+        	 ORDER BY w.updated ASC'
+        	);
+        $query->setParameter('published', true);
+        $query->setMaxResults($numberPosts);
+        $query->setFirstResult(($page-1) * $numberPosts);
+        $lastWineReviews = $query->getResult();
+
+        // Remaining wine reviews
+        $queryCount = $em->createQuery('SELECT a FROM ROVBlogBundle:Wine a WHERE a.published = :published');
+        $queryCount->setParameter('published', true);
+        $queryCount->setFirstResult(($page) * $numberPosts);
+        $wineReviewsLeft = $queryCount->getResult();
+
+        // Number of wine reviews by month
+        $now = new \DateTime();
+        $year = $now->format('Y');
+        $queryByMonth = $em->createQuery(
+            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+             FROM ROVBlogBundle:Wine a
+             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+             AND a.published = :published
+             GROUP BY month');
+        $queryByMonth->setParameter('year', ($year - 1));
+        $queryByMonth->setParameter('published', true);
+        $wineReviewsByMonth = $queryByMonth->getResult();
+
+        return $this->render('ROVBlogBundle:Wine:wines.html.twig', array(
+            'page'              => $page,
+            'form_search'       => $formSearch->createView(),
+        	'wineReviews'       => $lastWineReviews,
+            'wineReviewsLeft'   => $wineReviewsLeft,
+            'wineReviewsMonth'  => $wineReviewsByMonth,
+            'regions'        	=> $regions,
+            'wineries'          => $wineries,
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'new_region_form'	=> $formNewRegion->createView(),
+            'new_winery_form'   => $formNewWinery->createView(),
+            'error'             => $error
+        ));
+
+	}
+
+	public function wineReviewsRegionAction(Request $request, $slug, $page)
 	{
 		# code...
 	}
 
-	public function newZoneAction(Request $request)
+	public function wineReviewsWineryAction(Request $request, $slug, $page)
+	{
+		# code...
+	}
+
+	public function wineReviewsDateAction(Request $request, $year, $month, $page)
+	{
+		# code...
+	}
+
+	public function newRegionAction(Request $request)
 	{
 		# code...
 	}
