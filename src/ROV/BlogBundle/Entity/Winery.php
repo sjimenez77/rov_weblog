@@ -44,6 +44,13 @@ class Winery
     /**
      * @var string
      *
+     * @ORM\Column(name="slug", type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
@@ -145,6 +152,62 @@ class Winery
     public function getRegion()
     {
         return $this->region;
+    }
+
+    /**
+     * Add wines
+     *
+     * @param \ROV\BlogBundle\Entity\Wine $wines
+     * @return Winery
+     */
+    public function addWine(\ROV\BlogBundle\Entity\Wine $wines)
+    {
+        $this->wines[] = $wines;
+
+        return $this;
+    }
+
+    /**
+     * Remove wines
+     *
+     * @param \ROV\BlogBundle\Entity\Wine $wines
+     */
+    public function removeWine(\ROV\BlogBundle\Entity\Wine $wines)
+    {
+        $this->wines->removeElement($wines);
+    }
+
+    /**
+     * Get wines
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWines()
+    {
+        return $this->wines;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Winery
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -283,38 +346,5 @@ class Winery
     public function getWeb()
     {
         return $this->web;
-    }
-
-    /**
-     * Add wines
-     *
-     * @param \ROV\BlogBundle\Entity\Wine $wines
-     * @return Winery
-     */
-    public function addWine(\ROV\BlogBundle\Entity\Wine $wines)
-    {
-        $this->wines[] = $wines;
-
-        return $this;
-    }
-
-    /**
-     * Remove wines
-     *
-     * @param \ROV\BlogBundle\Entity\Wine $wines
-     */
-    public function removeWine(\ROV\BlogBundle\Entity\Wine $wines)
-    {
-        $this->wines->removeElement($wines);
-    }
-
-    /**
-     * Get wines
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getWines()
-    {
-        return $this->wines;
     }
 }
