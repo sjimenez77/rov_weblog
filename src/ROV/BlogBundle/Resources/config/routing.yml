@@ -28,9 +28,9 @@ rov_blog_new_wine:
     pattern:  /admin/new/wine
     defaults: { _controller: ROVBlogBundle:Wine:newWine }
 
-rov_blog_new_zone:
+rov_blog_new_region:
     pattern:  /admin/new/zone
-    defaults: { _controller: ROVBlogBundle:Wine:newZone }
+    defaults: { _controller: ROVBlogBundle:Wine:newRegion }
 
 rov_blog_new_winery:
     pattern:  /admin/new/winery
@@ -82,7 +82,25 @@ rov_blog_article:
 
 rov_blog_wine_homepage:
     pattern:  /wines/{page}
-    defaults: { _controller: ROVBlogBundle:Wine:wineHome, page: 1 }
+    defaults: { _controller: ROVBlogBundle:Wine:wineReviews, page: 1 }
+    requirements:
+        page:  \d+
+
+rov_blog_wine_region:
+    pattern:  /wines/region/{slug}/{page}
+    defaults: { _controller: ROVBlogBundle:Wine:wineReviewsRegion, page: 1 }
+    requirements:
+        page:  \d+
+
+rov_blog_wine_winery:
+    pattern:  /wines/winery/{slug}/{page}
+    defaults: { _controller: ROVBlogBundle:Wine:wineReviewsWinery, page: 1 }
+    requirements:
+        page:  \d+
+
+rov_blog_wine_date:
+    pattern:  /wines/date/{year}/{month}/{page}
+    defaults: { _controller: ROVBlogBundle:Default:wineReviewsDate, month: 0, page: 1 }
     requirements:
         page:  \d+
 
