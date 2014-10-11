@@ -915,84 +915,84 @@
 				<target>Últimos vinos</target>
 			</trans-unit>
 			<trans-unit id="229">
-				<source></source>
-				<target></target>
+				<source>Wine reviews</source>
+				<target>Reseñas de vinos</target>
 			</trans-unit>
 			<trans-unit id="230">
-				<source></source>
-				<target></target>
+				<source>Wines</source>
+				<target>Vinos</target>
 			</trans-unit>
 			<trans-unit id="231">
-				<source></source>
-				<target></target>
+				<source>Type the brand</source>
+				<target>Introduzca la marca</target>
 			</trans-unit>
 			<trans-unit id="232">
-				<source></source>
-				<target></target>
+				<source>white</source>
+				<target>blanco</target>
 			</trans-unit>
 			<trans-unit id="233">
-				<source></source>
-				<target></target>
+				<source>red</source>
+				<target>tinto</target>
 			</trans-unit>
 			<trans-unit id="234">
-				<source></source>
-				<target></target>
+				<source>vintage white</source>
+				<target>blanco crianza</target>
 			</trans-unit>
 			<trans-unit id="235">
-				<source></source>
-				<target></target>
+				<source>matured white in barrel</source>
+				<target>blanco fermentado en barrica</target>
 			</trans-unit>
 			<trans-unit id="236">
-				<source></source>
-				<target></target>
+				<source>rosé</source>
+				<target>rosado</target>
 			</trans-unit>
 			<trans-unit id="237">
-				<source></source>
-				<target></target>
+				<source>vintage red</source>
+				<target>tinto crianza</target>
 			</trans-unit>
 			<trans-unit id="238">
-				<source></source>
-				<target></target>
+				<source>mature red</source>
+				<target>tinto reserva</target>
 			</trans-unit>
 			<trans-unit id="239">
-				<source></source>
-				<target></target>
+				<source>gran reserva red</source>
+				<target>tinto gran reserva</target>
 			</trans-unit>
 			<trans-unit id="240">
-				<source></source>
-				<target></target>
+				<source>old oloroso</source>
+				<target>oloroso viejo</target>
 			</trans-unit>
 			<trans-unit id="241">
-				<source></source>
-				<target></target>
+				<source>sparkling</source>
+				<target>espumoso</target>
 			</trans-unit>
 			<trans-unit id="242">
-				<source></source>
-				<target></target>
+				<source>dry</source>
+				<target>seco</target>
 			</trans-unit>
 			<trans-unit id="243">
-				<source></source>
-				<target></target>
+				<source>semi-dry</source>
+				<target>semiseco</target>
 			</trans-unit>
 			<trans-unit id="244">
-				<source></source>
-				<target></target>
+				<source>no vintage</source>
+				<target>sin cosecha</target>
 			</trans-unit>
 			<trans-unit id="245">
-				<source></source>
-				<target></target>
+				<source>Publish wine review</source>
+				<target>Publicar reseña de vino</target>
 			</trans-unit>
 			<trans-unit id="246">
-				<source></source>
-				<target></target>
+				<source>Type the varieties</source>
+				<target>Escriba las variedades</target>
 			</trans-unit>
 			<trans-unit id="247">
-				<source></source>
-				<target></target>
+				<source>Points</source>
+				<target>Puntos</target>
 			</trans-unit>
 			<trans-unit id="248">
-				<source></source>
-				<target></target>
+				<source>Type the year</source>
+				<target>Escriba el año</target>
 			</trans-unit>
 			<trans-unit id="249">
 				<source></source>
@@ -1003,6 +1003,206 @@
 				<target></target>
 			</trans-unit>
 			<trans-unit id="251">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="252">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="253">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="254">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="255">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="256">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="257">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="258">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="259">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="260">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="261">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="262">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="263">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="264">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="265">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="266">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="267">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="268">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="269">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="270">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="271">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="272">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="273">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="274">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="275">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="276">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="277">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="278">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="279">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="280">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="281">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="282">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="283">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="284">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="285">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="286">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="287">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="288">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="289">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="290">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="291">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="292">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="293">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="294">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="295">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="296">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="297">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="298">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="299">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="300">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="301">
 				<source></source>
 				<target></target>
 			</trans-unit>

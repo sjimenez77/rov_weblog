@@ -32,6 +32,10 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         appname: "%rov_global_title%"
+    form:
+        resources:
+            # other form themes
+            - 'VichUploaderBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
