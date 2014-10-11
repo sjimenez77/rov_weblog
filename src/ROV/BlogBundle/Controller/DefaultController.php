@@ -65,11 +65,11 @@ class DefaultController extends Controller
             );
         
         // Last articles
-        $query = $em->createQuery('
-            SELECT a, u FROM ROVBlogBundle:Article a
-            JOIN a.author u
-            WHERE a.published = :published
-            ORDER BY a.updated DESC');
+        $query = $em->createQuery(
+            'SELECT a, u FROM ROVBlogBundle:Article a
+             JOIN a.author u
+             WHERE a.published = :published
+             ORDER BY a.updated DESC');
         $query->setParameter('published', true);
         $query->setMaxResults($numberPosts);
         $query->setFirstResult(($page-1) * $numberPosts);
@@ -84,13 +84,12 @@ class DefaultController extends Controller
         // Number of articles by month
         $now = new \DateTime();
         $year = $now->format('Y');
-        $queryByMonth = $em->createQuery('
-            SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-            FROM ROVBlogBundle:Article a
-            WHERE SUBSTRING(a.updated, 1, 4) >= :year
-            AND a.published = :published
-            GROUP BY month
-            ');
+        $queryByMonth = $em->createQuery(
+            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+             FROM ROVBlogBundle:Article a
+             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+             AND a.published = :published
+             GROUP BY month');
         $queryByMonth->setParameter('year', ($year - 1));
         $queryByMonth->setParameter('published', true);
         $articlesByMonth = $queryByMonth->getResult();
@@ -272,12 +271,12 @@ class DefaultController extends Controller
         // Number of articles by month
         $now = new \DateTime();
         $year = $now->format('Y');
-        $queryByMonth = $em->createQuery('
-            SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-            FROM ROVBlogBundle:Article a
-            WHERE SUBSTRING(a.updated, 1, 4) >= :year
-            AND a.published = :published
-            GROUP BY month
+        $queryByMonth = $em->createQuery(
+            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+             FROM ROVBlogBundle:Article a
+             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+             AND a.published = :published
+             GROUP BY month
             ');
         $queryByMonth->setParameter('year', ($year - 1));
         $queryByMonth->setParameter('published', true);
@@ -358,12 +357,11 @@ class DefaultController extends Controller
             // Number of articles by month
             $now = new \DateTime();
             $year = $now->format('Y');
-            $queryByMonth = $em->createQuery('
-                SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-                FROM ROVBlogBundle:Article a
-                WHERE SUBSTRING(a.updated, 1, 4) >= :year
-                GROUP BY month
-                ');
+            $queryByMonth = $em->createQuery(
+                'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+                 FROM ROVBlogBundle:Article a
+                 WHERE SUBSTRING(a.updated, 1, 4) >= :year
+                 GROUP BY month');
             $queryByMonth->setParameter('year', ($year - 1));
             $articlesByMonth = $queryByMonth->getResult();
 
@@ -575,24 +573,24 @@ class DefaultController extends Controller
                 array('name' => 'ASC')
             );
 
-        $query = $em->createQuery('
-            SELECT a, u, c FROM ROVBlogBundle:Article a 
-            JOIN a.author u
-            JOIN a.category c
-            WHERE a.published = :published
-            AND c.slug = :slug
-            ORDER BY a.updated DESC');
+        $query = $em->createQuery(
+            'SELECT a, u, c FROM ROVBlogBundle:Article a 
+             JOIN a.author u
+             JOIN a.category c
+             WHERE a.published = :published
+             AND c.slug = :slug
+             ORDER BY a.updated DESC');
         $query->setParameter('published', true);
         $query->setParameter('slug', $slug);
         $query->setMaxResults($numberPosts);
         $query->setFirstResult(($page-1) * $numberPosts);
         $lastArticles = $query->getResult();
 
-        $queryCount = $em->createQuery('
-            SELECT a FROM ROVBlogBundle:Article a
-            JOIN a.category c
-            WHERE a.published = :published
-            AND c.slug = :slug');
+        $queryCount = $em->createQuery(
+            'SELECT a FROM ROVBlogBundle:Article a
+             JOIN a.category c
+             WHERE a.published = :published
+             AND c.slug = :slug');
         $queryCount->setParameter('published', true);
         $queryCount->setParameter('slug', $slug);
         $queryCount->setFirstResult(($page) * $numberPosts);
@@ -603,13 +601,12 @@ class DefaultController extends Controller
         // Number of articles by month
         $now = new \DateTime();
         $year = $now->format('Y');
-        $queryByMonth = $em->createQuery('
-            SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-            FROM ROVBlogBundle:Article a
-            WHERE SUBSTRING(a.updated, 1, 4) >= :year
-            AND a.published = :published
-            GROUP BY month
-            ');
+        $queryByMonth = $em->createQuery(
+            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+             FROM ROVBlogBundle:Article a
+             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+             AND a.published = :published
+             GROUP BY month');
         $queryByMonth->setParameter('year', ($year - 1));
         $queryByMonth->setParameter('published', true);
         $articlesByMonth = $queryByMonth->getResult();
@@ -673,13 +670,13 @@ class DefaultController extends Controller
                 array('name' => 'ASC')
             );
 
-        $query = $em->createQuery('
-            SELECT a, u, t FROM ROVBlogBundle:Article a 
-            JOIN a.author u
-            JOIN a.tags t
-            WHERE a.published = :published
-            AND t.slug = :slug
-            ORDER BY a.updated DESC');
+        $query = $em->createQuery(
+            'SELECT a, u, t FROM ROVBlogBundle:Article a 
+             JOIN a.author u
+             JOIN a.tags t
+             WHERE a.published = :published
+             AND t.slug = :slug
+             ORDER BY a.updated DESC');
         $query->setParameter('published', true);
         $query->setParameter('slug', $slug);
         $query->setMaxResults($numberPosts);
@@ -701,13 +698,12 @@ class DefaultController extends Controller
         // Number of articles by month
         $now = new \DateTime();
         $year = $now->format('Y');
-        $queryByMonth = $em->createQuery('
-            SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-            FROM ROVBlogBundle:Article a
-            WHERE SUBSTRING(a.updated, 1, 4) >= :year
-            AND a.published = :published
-            GROUP BY month
-            ');
+        $queryByMonth = $em->createQuery(
+            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+             FROM ROVBlogBundle:Article a
+             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+             AND a.published = :published
+             GROUP BY month');
         $queryByMonth->setParameter('year', ($year - 1));
         $queryByMonth->setParameter('published', true);
         $articlesByMonth = $queryByMonth->getResult();
@@ -784,13 +780,13 @@ class DefaultController extends Controller
             $endDate = new \DateTime(($year+1).'-01-01');            
         }
 
-        $query = $em->createQuery('
-            SELECT a, u FROM ROVBlogBundle:Article a 
-            JOIN a.author u
-            WHERE a.published = :published
-            AND a.updated >= :start
-            AND a.updated < :end
-            ORDER BY a.updated DESC');
+        $query = $em->createQuery(
+            'SELECT a, u FROM ROVBlogBundle:Article a 
+             JOIN a.author u
+             WHERE a.published = :published
+             AND a.updated >= :start
+             AND a.updated < :end
+             ORDER BY a.updated DESC');
         $query->setParameter('published', true);
         $query->setParameter('start', $startDate);
         $query->setParameter('end', $endDate);
@@ -812,13 +808,12 @@ class DefaultController extends Controller
         // Number of articles by month
         $now = new \DateTime();
         $year = $now->format('Y');
-        $queryByMonth = $em->createQuery('
-            SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-            FROM ROVBlogBundle:Article a
-            WHERE SUBSTRING(a.updated, 1, 4) >= :year
-            AND a.published = :published
-            GROUP BY month
-            ');
+        $queryByMonth = $em->createQuery(
+            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+             FROM ROVBlogBundle:Article a
+             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+             AND a.published = :published
+             GROUP BY month');
         $queryByMonth->setParameter('year', ($year - 1));
         $queryByMonth->setParameter('published', true);
         $articlesByMonth = $queryByMonth->getResult();
@@ -870,18 +865,18 @@ class DefaultController extends Controller
         if ($formSearch->isValid())
         {
             $data = $formSearch->getData();
-            $querySearch = $em->createQuery('
-                SELECT a, u, c, t FROM ROVBlogBundle:Article a 
-                JOIN a.author u
-                JOIN a.category c
-                LEFT JOIN a.tags t
-                WHERE a.published = :published
-                AND (a.title LIKE :search
-                    OR a.subtitle LIKE :search
-                    OR a.content LIKE :search
-                    OR c.name LIKE :search
-                    OR t.name LIKE :search)
-                ORDER BY a.updated DESC');
+            $querySearch = $em->createQuery(
+                'SELECT a, u, c, t FROM ROVBlogBundle:Article a 
+                 JOIN a.author u
+                 JOIN a.category c
+                 LEFT JOIN a.tags t
+                 WHERE a.published = :published
+                 AND (a.title LIKE :search
+                     OR a.subtitle LIKE :search
+                     OR a.content LIKE :search
+                     OR c.name LIKE :search
+                     OR t.name LIKE :search)
+                 ORDER BY a.updated DESC');
             $querySearch->setParameter('published', true);
             $querySearch->setParameter('search', '%'.$data['search'].'%');
             $articlesSearch = $querySearch->getResult();
