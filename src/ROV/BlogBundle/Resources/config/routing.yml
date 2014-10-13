@@ -86,6 +86,10 @@ rov_blog_wine_homepage:
     requirements:
         page:  \d+
 
+rov_blog_wine_search:
+    pattern:  /wines/search
+    defaults: { _controller: ROVBlogBundle:Wine:wineReviewSearch }
+
 rov_blog_wine_region:
     pattern:  /wines/region/{slug}/{page}
     defaults: { _controller: ROVBlogBundle:Wine:wineReviewsRegion, page: 1 }

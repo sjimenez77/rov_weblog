@@ -65,7 +65,7 @@ class WineryType extends AbstractType
             ->add('web', 'url', array(
                 'attr' => array(
                     'class' => 'form-control',
-                    'placeholder' => 'Type the winery web',
+                    'placeholder' => 'Type the winery website URL',
                     'required' => false
                     )
                 ))

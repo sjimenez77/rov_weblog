@@ -13,11 +13,11 @@
 					<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
 					{% if region_url is defined %}
 					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine reviews'|trans }}</a></li>
-					<li>{{ 'Category'|trans }}</li>
-					<li class="active">{{ category_url.name|trans }}</li>
+					<li>{{ 'Region'|trans }}</li>
+					<li class="active">{{ region_url.name|trans }}</li>
 					{% elseif winery_url is defined %}
 					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine reviews'|trans }}</a></li>
-					<li>{{ 'Tag'|trans }}</li>
+					<li>{{ 'Winery'|trans }}</li>
 					<li class="active">{{ tag_url.name|trans }}</li>
 					{% elseif year_url is defined %}
 					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine reviews'|trans }}</a></li>
@@ -30,7 +30,7 @@
 					<li class="active">{{ year_url }}</li>					
 					{% endif %}
 					{% else %}
-					<li class="active">{{ 'Articles list'|trans }}</li>
+					<li class="active">{{ 'Wine reviews'|trans }}</li>
 					{% endif %}
 				</ol>
 			</div>
@@ -51,3 +51,19 @@
 					{{ message|trans }}
 				</div>
 				{% endfor %}
+
+				{% if wineReviews|length > 0 %}
+				{% for wine in wineReviews %}
+
+				{% endfor %}
+				{% else %}
+				<blockquote>
+					<p>{{ 'There are not wine reviews published yet'|trans }}</p>
+				</blockquote>
+				{% endif %}
+			</div>
+			{% include 'ROVBlogBundle:Wines:rightPanelWineReviews.html.twig' %}
+		</div>
+
+	</div><!-- container -->
+{% endblock %}

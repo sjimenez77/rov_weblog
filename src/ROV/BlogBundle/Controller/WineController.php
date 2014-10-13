@@ -46,6 +46,11 @@ class WineController extends Controller
                 ))
                 ->getForm();
 
+        $region = new Region();
+        $formNewRegion = $this->createForm(new RegionType(), $region);
+        $winery = new Winery();
+        $formNewWinery = $this->createForm(new WineryType(), $winery);
+
         // Get regions
         $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
                 array(),
@@ -90,7 +95,7 @@ class WineController extends Controller
         $queryByMonth->setParameter('published', true);
         $wineReviewsByMonth = $queryByMonth->getResult();
 
-        return $this->render('ROVBlogBundle:Wine:wines.html.twig', array(
+        return $this->render('ROVBlogBundle:Wines:wines.html.twig', array(
             'page'              => $page,
             'form_search'       => $formSearch->createView(),
         	'wineReviews'       => $lastWineReviews,

@@ -995,80 +995,80 @@
 				<target>Escriba el año</target>
 			</trans-unit>
 			<trans-unit id="249">
-				<source></source>
-				<target></target>
+				<source>Wines search</source>
+				<target>Búsqueda de vinos</target>
 			</trans-unit>
 			<trans-unit id="250">
-				<source></source>
-				<target></target>
+				<source>There are no regions yet</source>
+				<target>No hay regiones todavía</target>
 			</trans-unit>
 			<trans-unit id="251">
-				<source></source>
-				<target></target>
+				<source>There are no wineries yet</source>
+				<target>No hay bodegas todavía</target>
 			</trans-unit>
 			<trans-unit id="252">
-				<source></source>
-				<target></target>
+				<source>Add a new region</source>
+				<target>Añadir una región nueva</target>
 			</trans-unit>
 			<trans-unit id="253">
-				<source></source>
-				<target></target>
+				<source>Wineries</source>
+				<target>Bodegas</target>
 			</trans-unit>
 			<trans-unit id="254">
-				<source></source>
-				<target></target>
+				<source>Add a new winery</source>
+				<target>Añadir una bodega nueva</target>
 			</trans-unit>
 			<trans-unit id="255">
-				<source></source>
-				<target></target>
+				<source>Click in any month to see the wine reviews published in that date</source>
+				<target>Haga clic en cualquier mes para ver las reseñas de vinos publicadas en esa fecha</target>
 			</trans-unit>
 			<trans-unit id="256">
-				<source></source>
-				<target></target>
+				<source>For older wine reviews you can use the search engine</source>
+				<target>Para las reseñas de vinos más antiguas puede utilizar el buscador</target>
 			</trans-unit>
 			<trans-unit id="257">
-				<source></source>
-				<target></target>
+				<source>There are not wine reviews published yet</source>
+				<target>No hay ninguna reseña de vino publicada todavía</target>
 			</trans-unit>
 			<trans-unit id="258">
-				<source></source>
-				<target></target>
+				<source>Regions</source>
+				<target>Regiones</target>
 			</trans-unit>
 			<trans-unit id="259">
-				<source></source>
-				<target></target>
+				<source>Type the region name</source>
+				<target>Escriba el nombre de la región</target>
 			</trans-unit>
 			<trans-unit id="260">
-				<source></source>
-				<target></target>
+				<source>Type the winery name</source>
+				<target>Escriba el nombre de la bodega</target>
 			</trans-unit>
 			<trans-unit id="261">
-				<source></source>
-				<target></target>
+				<source>Choose a region</source>
+				<target>Seleccione una región</target>
 			</trans-unit>
 			<trans-unit id="262">
-				<source></source>
-				<target></target>
+				<source>Type the winery location, city, town...</source>
+				<target>Escriba la localización, ciudad, pueblo, etc. de la bodega</target>
 			</trans-unit>
 			<trans-unit id="263">
-				<source></source>
-				<target></target>
+				<source>Type the winery postal code</source>
+				<target>Escriba el código postal de la bodega</target>
 			</trans-unit>
 			<trans-unit id="264">
-				<source></source>
-				<target></target>
+				<source>Type the winery phone</source>
+				<target>Escriba el teléfono de la bodega</target>
 			</trans-unit>
 			<trans-unit id="265">
-				<source></source>
-				<target></target>
+				<source>Type the winery email</source>
+				<target>Escriba el email de la bodega</target>
 			</trans-unit>
 			<trans-unit id="266">
-				<source></source>
-				<target></target>
+				<source>Type the winery website URL</source>
+				<target>Escriba la URL del sitio web de la bodega</target>
 			</trans-unit>
 			<trans-unit id="267">
-				<source></source>
-				<target></target>
+				<source>Type the winery address</source>
+				<target>Escriba la dirección de la bodega</target>
 			</trans-unit>
 			<trans-unit id="268">
 				<source></source>
