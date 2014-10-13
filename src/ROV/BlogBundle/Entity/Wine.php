@@ -27,6 +27,14 @@ class Wine
     /**
      * @var string
      *
+     * @ORM\ManyToOne(targetEntity="ROV\UsersBundle\Entity\User")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $author;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="brand", type="string", length=255)
      */
     private $brand;
@@ -136,6 +144,29 @@ class Wine
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     * @return Blog
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 
     /**

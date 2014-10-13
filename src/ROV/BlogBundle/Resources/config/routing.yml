@@ -28,14 +28,6 @@ rov_blog_new_wine:
     pattern:  /admin/new/wine
     defaults: { _controller: ROVBlogBundle:Wine:newWine }
 
-rov_blog_new_region:
-    pattern:  /admin/new/zone
-    defaults: { _controller: ROVBlogBundle:Wine:newRegion }
-
-rov_blog_new_winery:
-    pattern:  /admin/new/winery
-    defaults: { _controller: ROVBlogBundle:Wine:newWinery }
-
 rov_blog_edit_article:
     pattern:  /admin/edit/{article_id}
     defaults: { _controller: ROVBlogBundle:Default:editArticle }

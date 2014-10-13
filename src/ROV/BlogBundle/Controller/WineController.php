@@ -21,7 +21,7 @@ class WineController extends Controller
 	 * Show paginated wine reviews
 	 * @param  Request $request [description]
 	 * @param  integer $page    [description]
-	 * @return Twig template
+	 * @return object           Twig template
 	 */
 	public function wineReviewsAction(Request $request, $page)
 	{
@@ -126,16 +126,6 @@ class WineController extends Controller
 		# code...
 	}
 
-	public function newRegionAction(Request $request)
-	{
-		# code...
-	}
-
-	public function newWineryAction(Request $request)
-	{
-		# code...
-	}
-
 	public function newWineAction(Request $request)
 	{
 		# code...
@@ -146,9 +136,89 @@ class WineController extends Controller
 		# code...
 	}
 
-	public function manageWinesAction(Request $request)
+	/**
+     * Manage the wine reviews
+     * @param  Request $request [description]
+     * @return object           Twig template
+     */
+    public function manageWinesAction(Request $request)
 	{
-		# code...
-	}
+		$session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
 
+        $region = new Region();
+        $formNewRegion = $this->createForm(new RegionType(), $region);
+        $winery = new Winery();
+        $formNewWinery = $this->createForm(new WineryType(), $winery);
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+        {
+            // Get all the wine reviews
+            $wineReviews = $em->getRepository('ROVBlogBundle:Wine')->findBy(
+                array(),
+                array('updated' => 'DESC')
+            );
+        }
+        else
+        {
+            // Get the wine reviews from the author $user
+            $user = $this->get('security.context')->getToken()->getUser();
+            $wineReviews = $em->getRepository('ROVBlogBundle:Wine')->findBy(
+                array('author' => $user),
+                array('updated' => 'DESC')
+            );
+        }
+
+        $formNewRegion->handleRequest($request);
+        if ($formNewRegion->isValid())
+        {
+            // Create a valid slug
+            $slug = Util::getSlug($region->getName());
+            $region->setSlug($slug);
+            $em->persist($region);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'New region added'
+            );
+        }
+
+        $formNewWinery->handleRequest($request);
+        if ($formNewWinery->isValid())
+        {
+            // Create a valid slug
+            $slug = Util::getSlug($winery->getName());
+            $winery->setSlug($slug);
+            $em->persist($winery);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'New winery added'
+            );
+        }
+
+        $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+        $wineries = $em->getRepository('ROVBlogBundle:Winery')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        return $this->render('ROVBlogBundle:Wines:manageWineReviews.html.twig', array(
+            'wineReviews'           => $wineReviews,
+            'regions'               => $regions,
+            'wineries'              => $wineries,
+            'new_region_form'       => $formNewRegion->createView(),
+            'new_winery_form'       => $formNewWinery->createView(),
+            'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
+            'error'                 => $error
+        ));
+	}
 }
