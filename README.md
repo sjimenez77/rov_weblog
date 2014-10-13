@@ -28,7 +28,7 @@ In order to use [UglifyCSS][3] and [UglifyJS2][4] compressors you must install t
 	npm install uglifycss
 	npm install uglify-js
 
-If you wish to install them globally on your system with the `-g` parameter remember to change the path of these tools in the config.yml file.
+If you wish to install them globally on your system with the `-g` option remember to change the path of these tools in the config.yml file.
 
 2) Checking your System Configuration
 -------------------------------------
