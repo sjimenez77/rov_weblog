@@ -51,9 +51,9 @@ assetic:
         #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
         uglifyjs2:
             # the path to the uglifyjs executable
-            bin: /usr/local/bin/uglifyjs
+            bin: node_modules/uglify-js/bin/uglifyjs
         uglifycss:
-            bin: /usr/local/bin/uglifycss
+            bin: node_modules/uglifycss/uglifycss
 
 # Doctrine Configuration
 doctrine:

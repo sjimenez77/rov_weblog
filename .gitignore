@@ -1,12 +1,13 @@
-/web/bundles/
-/web/js/compiled/*
-/web/css/compiled/*
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml
 /app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
+/web/bundles/
+/web/js/compiled/*
+/web/css/compiled/*
+/node_modules
 /build/
 /vendor/
 /bin/

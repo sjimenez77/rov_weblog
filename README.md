@@ -21,6 +21,15 @@ You need to create the database schema. In order to do that you have to execute 
 
     php app/console doctrine:schema:create
 
+### Node modules
+
+In order to use [UglifyCSS][3] and [UglifyJS2][4] compressors you must install these modules locally:
+
+	npm install uglifycss
+	npm install uglify-js
+
+If you wish to install them globally on your system with the `-g` parameter remember to change the path of these tools in the config.yml file.
+
 2) Checking your System Configuration
 -------------------------------------
 
@@ -42,3 +51,5 @@ If you get any warnings or recommendations, fix them before moving on.
 
 [1]:  http://symfony.com
 [2]:  http://getcomposer.org/
+[3]:  https://github.com/fmarcia/UglifyCSS
+[4]:  https://github.com/mishoo/UglifyJS2
