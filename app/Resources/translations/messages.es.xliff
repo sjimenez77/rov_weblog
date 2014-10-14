@@ -903,20 +903,20 @@
 				<target>vino</target>
 			</trans-unit>
 			<trans-unit id="226">
-				<source>Write a new wine review</source>
-				<target>Escribir una nueva reseña de vino</target>
+				<source>Write a new wine tasting review</source>
+				<target>Escribir una nueva reseña de cata</target>
 			</trans-unit>
 			<trans-unit id="227">
-				<source>Manage wine reviews</source>
-				<target>Gestionar reseñas de vinos</target>
+				<source>Manage wine tasting reviews</source>
+				<target>Gestionar reseñas de cata</target>
 			</trans-unit>
 			<trans-unit id="228">
 				<source>Last wines</source>
 				<target>Últimos vinos</target>
 			</trans-unit>
 			<trans-unit id="229">
-				<source>Wine reviews</source>
-				<target>Reseñas de vinos</target>
+				<source>Wine tasting reviews</source>
+				<target>Reseñas de catas</target>
 			</trans-unit>
 			<trans-unit id="230">
 				<source>Wines</source>
@@ -979,8 +979,8 @@
 				<target>sin cosecha</target>
 			</trans-unit>
 			<trans-unit id="245">
-				<source>Publish wine review</source>
-				<target>Publicar reseña de vino</target>
+				<source>Publish wine tasting review</source>
+				<target>Publicar reseña de cata</target>
 			</trans-unit>
 			<trans-unit id="246">
 				<source>Type the varieties</source>
@@ -1019,16 +1019,16 @@
 				<target>Añadir una bodega nueva</target>
 			</trans-unit>
 			<trans-unit id="255">
-				<source>Click in any month to see the wine reviews published in that date</source>
-				<target>Haga clic en cualquier mes para ver las reseñas de vinos publicadas en esa fecha</target>
+				<source>Click in any month to see the wine tasting reviews published in that date</source>
+				<target>Haga clic en cualquier mes para ver las reseñas de cata publicadas en esa fecha</target>
 			</trans-unit>
 			<trans-unit id="256">
-				<source>For older wine reviews you can use the search engine</source>
-				<target>Para las reseñas de vinos más antiguas puede utilizar el buscador</target>
+				<source>For older wine tasting reviews you can use the search engine</source>
+				<target>Para las reseñas de cata más antiguas puede utilizar el buscador</target>
 			</trans-unit>
 			<trans-unit id="257">
-				<source>There are not wine reviews published yet</source>
-				<target>No hay ninguna reseña de vino publicada todavía</target>
+				<source>There are not wine tasting reviews published yet</source>
+				<target>No hay ninguna reseña de cata publicada todavía</target>
 			</trans-unit>
 			<trans-unit id="258">
 				<source>Regions</source>
@@ -1071,36 +1071,36 @@
 				<target>Escriba la dirección de la bodega</target>
 			</trans-unit>
 			<trans-unit id="268">
-				<source>Wine reviews in the last months</source>
-				<target>Reseñas de vinos en los últimos meses</target>
+				<source>Wine tasting reviews in the last months</source>
+				<target>Reseñas de catas en los últimos meses</target>
 			</trans-unit>
 			<trans-unit id="269">
-				<source></source>
-				<target></target>
+				<source>New region added</source>
+				<target>Nueva región añadida</target>
 			</trans-unit>
 			<trans-unit id="270">
-				<source></source>
-				<target></target>
+				<source>New winery added</source>
+				<target>Nueva bodega añadida</target>
 			</trans-unit>
 			<trans-unit id="271">
-				<source></source>
-				<target></target>
+				<source>Manage wine tasting reviews</source>
+				<target>Gestionar reseñas de cata</target>
 			</trans-unit>
 			<trans-unit id="272">
-				<source></source>
-				<target></target>
+				<source>There are not any wine tasting review yet!</source>
+				<target>¡No hay todavía ninguna reseña de cata!</target>
 			</trans-unit>
 			<trans-unit id="273">
-				<source></source>
-				<target></target>
+				<source>Wine tasting reviews list</source>
+				<target>Lista de reseñas de cata</target>
 			</trans-unit>
 			<trans-unit id="274">
-				<source></source>
-				<target></target>
+				<source>Phone</source>
+				<target>Teléfono</target>
 			</trans-unit>
 			<trans-unit id="275">
-				<source></source>
-				<target></target>
+				<source>Postal code</source>
+				<target>Código postal</target>
 			</trans-unit>
 			<trans-unit id="276">
 				<source></source>
