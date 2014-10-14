@@ -42,7 +42,8 @@ class WineryType extends AbstractType
                     )
                 ))
             ->add('postal', 'text', array(
-                'attr' => array(
+                'label' => 'Postal code',
+                'attr'  => array(
                     'class' => 'form-control',
                     'placeholder' => 'Type the winery postal code',
                     'required' => false

@@ -18,7 +18,7 @@ use ROV\BlogBundle\Util\Util;
 class WineController extends Controller
 {
 	/**
-	 * Show paginated wine reviews
+	 * Show paginated wine tasting reviews
 	 * @param  Request $request [description]
 	 * @param  integer $page    [description]
 	 * @return object           Twig template
@@ -63,7 +63,7 @@ class WineController extends Controller
                 array('name' => 'ASC')
             );
 
-        // Get last wine reviews
+        // Get last wine tasting reviews
         $query = $em->createQuery(
         	'SELECT w, wry, r FROM ROVBlogBundle:Wine w
         	 JOIN w.winery wry
@@ -76,13 +76,13 @@ class WineController extends Controller
         $query->setFirstResult(($page-1) * $numberPosts);
         $lastWineReviews = $query->getResult();
 
-        // Remaining wine reviews
+        // Remaining wine tasting reviews
         $queryCount = $em->createQuery('SELECT a FROM ROVBlogBundle:Wine a WHERE a.published = :published');
         $queryCount->setParameter('published', true);
         $queryCount->setFirstResult(($page) * $numberPosts);
         $wineReviewsLeft = $queryCount->getResult();
 
-        // Number of wine reviews by month
+        // Number of wine tasting reviews by month
         $now = new \DateTime();
         $year = $now->format('Y');
         $queryByMonth = $em->createQuery(
@@ -126,6 +126,11 @@ class WineController extends Controller
 		# code...
 	}
 
+    public function previewWineAction(Request $request, $wine_id)
+    {
+        # code...
+    }
+
 	public function newWineAction(Request $request)
 	{
 		# code...
@@ -137,7 +142,7 @@ class WineController extends Controller
 	}
 
 	/**
-     * Manage the wine reviews
+     * Manage the wine tasting reviews
      * @param  Request $request [description]
      * @return object           Twig template
      */
@@ -158,7 +163,7 @@ class WineController extends Controller
 
         if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
         {
-            // Get all the wine reviews
+            // Get all the wine tasting reviews
             $wineReviews = $em->getRepository('ROVBlogBundle:Wine')->findBy(
                 array(),
                 array('updated' => 'DESC')
@@ -166,7 +171,7 @@ class WineController extends Controller
         }
         else
         {
-            // Get the wine reviews from the author $user
+            // Get the wine tasting reviews from the author $user
             $user = $this->get('security.context')->getToken()->getUser();
             $wineReviews = $em->getRepository('ROVBlogBundle:Wine')->findBy(
                 array('author' => $user),

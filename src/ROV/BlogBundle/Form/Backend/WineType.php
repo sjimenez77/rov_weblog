@@ -96,7 +96,7 @@ class WineType extends AbstractType
                     'download_link' => true, // not mandatory, default is true
                 ))
             ->add('published', 'checkbox', array(
-                'label'     => 'Publish wine review',
+                'label'     => 'Publish wine tasting review',
                 'attr'      => array('style' => 'margin-left: 5px'),
                 'required'  => false
                 ))
