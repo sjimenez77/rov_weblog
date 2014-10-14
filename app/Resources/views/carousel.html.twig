@@ -5,6 +5,7 @@
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
           <div class="item active">
@@ -49,7 +50,29 @@
                   <a class="btn btn-primary" href="{{ path('rov_blog_homepage') }}">{{ 'Last articles'|trans }}</a><br>&nbsp;
                 </div>
               </div>
+            </div>
           </div>
+          <div class="item">
+            <div class="fill" style="background-image:url('{{ asset("images/champagne.jpg") }}');"></div>
+            <div class="carousel-caption">
+              <div class="row hidden-xs" style="padding-bottom: 4em">
+                <div class="col-sm-6 text-center">
+                  <img src="{{ asset('images/logo_mobile_exp.png') }}" alt="{{ appname }}">
+                </div>
+                <div class="col-sm-6">
+                  <h1>{{ 'Wine tasting reviews'|trans }}</h1>
+                  <h3>{{ 'I invite you to read my own reviews'|trans }}</h3>
+                  <a class="btn btn-lg btn-primary" href="{{ path('rov_blog_wine_homepage') }}">{{ 'Last wines'|trans }}</a>
+                </div>
+              </div>
+              <div class="row visible-xs">
+               <div class="col-xs-12">
+                  <h2>{{ 'Wine tasting reviews'|trans }}</h2>
+                  <h4>{{ 'I invite you to read my own reviews'|trans }}</h4>
+                  <a class="btn btn-primary" href="{{ path('rov_blog_wine_homepage') }}">{{ 'Last wines'|trans }}</a><br>&nbsp;
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
