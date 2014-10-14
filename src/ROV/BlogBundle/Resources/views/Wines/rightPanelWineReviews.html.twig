@@ -72,62 +72,16 @@
 		{% endif %}
 	</div><!-- /well -->
 	{% if is_granted('ROLE_ADMIN') %}
-	<!-- New Category Modal -->
-	<div class="modal fade" id="newRegion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				{{ form_start(new_region_form, {'method': 'POST', 'action': path('rov_blog_manage_wines') }) }}
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">{{ 'Add a new region'|trans }}</h4>
-				</div>
-				<div class="modal-body">
-					{{ form_row(new_region_form.country) }}
-					{{ form_row(new_region_form.name) }}
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Close'|trans }}</button>
-					<button type="submit" class="btn btn-primary">{{ 'Save changes'|trans }}</button>
-				</div>
-				{{ form_end(new_region_form) }}
-			</div>
-		</div>
-	</div>
-	<!-- New Tag Modal -->
-	<div class="modal fade" id="newWinery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				{{ form_start(new_winery_form, {'method': 'POST', 'action': path('rov_blog_manage_wines') }) }}
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">{{ 'Add a new winery'|trans }}</h4>
-				</div>
-				<div class="modal-body">
-					{{ form_row(new_winery_form.name) }}
-					{{ form_row(new_winery_form.region) }}
-					{{ form_row(new_winery_form.address) }}
-					{{ form_row(new_winery_form.location) }}
-					{{ form_row(new_winery_form.postal) }}
-					{{ form_row(new_winery_form.phone) }}
-					{{ form_row(new_winery_form.email) }}
-					{{ form_row(new_winery_form.web) }}
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Close'|trans }}</button>
-					<button type="submit" class="btn btn-primary">{{ 'Save changes'|trans }}</button>
-				</div>
-				{{ form_end(new_winery_form) }}
-			</div>
-		</div>
-	</div>
+	{% include('ROVBlogBundle:Wines:modalRegionForm.html.twig') %}
+	{% include('ROVBlogBundle:Wines:modalWineryForm.html.twig') %}
 	{% endif %}
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h4 class="panel-title">{{ 'Wine reviews in the last months'|trans }}</h4>
+			<h4 class="panel-title">{{ 'Wine tasting reviews in the last months'|trans }}</h4>
 		</div>
 		<div class="panel-body">
 			<div class="col-xs-12">
-				<p>{{ 'Click in any month to see the wine reviews published in that date'|trans }}</p>
+				<p>{{ 'Click in any month to see the wine tasting reviews published in that date'|trans }}</p>
 				<div class="list-group">
 					{% for groupMonth in wineReviewsMonth %}
 					<a href="{{ path('rov_blog_wine_date', { 'year': groupMonth.year, 'month': groupMonth.month }) }}" class="list-group-item">
@@ -138,6 +92,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel-footer">{{ 'For older wine reviews you can use the search engine'|trans }}</div>
+		<div class="panel-footer">{{ 'For older wine tasting reviews you can use the search engine'|trans }}</div>
 	</div>
 </div>
