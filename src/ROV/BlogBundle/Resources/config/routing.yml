@@ -21,7 +21,7 @@ rov_blog_article_date:
         page:  \d+
 
 rov_blog_new_article:
-    pattern:  /admin/new
+    pattern:  /admin/new/article
     defaults: { _controller: ROVBlogBundle:Default:newArticle }
 
 rov_blog_new_wine:
@@ -29,36 +29,48 @@ rov_blog_new_wine:
     defaults: { _controller: ROVBlogBundle:Wine:newWine }
 
 rov_blog_edit_article:
-    pattern:  /admin/edit/{article_id}
+    pattern:  /admin/edit/article/{article_id}
     defaults: { _controller: ROVBlogBundle:Default:editArticle }
 
 rov_blog_edit_wine:
-    pattern:  /admin/new/wine
+    pattern:  /admin/edit/wine/{wine_id}
     defaults: { _controller: ROVBlogBundle:Wine:editWine }
 
 rov_blog_preview_article:
-    pattern:  /admin/preview/{article_id}
+    pattern:  /admin/preview/article/{article_id}
     defaults: { _controller: ROVBlogBundle:Default:previewArticle }
 
+rov_blog_preview_wine:
+    pattern:  /admin/preview/wine/{wine_id}
+    defaults: { _controller: ROVBlogBundle:Default:previewWine }
+
 rov_blog_delete_article:
-    pattern:  /admin/delete/{article_id}
+    pattern:  /admin/delete/article/{article_id}
     defaults: { _controller: ROVBlogBundle:Default:deleteArticle }
 
 rov_blog_manage_articles:
-    pattern:  /admin/manage
+    pattern:  /admin/manage/articles
     defaults: { _controller: ROVBlogBundle:Default:manageArticles }
 
 rov_blog_manage_category:
     pattern:  /admin/manage/category/{slug}
     defaults: { _controller: ROVBlogBundle:Default:manageCategory }
 
-rov_blog_manage_wines:
-    pattern:  /admin/manage/wine
-    defaults: { _controller: ROVBlogBundle:Wine:manageWines }
-
 rov_blog_manage_tag:
     pattern:  /admin/manage/tag/{slug}
     defaults: { _controller: ROVBlogBundle:Default:manageTag }
+
+rov_blog_manage_wines:
+    pattern:  /admin/manage/wines
+    defaults: { _controller: ROVBlogBundle:Wine:manageWines }
+
+rov_blog_manage_region:
+    pattern:  /admin/manage/region/{slug}
+    defaults: { _controller: ROVBlogBundle:Wine:manageRegion }
+
+rov_blog_manage_winery:
+    pattern:  /admin/manage/winery/{slug}
+    defaults: { _controller: ROVBlogBundle:Wine:manageWinery }
 
 rov_blog_accept_comment:
     pattern:  /admin/comment/accept/{article_id}/{comment_id}
