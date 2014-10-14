@@ -11,66 +11,8 @@
 		</div><!-- /input-group -->
 		{{ form_end(form_search) }}
 	</div><!-- /well -->
-	<div class="well">
-		<h4>{{ 'Categories'|trans }}</h4>
-		<div class="row">
-			{% set length = categories|length %}
-			{% if length > 0 %}
-			<div class="col-xs-6">
-				<ul class="list-unstyled">
-					{% for category in categories|slice(0, (length / 2)|round) %}
-					<li><a href="{{ path('rov_blog_article_category', { 'slug': category.slug })}}">{{ category.name|trans }}</a></li>
-					{% endfor %}
-				</ul>
-			</div>
-			<div class="col-xs-6">
-				<ul class="list-unstyled">
-					{% for category in categories|slice((length / 2)|round, length) %}
-					<li><a href="{{ path('rov_blog_article_category', { 'slug': category.slug })}}">{{ category.name|trans }}</a></li>
-					{% endfor %}
-				</ul>
-			</div>
-			{% else %}
-			<div class="col-lg-12">
-				<p>{{ 'There are no categories yet'|trans }}</p>
-			</div>
-			{% endif %}
-		</div>
-		{% if is_granted('ROLE_ADMIN') %}
-		<!-- Button trigger modal -->
-		<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#newCategory" style="margin-bottom:5px">{{ 'Create a new category'|trans }}</button>
-		{% endif %}
-	</div><!-- /well -->
-	<div class="well">
-		<h4>{{ 'Tags'|trans }}</h4>
-		<div class="row">
-			{% set length = tags|length %}
-			{% if length > 0 %}
-			<div class="col-xs-6">
-				<ul class="list-unstyled">
-					{% for tag in tags|slice(0, (length / 2)|round) %}
-					<li><a href="{{ path('rov_blog_article_tag', { 'slug': tag.slug })}}">{{ tag.name|trans }}</a></li>
-					{% endfor %}
-				</ul>
-			</div>
-			<div class="col-xs-6">
-				<ul class="list-unstyled">
-					{% for tag in tags|slice((length / 2)|round, length) %}
-					<li><a href="{{ path('rov_blog_article_tag', { 'slug': tag.slug })}}">{{ tag.name|trans }}</a></li>
-					{% endfor %}
-				</ul>
-			</div>
-			{% else %}
-			<div class="col-lg-12">
-				<p>{{ 'There are no tags yet'|trans }}</p>
-			</div>
-			{% endif %}
-		</div>
-		{% if is_granted('ROLE_ADMIN') %}
-		<!-- Button trigger modal -->
-		<button class="btn btn-info btn-block" data-toggle="modal" data-target="#newTag" style="margin-top:5px">{{ 'Create a new tag'|trans }}</button>
-		{% endif %}
-	</div><!-- /well -->
+	{% include('ROVBlogBundle:Default:wellCategories.html.twig') %}
+	{% include('ROVBlogBundle:Default:wellTags.html.twig') %}
 	{% if is_granted('ROLE_ADMIN') %}
 	{% include('ROVBlogBundle:Default:modalCategoryForm.html.twig') %}
 	{% include('ROVBlogBundle:Default:modalTagForm.html.twig') %}
