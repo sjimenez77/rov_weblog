@@ -8,19 +8,19 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Blog <small>{{ 'Wine reviews'|trans }}</small></h1>
+				<h1 class="page-header">Blog <small>{{ 'Wine tasting reviews'|trans }}</small></h1>
 				<ol class="breadcrumb">
 					<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
 					{% if region_url is defined %}
-					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine reviews'|trans }}</a></li>
+					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine tasting reviews'|trans }}</a></li>
 					<li>{{ 'Region'|trans }}</li>
 					<li class="active">{{ region_url.name|trans }}</li>
 					{% elseif winery_url is defined %}
-					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine reviews'|trans }}</a></li>
+					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine tasting reviews'|trans }}</a></li>
 					<li>{{ 'Winery'|trans }}</li>
 					<li class="active">{{ tag_url.name|trans }}</li>
 					{% elseif year_url is defined %}
-					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine reviews'|trans }}</a></li>
+					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine tasting reviews'|trans }}</a></li>
 					{% if month_url != 0 %}
 					<li>{{ 'Year and month'|trans }}</li>
 					<li>{{ year_url }}</li>					
@@ -30,7 +30,7 @@
 					<li class="active">{{ year_url }}</li>					
 					{% endif %}
 					{% else %}
-					<li class="active">{{ 'Wine reviews'|trans }}</li>
+					<li class="active">{{ 'Wine tasting reviews'|trans }}</li>
 					{% endif %}
 				</ol>
 			</div>
@@ -58,7 +58,7 @@
 				{% endfor %}
 				{% else %}
 				<blockquote>
-					<p>{{ 'There are not wine reviews published yet'|trans }}</p>
+					<p>{{ 'There are not wine tasting reviews published yet'|trans }}</p>
 				</blockquote>
 				{% endif %}
 			</div>
@@ -66,4 +66,15 @@
 		</div>
 
 	</div><!-- container -->
+{% endblock %}
+{% block js %}
+	{# Select2 creation #}
+	{{ parent() }}
+    {% if locale == 'es' %}<script type="text/javascript" src="{{ asset('bundles/rovstart/js/select2/select2_locale_es.js') }}"></script>{% endif %}
+	<script>
+		$('#rov_blogbundle_regiontype_country').select2({
+			placeholder: "{{ 'Select a country'|trans }}"
+		});
+		$('#rov_blogbundle_winerytype_region').select2();
+	</script>
 {% endblock %}
