@@ -5,6 +5,7 @@ namespace ROV\BlogBundle\Form\Backend;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 use ROV\BlogBundle\Form\Backend\CategoryType;
 use ROV\BlogBundle\Form\Backend\TagType;
@@ -52,13 +53,21 @@ class ArticleType extends AbstractType
                 'label'     => 'Choose a category',
                 'class'     => 'ROVBlogBundle:Category',
                 'property'  => 'name',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.name', 'ASC');
+                },
                 'empty_value' => ''
                 ))
             ->add('tags', 'entity', array(
-                'attr'         => array('class' => 'form-control'),
+                'attr'      => array('class' => 'form-control'),
                 // 'type'         => new TagType(),
                 'class'     => 'ROVBlogBundle:Tag',
                 'property'  => 'name',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.name', 'ASC');
+                },
                 'multiple'  => true,
                 'empty_value' => ''
                 ))

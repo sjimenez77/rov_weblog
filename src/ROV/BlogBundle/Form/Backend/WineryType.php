@@ -5,6 +5,7 @@ namespace ROV\BlogBundle\Form\Backend;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
  
 use ROV\BlogBundle\Form\Backend\RegionType;
 
@@ -25,6 +26,10 @@ class WineryType extends AbstractType
                 'label'     => 'Choose a region',
                 'class'     => 'ROVBlogBundle:Region',
                 'property'  => 'name',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('r')
+                        ->orderBy('r.name', 'ASC');
+                },
                 'empty_value' => ''
                 ))
             ->add('address', 'text', array(
