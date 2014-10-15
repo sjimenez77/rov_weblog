@@ -131,9 +131,93 @@ class WineController extends Controller
         # code...
     }
 
+    /**
+     * New wine tasting review form
+     * @param  Request $request [description]
+     * @return object           Twig template
+     */
 	public function newWineAction(Request $request)
 	{
-		# code...
+		      $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $wine = new Wine();
+        $formNewWine = $this->createForm(new WineType(), $wine);
+        $region = new Region();
+        $formNewRegion = $this->createForm(new RegionType(), $region);
+        $winery = new Winery();
+        $formNewWinery = $this->createForm(new WineryType(), $winery);
+
+        // New in version 2.3: The handleRequest() method was added in Symfony 2.3. 
+        // Previously, the $request was passed to the submit method - a strategy which 
+        // is deprecated and will be removed in Symfony 3.0.
+        $formNewWine->handleRequest($request);
+        if ($formNewWine->isValid())
+        {
+            // Process title and create a valid slug
+            $slug = Util::getSlug($wine->getTitle());
+
+            $wine->setSlug($slug);
+            $wine->setAuthor($user);
+            $em->persist($wine);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'New wine tasting review saved'
+            );
+
+            return $this->redirect($this->generateUrl('rov_blog_manage_articles'));
+        }
+
+        $formNewRegion->handleRequest($request);
+        if ($formNewRegion->isValid())
+        {
+            // Create a valid slug
+            $slug = Util::getSlug($region->getName());
+            $region->setSlug($slug);
+            $em->persist($region);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'New region added'
+            );
+        }
+
+        $formNewWinery->handleRequest($request);
+        if ($formNewWinery->isValid())
+        {
+            // Create a valid slug
+            $slug = Util::getSlug($winery->getName());
+            $winery->setSlug($slug);
+            $em->persist($winery);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'New winery added'
+            );
+        }
+
+        $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+        $wineries = $em->getRepository('ROVBlogBundle:Winery')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        return $this->render('ROVBlogBundle:Wines:newWine.html.twig', array(
+            'new_wine_form'     => $formNewWine->createView(),
+            'new_region_form'   => $formNewRegion->createView(),
+            'new_winery_form'   => $formNewWinery->createView(),
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'error'             => $error
+        ));
 	}
 
 	public function editWineAction(Request $request)

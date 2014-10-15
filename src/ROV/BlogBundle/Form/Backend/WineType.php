@@ -56,6 +56,7 @@ class WineType extends AbstractType
                     'SS'    => 'semi-dry',
                     'S/C'   => 'no vintage',
                     )
+                ))
             ->add('varieties', 'text', array(
                 'attr' => array(
                     'class'         => 'form-control',
@@ -89,7 +90,7 @@ class WineType extends AbstractType
                     'required'  => true
                     )
                 ))
-            ->add('image', 'vich_file', array(
+            ->add('imageFile', 'vich_file', array(
                     'required'      => false,
                     'mapping'       => 'wine_image', // mandatory
                     'allow_delete'  => true, // not mandatory, default is true
