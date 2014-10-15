@@ -2,7 +2,16 @@
 <div class="modal fade" id="newRegion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
+			{# Depending on the path the action of this form changes #}
+			{% if path('rov_blog_new_wine') in currentPath %}
+			{{ form_start(new_region_form, {'method': 'POST', 'action': path('rov_blog_new_wine') }) }}
+			{% elseif wine_id is defined %}
+				{% if path('rov_blog_edit_wine', { 'wine_id': wine_id }) in currentPath %}
+				{{ form_start(new_region_form, {'method': 'POST', 'action': path('rov_blog_edit_wine', { 'wine_id': wine_id }) }) }}
+				{% endif %}
+			{% else %}
 			{{ form_start(new_region_form, {'method': 'POST', 'action': path('rov_blog_manage_wines') }) }}
+			{% endif %}
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">{{ 'Add a new region'|trans }}</h4>

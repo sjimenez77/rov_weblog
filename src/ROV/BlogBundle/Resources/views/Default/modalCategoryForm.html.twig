@@ -2,7 +2,16 @@
 <div class="modal fade" id="newCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
+			{# Depending on the path the action of this form changes #}
+			{% if path('rov_blog_new_article') in currentPath %}
+			{{ form_start(new_category_form, {'method': 'POST', 'action': path('rov_blog_new_article') }) }}
+			{% elseif article_id is defined %}
+				{% if path('rov_blog_edit_article', { 'article_id': article_id }) in currentPath %}
+				{{ form_start(new_category_form, {'method': 'POST', 'action': path('rov_blog_edit_article', { 'article_id': article_id }) }) }}
+				{% endif %}
+			{% else %}
 			{{ form_start(new_category_form, {'method': 'POST', 'action': path('rov_blog_manage_articles') }) }}
+			{% endif %}
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">{{ 'Create a new category'|trans }}</h4>
