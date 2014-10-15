@@ -1,5 +1,7 @@
 {% extends '::base.html.twig' %}
 
+{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+
 {% set locale = app.request.locale %}
 {% block lang %}{{ locale }}{% endblock %}
 {% block title %}{% endblock %}
