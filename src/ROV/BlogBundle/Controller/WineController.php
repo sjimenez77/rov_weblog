@@ -226,4 +226,88 @@ class WineController extends Controller
             'error'                 => $error
         ));
 	}
+
+    /**
+     * Edit regions
+     * @param  Request $request [description]
+     * @return object           Twig template
+     */
+    public function manageRegionAction(Request $request, $slug)
+    {
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $region = $em->getRepository('ROVBlogBundle:Region')->findOneBy(array('slug' => $slug));
+        $formEditRegion = $this->createForm(new RegionType(), $region);
+        $formEditRegion->handleRequest($request);
+        if ($formEditRegion->isValid())
+        {
+            // Create a valid slug
+            $slug = Util::getSlug($region->getName());
+            $region->setSlug($slug);
+            $em->persist($region);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'Region updated'
+            );
+
+            return $this->redirect($this->generateUrl('rov_blog_manage_wines'));
+        }
+
+        return $this->render('ROVBlogBundle:Wines:manageRegion.html.twig', array(
+            'region'            => $region,
+            'edit_region_form'  => $formEditRegion->createView(),
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'error'             => $error
+        ));
+    }
+
+    /**
+     * Edit winery
+     * @param  Request $request [description]
+     * @return object           Twig template
+     */
+    public function manageWineryAction(Request $request, $slug)
+    {
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $winery = $em->getRepository('ROVBlogBundle:Winery')->findOneBy(array('slug' => $slug));
+        $formEditWinery = $this->createForm(new WineryType(), $winery);
+        $formEditWinery->handleRequest($request);
+        if ($formEditWinery->isValid())
+        {
+            // Create a valid slug
+            $slug = Util::getSlug($winery->getName());
+            $winery->setSlug($slug);
+            $em->persist($winery);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'Winery updated'
+            );
+
+            return $this->redirect($this->generateUrl('rov_blog_manage_wines'));
+        }
+
+        return $this->render('ROVBlogBundle:Wines:manageWinery.html.twig', array(
+            'winery'            => $winery,
+            'edit_winery_form'  => $formEditWinery->createView(),
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'error'             => $error
+        ));
+    }
 }

@@ -6,7 +6,7 @@
 		<div class="col-xs-6">
 			<ul class="list-unstyled">
 				{% for region in regions|slice(0, (length / 2)|round) %}
-				{% if 'manage' in currentPath or 'edit' in currentPath %}
+				{% if 'admin' in currentPath or 'manage' in currentPath %}
 				<li><a href="{{ path('rov_blog_manage_region', { 'slug': region.slug })}}">{{ region.name|trans }}</a></li>
 				{% else %}
 				<li><a href="{{ path('rov_blog_wine_region', { 'slug': region.slug })}}">{{ region.name|trans }}</a></li>
@@ -17,7 +17,7 @@
 		<div class="col-xs-6">
 			<ul class="list-unstyled">
 				{% for region in regions|slice((length / 2)|round, length) %}
-				{% if 'manage' in currentPath or 'edit' in currentPath %}
+				{% if 'admin' in currentPath or 'manage' in currentPath %}
 				<li><a href="{{ path('rov_blog_manage_region', { 'slug': region.slug })}}">{{ region.name|trans }}</a></li>
 				{% else %}
 				<li><a href="{{ path('rov_blog_wine_region', { 'slug': region.slug })}}">{{ region.name|trans }}</a></li>

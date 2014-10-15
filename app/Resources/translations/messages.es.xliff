@@ -1107,20 +1107,20 @@
 				<target>¿Quiere conocer vinos de todo el mundo?</target>
 			</trans-unit>
 			<trans-unit id="277">
-				<source></source>
-				<target></target>
+				<source>Update region</source>
+				<target>Actualizar región</target>
 			</trans-unit>
 			<trans-unit id="278">
-				<source></source>
-				<target></target>
+				<source>Update the region data</source>
+				<target>Actualice los datos de la región</target>
 			</trans-unit>
 			<trans-unit id="279">
-				<source></source>
-				<target></target>
+				<source>Update winery</source>
+				<target>Actualizar bodega</target>
 			</trans-unit>
 			<trans-unit id="280">
-				<source></source>
-				<target></target>
+				<source>Update the winery data</source>
+				<target>Actualice los datos de la bodega</target>
 			</trans-unit>
 			<trans-unit id="281">
 				<source></source>
