@@ -1,6 +1,6 @@
 {% extends '::frontend_bootstrap.html.twig' %}
 
-{% block title %}{{ 'New wine tasting review'|trans }}{% endblock %}
+{% block title %}{{ 'Edit wine tasting review'|trans }}{% endblock %}
 
 {% block body %}
 	{{ parent() }}
@@ -8,10 +8,10 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Blog <small>{{ 'New wine tasting review'|trans }}</small></h1>
+			<h1 class="page-header">Blog <small>{{ 'Edit wine tasting review'|trans }}</small></h1>
 			<ol class="breadcrumb">
 				<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
-				<li class="active">{{ 'New wine tasting review'|trans }}</li>
+				<li class="active">{{ 'Edit wine tasting review'|trans }}</li>
 			</ol>
 		</div>
 	</div>
@@ -20,7 +20,7 @@
 		<div class="col-lg-12">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h4>{{ 'Write a new wine tasting review'|trans }}</h4>
+					<h4>{{ 'Edit wine tasting review'|trans }}</h4>
 				</div>
 				<div class="panel-body">
 					{# Flashbag session success messages #}
@@ -30,31 +30,31 @@
 					{% for message in app.session.flashbag.get('success') %}
 					<div class="alert alert-success">{{ message|trans }}</div>
 					{% endfor %}
-					{{ form_start(new_wine_form, {'method': 'POST', 'action': path('rov_blog_new_wine') }) }}
-						{# form_widget(new_wine_form) #}
-						<h3>{{ form_errors(new_wine_form) }}</h3>
+					{{ form_start(edit_wine_form, {'method': 'POST', 'action': path('rov_blog_edit_wine', { 'wine_id': wine_id}) }) }}
+						{# form_widget(edit_wine_form) #}
+						<h3>{{ form_errors(edit_wine_form) }}</h3>
 						<div class="row">
 							<div class="col-md-8">
 								<fieldset>
 									<legend>{{ 'Wine information'|trans }}</legend>
-									<div class="form-group">{{ form_row(new_wine_form.brand) }}</div>
-									<div class="form-group">{{ form_row(new_wine_form.type) }}</div>
-									<div class="form-group">{{ form_row(new_wine_form.varieties) }}</div>
-									<div class="form-group">{{ form_row(new_wine_form.year) }}</div>
+									<div class="form-group">{{ form_row(edit_wine_form.brand) }}</div>
+									<div class="form-group">{{ form_row(edit_wine_form.type) }}</div>
+									<div class="form-group">{{ form_row(edit_wine_form.varieties) }}</div>
+									<div class="form-group">{{ form_row(edit_wine_form.year) }}</div>
 									<br><div class="alert alert-info">{{ 'If you wish to attach an image choose a file from your disk'|trans }}</div>
-									<div class="form-group">{{ form_row(new_wine_form.imageFile) }}</div>
-									<div class="form-group">{{ form_row(new_wine_form.description) }}</div>
-									<div class="form-group">{{ form_row(new_wine_form.published) }}</div>
+									<div class="form-group">{{ form_row(edit_wine_form.imageFile) }}</div>
+									<div class="form-group">{{ form_row(edit_wine_form.description) }}</div>
+									<div class="form-group">{{ form_row(edit_wine_form.published) }}</div>
 								</fieldset>
 							</div>
 							<br class="visible-xs visible-sm">
 							<div class="col-md-4">
 								<fieldset>
 									<legend>{{ 'Verdejo points'|trans }}</legend>
-									<div class="form-group">{{ form_row(new_wine_form.points) }}</div>
+									<div class="form-group">{{ form_row(edit_wine_form.points) }}</div>
 									<legend>{{ 'Region and winery'|trans }}</legend>
 									<div class="alert alert-info">{{ 'If you need a new region or winery for this wine tasting review, create them first'|trans }}</div>
-									<div class="form-group">{{ form_row(new_wine_form.winery) }}
+									<div class="form-group">{{ form_row(edit_wine_form.winery) }}
 									<!-- Button trigger modal -->
 									<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#newRegion" style="margin-bottom:5px">{{ 'Add a new region'|trans }}</button>
 									<!-- Button trigger modal -->
@@ -64,8 +64,8 @@
 						</div>
 						<hr>
 						<button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;{{ 'Save changes'|trans }}</button>
-						<a class="btn btn-default" href="{{ path('rov_blog_manage_wines') }}">{{ 'Cancel'|trans }}</a>
-					{{ form_end(new_wine_form) }}
+						<a class="btn btn-default" href="{{ path('rov_blog_manage_wines') }}">{{ 'Back'|trans }}</a>
+					{{ form_end(edit_wine_form) }}
 					{% include('ROVBlogBundle:Wines:modalRegionForm.html.twig') %}
 					{% include('ROVBlogBundle:Wines:modalWineryForm.html.twig') %}
 				</div>
