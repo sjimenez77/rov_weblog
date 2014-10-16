@@ -25,79 +25,102 @@
 			{% for message in app.session.flashbag.get('success') %}
 			<div class="alert alert-success">{{ message|trans }}</div>
 			{% endfor %}
-			<div class="row">
-				<div class="col-md-9">
-					{# Mostrar los artículos #}
-					<h2>{{ 'Articles list'|trans }}</h2>
-					<hr>
-					{% if articles|length > 0 %}
-					<div class="table-responsive">
-						<table class="tablesorter">
-							<thead>
-								<tr>
-									<th>{{ 'Title'|trans }}</th>
-									<th>{{ 'Created'|trans }}</th>
-									<th>{{ 'Last updated'|trans }}</th>
-									<th>{{ 'Published'|trans }}</th>
-									<th class="filter-false">{{ 'Options'|trans }}</th>
-								</tr>
-							</thead>
-							<tfoot>
-								<tr>
-									<th>{{ 'Title'|trans }}</th>
-									<th>{{ 'Created'|trans }}</th>
-									<th>{{ 'Last updated'|trans }}</th>
-									<th>{{ 'Published'|trans }}</th>
-									<th>{{ 'Options'|trans }}</th>
-								</tr>
-								<tr>
-									<th colspan="5" class="ts-pager form-horizontal">
-										<button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
-										<button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
-										<span class="pagedisplay"></span> <!-- this can be any element, including an input -->
-										<button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
-										<button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
-										<select class="pagesize input-mini" title="{{ 'Select page size'|trans }}">
-											<option selected="selected" value="10">10</option>
-											<option value="20">20</option>
-											<option value="30">30</option>
-											<option value="40">40</option>
-										</select>
-										<select class="pagenum input-mini" title="{{ 'Select page number'|trans }}"></select>
-									</th>
-								</tr>
-							</tfoot>
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="active">
+					<a href="#articles" role="tab" data-toggle="tab">{{ 'Articles list'|trans }}</a>
+				</li>
+				<li>
+					<a href="#options" role="tab" data-toggle="tab">{{ 'Categories and tabs'|trans}}</a>
+				</li>
+			</ul>
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div class="tab-pane fade in active" id="articles">
+					<div class="row">
+						<div class="col-md-12">
+							{# Mostrar los artículos #}
+							<h2>{{ 'Articles list'|trans }}</h2>
+							<hr>
+							{% if articles|length > 0 %}
+							<div class="table-responsive">
+								<table class="tablesorter">
+									<thead>
+										<tr>
+											<th>{{ 'Title'|trans }}</th>
+											<th>{{ 'Created'|trans }}</th>
+											<th>{{ 'Last updated'|trans }}</th>
+											<th>{{ 'Published'|trans }}</th>
+											<th class="filter-false">{{ 'Options'|trans }}</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>{{ 'Title'|trans }}</th>
+											<th>{{ 'Created'|trans }}</th>
+											<th>{{ 'Last updated'|trans }}</th>
+											<th>{{ 'Published'|trans }}</th>
+											<th>{{ 'Options'|trans }}</th>
+										</tr>
+										<tr>
+											<th colspan="5" class="ts-pager form-horizontal">
+												<button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
+												<button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
+												<span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+												<button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
+												<button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
+												<select class="pagesize input-mini" title="{{ 'Select page size'|trans }}">
+													<option selected="selected" value="10">10</option>
+													<option value="20">20</option>
+													<option value="30">30</option>
+													<option value="40">40</option>
+												</select>
+												<select class="pagenum input-mini" title="{{ 'Select page number'|trans }}"></select>
+											</th>
+										</tr>
+									</tfoot>
 
-							<tbody>
-								{% for article in articles %}
-								<tr>
-									<td>{{ article.title }}</td>
-									{# article.created|localizeddate('medium', 'medium', locale, "Europe/Madrid") #}
-									<td>{{ article.created|date('d/m/Y H:i:s', 'Europe/Madrid') }}</td>
-									{# article.updated|localizeddate('medium', 'medium', locale, "Europe/Madrid") #}
-									<td>{{ article.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</td>
-									<td style="text-align: center">{% if article.published %}{{ 'Yes'|trans }}{% else %}No{% endif %}</td>
-									<td>
-										<a class="btn btn-default btn-xs btn-block" href="{{ path('rov_blog_edit_article', { 'article_id': article.id }) }}" role="button">{{ 'Edit'|trans }}</a>
-										{# <a class="btn btn-default btn-xs" href="{{ path('rov_blog_delete_article', { 'article_id': article.id }) }}" role="button">{{ 'Delete'|trans }}</a> #}
-									</td>
-								</tr>
-								{% endfor %}
-							</tbody>
-						</table>
+									<tbody>
+										{% for article in articles %}
+										<tr>
+											<td>{{ article.title }}</td>
+											{# article.created|localizeddate('medium', 'medium', locale, "Europe/Madrid") #}
+											<td>{{ article.created|date('d/m/Y H:i:s', 'Europe/Madrid') }}</td>
+											{# article.updated|localizeddate('medium', 'medium', locale, "Europe/Madrid") #}
+											<td>{{ article.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</td>
+											<td style="text-align: center">{% if article.published %}{{ 'Yes'|trans }}{% else %}No{% endif %}</td>
+											<td>
+												<a class="btn btn-default btn-xs btn-block" href="{{ path('rov_blog_edit_article', { 'article_id': article.id }) }}" role="button">{{ 'Edit'|trans }}</a>
+												{# <a class="btn btn-default btn-xs" href="{{ path('rov_blog_delete_article', { 'article_id': article.id }) }}" role="button">{{ 'Delete'|trans }}</a> #}
+											</td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+							{% else %}
+							<div class="alert alert-info">
+								<h4>{{ 'There are not any article yet!'|trans }}</h4>
+							</div>
+							{% endif %}
+							<a href="{{ path('rov_blog_new_article') }}" class="btn btn-success btn-block"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;{{ 'Write a new article'|trans }}</a>
+							<br>&nbsp;
+						</div>
 					</div>
-					{% else %}
-					<div class="alert alert-info">
-						<h4>{{ 'There are not any article yet!'|trans }}</h4>
-					</div>
-					{% endif %}
-					<a href="{{ path('rov_blog_new_article') }}" class="btn btn-success btn-block"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;{{ 'Write a new article'|trans }}</a>
-					<br>&nbsp;
 				</div>
-				<br class="visible-xs visible-sm">
-				<div class="col-md-3">
-					{% include('ROVBlogBundle:Default:wellCategories.html.twig') %}
-					{% include('ROVBlogBundle:Default:wellTags.html.twig') %}
+				<div class="tab-pane fade" id="options">
+					<div class="row">
+						<div class="col-md-12">
+							<h2>{{ 'Categories and tabs'|trans}}</h2>
+							<hr>							
+						</div>
+						<div class="col-md-6">
+							{% include('ROVBlogBundle:Default:wellCategories.html.twig') %}
+						</div>
+						<div class="col-md-6">
+							{% include('ROVBlogBundle:Default:wellTags.html.twig') %}
+						</div>
+					</div>	
 				</div>
 			</div>
 			{% include('ROVBlogBundle:Default:modalCategoryForm.html.twig') %}
@@ -183,6 +206,12 @@
 	    	// c.totalPages contains the total number of pages
 	    	amplia_footer();
 	    });
+
+	    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	    	// e.target // activated tab
+	    	// e.relatedTarget // previous tab
+	    	setTimeout(function(){amplia_footer()}, 50);
+	    })
 	});
 	</script>
 	{% endif %}

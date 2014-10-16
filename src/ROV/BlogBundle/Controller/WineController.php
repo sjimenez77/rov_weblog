@@ -25,7 +25,7 @@ class WineController extends Controller
 	 */
 	public function wineReviewsAction(Request $request, $page)
 	{
-		$numberPosts = 3;
+		$numberReviews = 5;
 
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
@@ -50,6 +50,9 @@ class WineController extends Controller
         $formNewRegion = $this->createForm(new RegionType(), $region);
         $winery = new Winery();
         $formNewWinery = $this->createForm(new WineryType(), $winery);
+        // Form declared to get the wine types labels
+        $formWine = $this->createForm(new WineType(), null);
+        $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
 
         // Get regions
         $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
@@ -69,17 +72,17 @@ class WineController extends Controller
         	 JOIN w.winery wry
         	 JOIN wry.region r
         	 WHERE w.published = :published
-        	 ORDER BY w.updated ASC'
+        	 ORDER BY w.updated DESC'
         	);
         $query->setParameter('published', true);
-        $query->setMaxResults($numberPosts);
-        $query->setFirstResult(($page-1) * $numberPosts);
+        $query->setMaxResults($numberReviews);
+        $query->setFirstResult(($page-1) * $numberReviews);
         $lastWineReviews = $query->getResult();
 
         // Remaining wine tasting reviews
         $queryCount = $em->createQuery('SELECT a FROM ROVBlogBundle:Wine a WHERE a.published = :published');
         $queryCount->setParameter('published', true);
-        $queryCount->setFirstResult(($page) * $numberPosts);
+        $queryCount->setFirstResult(($page) * $numberReviews);
         $wineReviewsLeft = $queryCount->getResult();
 
         // Number of wine tasting reviews by month
@@ -98,6 +101,7 @@ class WineController extends Controller
         return $this->render('ROVBlogBundle:Wines:wines.html.twig', array(
             'page'              => $page,
             'form_search'       => $formSearch->createView(),
+            'wineTypesLabels'   => $wineTypesLabels,
         	'wineReviews'       => $lastWineReviews,
             'wineReviewsLeft'   => $wineReviewsLeft,
             'wineReviewsMonth'  => $wineReviewsByMonth,
@@ -108,22 +112,349 @@ class WineController extends Controller
             'new_winery_form'   => $formNewWinery->createView(),
             'error'             => $error
         ));
-
 	}
 
-	public function wineReviewsRegionAction(Request $request, $slug, $page)
+	/**
+     * Show paginated wine tasting reviews by region
+     * @param  Request $request [description]
+     * @param  string  $slug 
+     * @param  integer $page 
+     * @return object           Twig template
+     */
+    public function wineReviewsRegionAction(Request $request, $slug, $page)
 	{
-		# code...
+        $numberReviews = 5;
+
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        // Search form
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
+
+        $region = new Region();
+        $formNewRegion = $this->createForm(new RegionType(), $region);
+        $winery = new Winery();
+        $formNewWinery = $this->createForm(new WineryType(), $winery);
+        // Form declared to get the wine types labels
+        $formWine = $this->createForm(new WineType(), null);
+        $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+
+        // Get regions
+        $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        // Get wineries
+        $wineries = $em->getRepository('ROVBlogBundle:Winery')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        // Get last wine tasting reviews
+        $query = $em->createQuery(
+            'SELECT w, wry, r FROM ROVBlogBundle:Wine w
+             JOIN w.winery wry
+             JOIN wry.region r
+             WHERE w.published = :published
+             AND r.slug = :slug
+             ORDER BY w.updated DESC'
+            );
+        $query->setParameter('published', true);
+        $query->setParameter('slug', $slug);
+        $query->setMaxResults($numberReviews);
+        $query->setFirstResult(($page-1) * $numberReviews);
+        $lastWineReviews = $query->getResult();
+
+        // Remaining wine tasting reviews
+        $queryCount = $em->createQuery(
+            'SELECT w, wry, r FROM ROVBlogBundle:Wine w 
+             JOIN w.winery wry
+             JOIN wry.region r
+             WHERE w.published = :published
+             AND r.slug = :slug'
+            );
+        $queryCount->setParameter('published', true);
+        $queryCount->setParameter('slug', $slug);
+        $queryCount->setFirstResult(($page) * $numberReviews);
+        $wineReviewsLeft = $queryCount->getResult();
+
+        $region = $em->getRepository('ROVBlogBundle:Region')->findOneBy(array('slug' => $slug));
+
+        // Number of wine tasting reviews by month
+        $now = new \DateTime();
+        $year = $now->format('Y');
+        $queryByMonth = $em->createQuery(
+            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+             FROM ROVBlogBundle:Wine a
+             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+             AND a.published = :published
+             GROUP BY month');
+        $queryByMonth->setParameter('year', ($year - 1));
+        $queryByMonth->setParameter('published', true);
+        $wineReviewsByMonth = $queryByMonth->getResult();
+
+        return $this->render('ROVBlogBundle:Wines:wines.html.twig', array(
+            'page'              => $page,
+            'region_url'        => $region,
+            'form_search'       => $formSearch->createView(),
+            'wineTypesLabels'   => $wineTypesLabels,
+            'wineReviews'       => $lastWineReviews,
+            'wineReviewsLeft'   => $wineReviewsLeft,
+            'wineReviewsMonth'  => $wineReviewsByMonth,
+            'regions'           => $regions,
+            'wineries'          => $wineries,
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'new_region_form'   => $formNewRegion->createView(),
+            'new_winery_form'   => $formNewWinery->createView(),
+            'error'             => $error
+        ));
 	}
 
+    /**
+     * Show paginated wine tasting reviews by winery
+     * @param  Request $request [description]
+     * @param  string  $slug 
+     * @param  integer $page 
+     * @return object           Twig template
+     */
 	public function wineReviewsWineryAction(Request $request, $slug, $page)
 	{
-		# code...
+        $numberReviews = 5;
+
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        // Search form
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
+
+        $region = new Region();
+        $formNewRegion = $this->createForm(new RegionType(), $region);
+        $winery = new Winery();
+        $formNewWinery = $this->createForm(new WineryType(), $winery);
+        // Form declared to get the wine types labels
+        $formWine = $this->createForm(new WineType(), null);
+        $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+
+        // Get regions
+        $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        // Get wineries
+        $wineries = $em->getRepository('ROVBlogBundle:Winery')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        // Get last wine tasting reviews
+        $query = $em->createQuery(
+            'SELECT w, wry, r FROM ROVBlogBundle:Wine w
+             JOIN w.winery wry
+             JOIN wry.region r
+             WHERE w.published = :published
+             AND wry.slug = :slug
+             ORDER BY w.updated DESC'
+            );
+        $query->setParameter('published', true);
+        $query->setParameter('slug', $slug);
+        $query->setMaxResults($numberReviews);
+        $query->setFirstResult(($page-1) * $numberReviews);
+        $lastWineReviews = $query->getResult();
+
+        // Remaining wine tasting reviews
+        $queryCount = $em->createQuery(
+            'SELECT w, wry, r FROM ROVBlogBundle:Wine w 
+             JOIN w.winery wry
+             JOIN wry.region r
+             WHERE w.published = :published
+             AND wry.slug = :slug'
+            );
+        $queryCount->setParameter('published', true);
+        $queryCount->setParameter('slug', $slug);
+        $queryCount->setFirstResult(($page) * $numberReviews);
+        $wineReviewsLeft = $queryCount->getResult();
+
+        $winery = $em->getRepository('ROVBlogBundle:Winery')->findOneBy(array('slug' => $slug));
+
+        // Number of wine tasting reviews by month
+        $now = new \DateTime();
+        $year = $now->format('Y');
+        $queryByMonth = $em->createQuery(
+            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+             FROM ROVBlogBundle:Wine a
+             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+             AND a.published = :published
+             GROUP BY month');
+        $queryByMonth->setParameter('year', ($year - 1));
+        $queryByMonth->setParameter('published', true);
+        $wineReviewsByMonth = $queryByMonth->getResult();
+
+        return $this->render('ROVBlogBundle:Wines:wines.html.twig', array(
+            'page'              => $page,
+            'winery_url'        => $winery,
+            'form_search'       => $formSearch->createView(),
+            'wineTypesLabels'   => $wineTypesLabels,
+            'wineReviews'       => $lastWineReviews,
+            'wineReviewsLeft'   => $wineReviewsLeft,
+            'wineReviewsMonth'  => $wineReviewsByMonth,
+            'regions'           => $regions,
+            'wineries'          => $wineries,
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'new_region_form'   => $formNewRegion->createView(),
+            'new_winery_form'   => $formNewWinery->createView(),
+            'error'             => $error
+        ));
 	}
 
+    /**
+     * Show paginated wine tasting reviews by date
+     * @param  Request $request [description]
+     * @param  integer $year 
+     * @param  integer $month 
+     * @param  integer $page 
+     * @return object           Twig template
+     */
 	public function wineReviewsDateAction(Request $request, $year, $month, $page)
 	{
-		# code...
+		$numberReviews = 5;
+
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        // Search form
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
+
+        $region = new Region();
+        $formNewRegion = $this->createForm(new RegionType(), $region);
+        $winery = new Winery();
+        $formNewWinery = $this->createForm(new WineryType(), $winery);
+        // Form declared to get the wine types labels
+        $formWine = $this->createForm(new WineType(), null);
+        $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+
+        // Get regions
+        $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        // Get wineries
+        $wineries = $em->getRepository('ROVBlogBundle:Winery')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        // Check if month parameter is set
+        if ($month > 0)
+        {
+            $startDate = new \DateTime($year.'-'.$month.'-'.'01');
+            $endDate = new \DateTime($year.'-'.($month+1).'-'.'01');            
+        }
+        else
+        {
+            $startDate = new \DateTime($year.'-01-01');
+            $endDate = new \DateTime(($year+1).'-01-01');            
+        }
+
+        // Get last wine tasting reviews
+        $query = $em->createQuery(
+            'SELECT w, wry, r FROM ROVBlogBundle:Wine w
+             JOIN w.winery wry
+             JOIN wry.region r
+             WHERE w.published = :published
+             AND w.updated >= :start
+             AND w.updated < :end
+             ORDER BY w.updated DESC'
+            );
+        $query->setParameter('published', true);
+        $query->setParameter('start', $startDate);
+        $query->setParameter('end', $endDate);
+        $query->setMaxResults($numberReviews);
+        $query->setFirstResult(($page-1) * $numberReviews);
+        $lastWineReviews = $query->getResult();
+
+        // Remaining wine tasting reviews
+        $queryCount = $em->createQuery(
+            'SELECT a FROM ROVBlogBundle:Wine a
+             WHERE a.published = :published
+             AND a.updated >= :start
+             AND a.updated < :end');
+        $queryCount->setParameter('published', true);
+        $queryCount->setParameter('start', $startDate);
+        $queryCount->setParameter('end', $endDate);
+        $queryCount->setFirstResult(($page) * $numberReviews);
+        $wineReviewsLeft = $queryCount->getResult();
+
+        // Number of wine tasting reviews by month
+        $now = new \DateTime();
+        $year = $now->format('Y');
+        $queryByMonth = $em->createQuery(
+            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+             FROM ROVBlogBundle:Wine a
+             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+             AND a.published = :published
+             GROUP BY month');
+        $queryByMonth->setParameter('year', ($year - 1));
+        $queryByMonth->setParameter('published', true);
+        $wineReviewsByMonth = $queryByMonth->getResult();
+
+        return $this->render('ROVBlogBundle:Wines:wines.html.twig', array(
+            'page'              => $page,
+            'year_url'          => $year,
+            'month_url'         => $month,
+            'form_search'       => $formSearch->createView(),
+            'wineTypesLabels'   => $wineTypesLabels,
+            'wineReviews'       => $lastWineReviews,
+            'wineReviewsLeft'   => $wineReviewsLeft,
+            'wineReviewsMonth'  => $wineReviewsByMonth,
+            'regions'           => $regions,
+            'wineries'          => $wineries,
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'new_region_form'   => $formNewRegion->createView(),
+            'new_winery_form'   => $formNewWinery->createView(),
+            'error'             => $error
+        ));
 	}
 
     public function previewWineAction(Request $request, $wine_id)
@@ -138,8 +469,9 @@ class WineController extends Controller
      */
 	public function newWineAction(Request $request)
 	{
-		      $session = $request->getSession();
+		$session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
         // Get the login error if there is any
         $error = $request->attributes->get(
             SecurityContext::AUTHENTICATION_ERROR,
@@ -160,7 +492,7 @@ class WineController extends Controller
         if ($formNewWine->isValid())
         {
             // Process title and create a valid slug
-            $slug = Util::getSlug($wine->getTitle());
+            $slug = Util::getSlug($wine->getBrand());
 
             $wine->setSlug($slug);
             $wine->setAuthor($user);
@@ -168,10 +500,10 @@ class WineController extends Controller
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success',
-                'New wine tasting review saved'
+                'New wine tasting review saved successfully'
             );
 
-            return $this->redirect($this->generateUrl('rov_blog_manage_articles'));
+            return $this->redirect($this->generateUrl('rov_blog_manage_wines'));
         }
 
         $formNewRegion->handleRequest($request);
@@ -220,9 +552,96 @@ class WineController extends Controller
         ));
 	}
 
-	public function editWineAction(Request $request)
+	/**
+     * Edit wine tasting review form
+     * @param  Request $request [description]
+     * @param  integer $wine_id [description]
+     * @return object           Twig template
+     */
+    public function editWineAction(Request $request, $wine_id)
 	{
-		# code...
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        $wine = $em->getRepository('ROVBlogBundle:Wine')->find($wine_id);
+        $formEditWine = $this->createForm(new WineType(), $wine);
+        $region = new Region();
+        $formNewRegion = $this->createForm(new RegionType(), $region);
+        $winery = new Winery();
+        $formNewWinery = $this->createForm(new WineryType(), $winery);
+
+        // New in version 2.3: The handleRequest() method was added in Symfony 2.3. 
+        // Previously, the $request was passed to the submit method - a strategy which 
+        // is deprecated and will be removed in Symfony 3.0.
+        $formEditWine->handleRequest($request);
+        if ($formEditWine->isValid())
+        {
+            // Process title and create a valid slug
+            $slug = Util::getSlug($wine->getBrand());
+
+            $wine->setSlug($slug);
+            $wine->setUpdated(new \DateTime());
+            $em->persist($wine);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'Wine tasting review updated successfully'
+            );
+
+            return $this->redirect($this->generateUrl('rov_blog_manage_wines'));
+        }
+
+        $formNewRegion->handleRequest($request);
+        if ($formNewRegion->isValid())
+        {
+            // Create a valid slug
+            $slug = Util::getSlug($region->getName());
+            $region->setSlug($slug);
+            $em->persist($region);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'New region added'
+            );
+        }
+
+        $formNewWinery->handleRequest($request);
+        if ($formNewWinery->isValid())
+        {
+            // Create a valid slug
+            $slug = Util::getSlug($winery->getName());
+            $winery->setSlug($slug);
+            $em->persist($winery);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'New winery added'
+            );
+        }
+
+        $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+        $wineries = $em->getRepository('ROVBlogBundle:Winery')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        return $this->render('ROVBlogBundle:Wines:editWine.html.twig', array(
+            'edit_wine_form'    => $formEditWine->createView(),
+            'wine_id'           => $wine_id,
+            'new_region_form'   => $formNewRegion->createView(),
+            'new_winery_form'   => $formNewWinery->createView(),
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'error'             => $error
+        ));
 	}
 
 	/**
@@ -248,19 +667,27 @@ class WineController extends Controller
         if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
         {
             // Get all the wine tasting reviews
-            $wineReviews = $em->getRepository('ROVBlogBundle:Wine')->findBy(
-                array(),
-                array('updated' => 'DESC')
-            );
+            $query = $em->createQuery(
+                'SELECT w, wry, r FROM ROVBlogBundle:Wine w
+                 JOIN w.winery wry
+                 JOIN wry.region r
+                 ORDER BY w.updated DESC'
+                );
+            $wineReviews = $query->getResult();
         }
         else
         {
             // Get the wine tasting reviews from the author $user
             $user = $this->get('security.context')->getToken()->getUser();
-            $wineReviews = $em->getRepository('ROVBlogBundle:Wine')->findBy(
-                array('author' => $user),
-                array('updated' => 'DESC')
-            );
+            $query = $em->createQuery(
+                'SELECT w, wry, r FROM ROVBlogBundle:Wine w
+                 JOIN w.winery wry
+                 JOIN wry.region r
+                 WHERE w.author = :author
+                 ORDER BY w.updated DESC'
+                );
+            $query->setParameter('author', $user);
+            $wineReviews = $query->getResult();
         }
 
         $formNewRegion->handleRequest($request);

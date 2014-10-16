@@ -22,7 +22,7 @@ class WineType extends AbstractType
                 ))
             ->add('winery', 'entity', array(
                 'attr' => array('class' => 'form-control'),
-                'label'     => 'Choose a winery',
+                'label'     => 'Select a winery',
                 'class'     => 'ROVBlogBundle:Winery',
                 'property'  => 'name',
                 'empty_value' => ''
@@ -75,6 +75,7 @@ class WineType extends AbstractType
             ->add('points', 'integer', array(
                 'attr' => array(
                     'class'         => 'form-control',
+                    'style'         => 'font-size: 3em; height: auto',
                     'placeholder'   => '0 - 100',
                     'min'           => '0',
                     'max'           => '100',

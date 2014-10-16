@@ -683,11 +683,11 @@ class DefaultController extends Controller
         $query->setFirstResult(($page-1) * $numberPosts);
         $lastArticles = $query->getResult();
 
-        $queryCount = $em->createQuery('
-            SELECT a FROM ROVBlogBundle:Article a 
-            JOIN a.tags t
-            WHERE a.published = :published
-            AND t.slug = :slug');
+        $queryCount = $em->createQuery(
+            'SELECT a FROM ROVBlogBundle:Article a 
+             JOIN a.tags t
+             WHERE a.published = :published
+             AND t.slug = :slug');
         $queryCount->setParameter('published', true);
         $queryCount->setParameter('slug', $slug);
         $queryCount->setFirstResult(($page) * $numberPosts);
@@ -794,11 +794,11 @@ class DefaultController extends Controller
         $query->setFirstResult(($page-1) * $numberPosts);
         $lastArticles = $query->getResult();
 
-        $queryCount = $em->createQuery('
-            SELECT a FROM ROVBlogBundle:Article a 
-            WHERE a.published = :published
-            AND a.updated >= :start
-            AND a.updated < :end');
+        $queryCount = $em->createQuery(
+            'SELECT a FROM ROVBlogBundle:Article a 
+             WHERE a.published = :published
+             AND a.updated >= :start
+             AND a.updated < :end');
         $queryCount->setParameter('published', true);
         $queryCount->setParameter('start', $startDate);
         $queryCount->setParameter('end', $endDate);

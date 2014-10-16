@@ -1123,86 +1123,286 @@
 				<target>Actualice los datos de la bodega</target>
 			</trans-unit>
 			<trans-unit id="281">
-				<source></source>
-				<target></target>
+				<source>Select a winery</source>
+				<target>Seleccione una bodega</target>
 			</trans-unit>
 			<trans-unit id="282">
-				<source></source>
-				<target></target>
+				<source>Brand</source>
+				<target>Marca</target>
 			</trans-unit>
 			<trans-unit id="283">
-				<source></source>
-				<target></target>
+				<source>Type</source>
+				<target>Tipo</target>
 			</trans-unit>
 			<trans-unit id="284">
-				<source></source>
-				<target></target>
+				<source>Varieties</source>
+				<target>Variedades</target>
 			</trans-unit>
 			<trans-unit id="285">
-				<source></source>
-				<target></target>
+				<source>Image file</source>
+				<target>Archivo de imagen</target>
 			</trans-unit>
 			<trans-unit id="286">
-				<source></source>
-				<target></target>
+				<source>File</source>
+				<target>Archivo</target>
 			</trans-unit>
 			<trans-unit id="287">
-				<source></source>
-				<target></target>
+				<source>Download</source>
+				<target>Descarga</target>
 			</trans-unit>
 			<trans-unit id="288">
-				<source></source>
-				<target></target>
+				<source>Description</source>
+				<target>Descripción</target>
 			</trans-unit>
 			<trans-unit id="289">
-				<source></source>
-				<target></target>
+				<source>Verdejo points</source>
+				<target>Puntos Verdejo</target>
 			</trans-unit>
 			<trans-unit id="290">
-				<source></source>
-				<target></target>
+				<source>Wine information</source>
+				<target>Información del vino</target>
 			</trans-unit>
 			<trans-unit id="291">
-				<source></source>
-				<target></target>
+				<source>Delete?</source>
+				<target>¿Borrar?</target>
 			</trans-unit>
 			<trans-unit id="292">
-				<source></source>
-				<target></target>
+				<source>New wine tasting review saved successfully</source>
+				<target>Nueva reseña de cata guardada correctamente</target>
 			</trans-unit>
 			<trans-unit id="293">
-				<source></source>
-				<target></target>
+				<source>Winery</source>
+				<target>Bodega</target>
 			</trans-unit>
 			<trans-unit id="294">
-				<source></source>
-				<target></target>
+				<source>Categories and tabs</source>
+				<target>Categorías y etiquetas</target>
 			</trans-unit>
 			<trans-unit id="295">
-				<source></source>
-				<target></target>
+				<source>Regions and wineries</source>
+				<target>Regiones y bodegas</target>
 			</trans-unit>
 			<trans-unit id="296">
-				<source></source>
-				<target></target>
+				<source>If you need a new region or winery for this wine tasting review, create them first</source>
+				<target>Si necesita una nueva región o bodega para esta reseña de cata, créalos antes</target>
 			</trans-unit>
 			<trans-unit id="297">
-				<source></source>
-				<target></target>
+				<source>If you wish to attach an image choose a file from your disk</source>
+				<target>Si desea adjuntar una imagen seleccione un archivo de su disco</target>
 			</trans-unit>
 			<trans-unit id="298">
-				<source></source>
-				<target></target>
+				<source>Select a type</source>
+				<target>Elija un tipo</target>
 			</trans-unit>
 			<trans-unit id="299">
-				<source></source>
-				<target></target>
+				<source>Region</source>
+				<target>Región</target>
 			</trans-unit>
 			<trans-unit id="300">
+				<source>Wine tasting review updated successfully</source>
+				<target>Reseña de cata actualizada correctamente</target>
+			</trans-unit>
+			<trans-unit id="301">
+				<source>from</source>
+				<target>de</target>
+			</trans-unit>
+			<trans-unit id="302">
+				<source>Edit wine tasting review</source>
+				<target>Editar reseña de cata</target>
+			</trans-unit>
+			<trans-unit id="303">
+				<source>View details</source>
+				<target>Ver detalles</target>
+			</trans-unit>
+			<trans-unit id="304">
 				<source></source>
 				<target></target>
 			</trans-unit>
-			<trans-unit id="301">
+			<trans-unit id="305">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="306">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="307">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="308">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="309">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="310">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="311">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="312">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="313">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="314">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="315">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="316">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="317">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="318">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="319">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="320">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="321">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="322">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="323">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="324">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="325">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="326">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="327">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="328">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="329">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="330">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="331">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="332">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="333">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="334">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="335">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="336">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="337">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="338">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="339">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="340">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="341">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="342">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="343">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="344">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="345">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="346">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="347">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="348">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="349">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="350">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="351">
 				<source></source>
 				<target></target>
 			</trans-unit>

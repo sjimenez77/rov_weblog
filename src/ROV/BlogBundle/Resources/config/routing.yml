@@ -90,6 +90,10 @@ rov_blog_wine_homepage:
     requirements:
         page:  \d+
 
+rov_blog_wine_review:
+    pattern:  /wine/review/{slug}
+    defaults: { _controller: ROVBlogBundle:Wine:wine }
+
 rov_blog_wine_search:
     pattern:  /wines/search
     defaults: { _controller: ROVBlogBundle:Wine:wineReviewSearch }
@@ -108,7 +112,7 @@ rov_blog_wine_winery:
 
 rov_blog_wine_date:
     pattern:  /wines/date/{year}/{month}/{page}
-    defaults: { _controller: ROVBlogBundle:Default:wineReviewsDate, month: 0, page: 1 }
+    defaults: { _controller: ROVBlogBundle:Wine:wineReviewsDate, month: 0, page: 1 }
     requirements:
         page:  \d+
 

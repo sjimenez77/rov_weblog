@@ -61,7 +61,7 @@
 						</div>
 						<hr>
 						<button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;{{ 'Save changes'|trans }}</button>
-						<button type="button" class="btn">{{ 'Cancel'|trans }}</button>
+						<a class="btn btn-default" href="{{ path('rov_blog_manage_articles') }}">{{ 'Cancel'|trans }}</a>
 					{{ form_end(new_article_form) }}
 					{% include('ROVBlogBundle:Default:modalCategoryForm.html.twig') %}
 					{% include('ROVBlogBundle:Default:modalTagForm.html.twig') %}

@@ -25,85 +25,110 @@
 			{% for message in app.session.flashbag.get('success') %}
 			<div class="alert alert-success">{{ message|trans }}</div>
 			{% endfor %}
-			<div class="row">
-				<div class="col-md-9">
-					{# Mostrar los artículos #}
-					<h2>{{ 'Wine tasting reviews list'|trans }}</h2>
-					<hr>
-					{% if wineReviews|length > 0 %}
-					<div class="table-responsive">
-						<table class="tablesorter">
-							<thead>
-								<tr>
-									<th>{{ 'Brand'|trans }}</th>
-									<th>{{ 'Winery'|trans }}</th>
-									<th>{{ 'Region'|trans }}</th>
-									<th>{{ 'Created'|trans }}</th>
-									<th>{{ 'Last updated'|trans }}</th>
-									<th>{{ 'Published'|trans }}</th>
-									<th class="filter-false">{{ 'Options'|trans }}</th>
-								</tr>
-							</thead>
-							<tfoot>
-								<tr>
-									<th>{{ 'Brand'|trans }}</th>
-									<th>{{ 'Winery'|trans }}</th>
-									<th>{{ 'Region'|trans }}</th>
-									<th>{{ 'Created'|trans }}</th>
-									<th>{{ 'Last updated'|trans }}</th>
-									<th>{{ 'Published'|trans }}</th>
-									<th>{{ 'Options'|trans }}</th>
-								</tr>
-								<tr>
-									<th colspan="7" class="ts-pager form-horizontal">
-										<button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
-										<button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
-										<span class="pagedisplay"></span> <!-- this can be any element, including an input -->
-										<button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
-										<button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
-										<select class="pagesize input-mini" title="{{ 'Select page size'|trans }}">
-											<option selected="selected" value="10">10</option>
-											<option value="20">20</option>
-											<option value="30">30</option>
-											<option value="40">40</option>
-										</select>
-										<select class="pagenum input-mini" title="{{ 'Select page number'|trans }}"></select>
-									</th>
-								</tr>
-							</tfoot>
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="active">
+					<a href="#wines" role="tab" data-toggle="tab">{{ 'Wine tasting reviews list'|trans }}</a>
+				</li>
+				<li>
+					<a href="#options" role="tab" data-toggle="tab">{{ 'Regions and wineries'|trans }}</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane fade in active" id="wines">
+					<div class="row">
+						<div class="col-md-12">
+							{# Mostrar los artículos #}
+							<h2>{{ 'Wine tasting reviews list'|trans }}</h2>
+							<hr>
+							{% if wineReviews|length > 0 %}
+							<div class="table-responsive">
+								<table class="tablesorter">
+									<thead>
+										<tr>
+											<th>{{ 'Brand'|trans }}</th>
+											<th>{{ 'Points'|trans }}</th>
+											<th>{{ 'Winery'|trans }}</th>
+											<th>{{ 'Region'|trans }}</th>
+											<th>{{ 'Created'|trans }}</th>
+											<th>{{ 'Last updated'|trans }}</th>
+											<th>{{ 'Published'|trans }}</th>
+											<th class="filter-false">{{ 'Options'|trans }}</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>{{ 'Brand'|trans }}</th>
+											<th>{{ 'Points'|trans }}</th>
+											<th>{{ 'Winery'|trans }}</th>
+											<th>{{ 'Region'|trans }}</th>
+											<th>{{ 'Created'|trans }}</th>
+											<th>{{ 'Last updated'|trans }}</th>
+											<th>{{ 'Published'|trans }}</th>
+											<th>{{ 'Options'|trans }}</th>
+										</tr>
+										<tr>
+											<th colspan="8" class="ts-pager form-horizontal">
+												<button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
+												<button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
+												<span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+												<button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
+												<button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
+												<select class="pagesize input-mini" title="{{ 'Select page size'|trans }}">
+													<option selected="selected" value="10">10</option>
+													<option value="20">20</option>
+													<option value="30">30</option>
+													<option value="40">40</option>
+												</select>
+												<select class="pagenum input-mini" title="{{ 'Select page number'|trans }}"></select>
+											</th>
+										</tr>
+									</tfoot>
 
-							<tbody>
-								{% for wine in wineReviews %}
-								<tr>
-									<td>{{ wine.brand }}</td>
-									<td>{{ wine.winery.name }}</td>
-									<td>{{ wine.region.name }}</td>
-									{# wine.created|localizeddate('medium', 'medium', locale, "Europe/Madrid") #}
-									<td>{{ wine.created|date('d/m/Y H:i:s', 'Europe/Madrid') }}</td>
-									{# wine.updated|localizeddate('medium', 'medium', locale, "Europe/Madrid") #}
-									<td>{{ wine.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</td>
-									<td style="text-align: center">{% if wine.published %}{{ 'Yes'|trans }}{% else %}No{% endif %}</td>
-									<td>
-										<a class="btn btn-default btn-xs btn-block" href="{{ path('rov_blog_edit_wine', { 'wine_id': wine.id }) }}" role="button">{{ 'Edit'|trans }}</a>
-										{# <a class="btn btn-default btn-xs" href="{{ path('rov_blog_delete_wine', { 'wine_id': wine.id }) }}" role="button">{{ 'Delete'|trans }}</a> #}
-									</td>
-								</tr>
-								{% endfor %}
-							</tbody>
-						</table>
+									<tbody>
+										{% for wine in wineReviews %}
+										<tr>
+											<td>{{ wine.brand }}</td>
+											<td>{{ wine.points }}</td>
+											<td>{{ wine.winery.name }}</td>
+											<td>{{ wine.winery.region.name }}</td>
+											{# wine.created|localizeddate('medium', 'medium', locale, "Europe/Madrid") #}
+											<td>{{ wine.created|date('d/m/Y H:i:s', 'Europe/Madrid') }}</td>
+											{# wine.updated|localizeddate('medium', 'medium', locale, "Europe/Madrid") #}
+											<td>{{ wine.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</td>
+											<td style="text-align: center">{% if wine.published %}{{ 'Yes'|trans }}{% else %}No{% endif %}</td>
+											<td>
+												<a class="btn btn-default btn-xs btn-block" href="{{ path('rov_blog_edit_wine', { 'wine_id': wine.id }) }}" role="button">{{ 'Edit'|trans }}</a>
+												{# <a class="btn btn-default btn-xs" href="{{ path('rov_blog_delete_wine', { 'wine_id': wine.id }) }}" role="button">{{ 'Delete'|trans }}</a> #}
+											</td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+							{% else %}
+							<div class="alert alert-info">
+								<h4>{{ 'There are not any wine tasting review yet!'|trans }}</h4>
+							</div>
+							{% endif %}
+							<a href="{{ path('rov_blog_new_wine') }}" class="btn btn-success btn-block"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;{{ 'Write a new wine tasting review'|trans }}</a>
+							<br>&nbsp;
+						</div>
 					</div>
-					{% else %}
-					<div class="alert alert-info">
-						<h4>{{ 'There are not any wine tasting review yet!'|trans }}</h4>
-					</div>
-					{% endif %}
-					<a href="{{ path('rov_blog_new_wine') }}" class="btn btn-success btn-block"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;{{ 'Write a new wine tasting review'|trans }}</a>
-					<br>&nbsp;
 				</div>
-				<br class="visible-xs visible-sm">
-				<div class="col-md-3">
-					{% include('ROVBlogBundle:Wines:wellRegions.html.twig') %}
-					{% include('ROVBlogBundle:Wines:wellWineries.html.twig') %}
+				<div class="tab-pane fade" id="options">
+					<div class="row">
+						<div class="col-md-12">
+							<h2>{{ 'Regions and wineries'|trans }}</h2>
+							<hr>
+						</div>
+						<div class="col-md-6">
+							{% include('ROVBlogBundle:Wines:wellRegions.html.twig') %}
+						</div>
+						<div class="col-md-6">
+							{% include('ROVBlogBundle:Wines:wellWineries.html.twig') %}
+						</div>
+					</div>
 				</div>
 			</div>
 			{% include('ROVBlogBundle:Wines:modalRegionForm.html.twig') %}
@@ -188,6 +213,12 @@
 	    	// c.totalPages contains the total number of pages
 	    	amplia_footer();
 	    });
+
+	    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	    	// e.target // activated tab
+	    	// e.relatedTarget // previous tab
+	    	setTimeout(function(){amplia_footer()}, 50);
+	    })
 	});
 	</script>
 	{% endif %}

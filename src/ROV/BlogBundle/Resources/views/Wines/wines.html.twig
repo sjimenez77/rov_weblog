@@ -18,7 +18,7 @@
 					{% elseif winery_url is defined %}
 					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine tasting reviews'|trans }}</a></li>
 					<li>{{ 'Winery'|trans }}</li>
-					<li class="active">{{ tag_url.name|trans }}</li>
+					<li class="active">{{ winery_url.name|trans }}</li>
 					{% elseif year_url is defined %}
 					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine tasting reviews'|trans }}</a></li>
 					{% if month_url != 0 %}
@@ -54,8 +54,63 @@
 
 				{% if wineReviews|length > 0 %}
 				{% for wine in wineReviews %}
+				<div class="row">
+					<div class="col-md-2 col-xs-4">
+						<div class="well" style="width: 106px">
+							<p style="font-size: 4em; color: {% if wine.points >= 90 %}#32bf28{% elseif wine.points >= 70 %}#92b72f{% elseif wine.points >= 50 %}#d9991d{% else %}#d9371d{% endif %}">{{ wine.points }}</p>
+						</div>
+					</div>
+					<div class="col-md-10 col-xs-8">
+						<h1>
+							<a href="{{ path('rov_blog_wine_review', { 'slug': wine.slug })}}">{{ wine.brand }}</a>
+						</h1>
+						<p class="lead">
+							{{ 'from'|trans }} <a href="{{ path('rov_blog_wine_winery', { 'slug': wine.winery.slug })}}">{{ wine.winery.name }}</a>&nbsp;
+							<span class="label label-info"><a style="color: white" href="{{ path('rov_blog_wine_region', { 'slug': wine.winery.region.slug })}}">{{ wine.winery.region.name }}</a></span>
+							<span class="label label-default">{{ wineTypesLabels[wine.type]|trans|capitalize }}</span>
+							<span class="label label-warning">{{ wine.year }}</span>
+						</p>
+						<hr>
+						<p>
+							<div class="btn-group">
+								<a href="{{ path('rov_blog_wine_review', { 'slug': wine.slug }) }}" class="btn btn-primary">{{ 'View details'|trans }} <i class="fa fa-angle-right"></i></a>
+								{% if is_granted('ROLE_ADMIN') %}
+								<a href="{{ path('rov_blog_edit_wine', { 'wine_id': wine.id }) }}" class="btn btn-default"><i class="fa fa-pencil-square-o"></i> {{ 'Edit wine tasting review'|trans }}</a>
+								{% endif %}
+							</div>
+						</p>
+					</div>
+				</div>
 
 				{% endfor %}
+				<ul class="pager">
+					{% if page > 1 %}
+					<li class="previous">
+						{% if region_url is defined %}
+						<a href="{{ path('rov_blog_wine_region', { 'slug': region_url.slug, 'page': (page-1) }) }}"><i class="fa fa-arrow-circle-o-left"></i> {{ 'Previous'|trans }}</a>
+						{% elseif winery_url is defined %}
+						<a href="{{ path('rov_blog_wine_winery', { 'slug': winery_url, 'page': (page-1) }) }}"><i class="fa fa-arrow-circle-o-left"></i> {{ 'Previous'|trans }}</a>
+						{% elseif year_url is defined %}
+						<a href="{{ path('rov_blog_wine_date', { 'year': year_url, 'month': month_url, 'page': (page-1) }) }}"><i class="fa fa-arrow-circle-o-left"></i> {{ 'Previous'|trans }}</a>
+						{% else %}
+						<a href="{{ path('rov_blog_wine_homepage', { 'page': (page-1) })}}"><i class="fa fa-arrow-circle-o-left"></i> {{ 'Previous'|trans }}</a>
+						{% endif %}
+					</li>
+					{% endif %}
+					{% if wineReviewsLeft|length > 0 %}
+					<li class="next">
+						{% if region_url is defined %}
+						<a href="{{ path('rov_blog_wine_region', { 'slug': region_url.slug, 'page': (page+1) }) }}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
+						{% elseif winery_url is defined %}
+						<a href="{{ path('rov_blog_wine_winery', { 'slug': winery_url, 'page': (page+1) }) }}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
+						{% elseif year_url is defined %}
+						<a href="{{ path('rov_blog_wine_date', { 'year': year_url, 'month': month_url, 'page': (page+1) }) }}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
+						{% else %}
+						<a href="{{ path('rov_blog_wine_homepage', { 'page': (page+1) })}}">{{ 'Next'|trans }} <i class="fa fa-arrow-circle-o-right"></i></a>
+						{% endif %}
+					</li>
+					{% endif %}
+				</ul>
 				{% else %}
 				<blockquote>
 					<p>{{ 'There are not wine tasting reviews published yet'|trans }}</p>
