@@ -457,9 +457,326 @@ class WineController extends Controller
         ));
 	}
 
+    
+    /**
+     * Search results
+     * @param  Request $request [description]
+     * @return object           Twig template
+     */
+    public function wineReviewSearchAction(Request $request)
+    {
+        $numberReviews = 5;
+
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        // Search form
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
+
+        // Handle formSearch
+        $formSearch->handleRequest($request);
+        if ($formSearch->isValid())
+        {
+            $data = $formSearch->getData();
+            // Get last wine tasting reviews
+            $querySearch = $em->createQuery(
+                'SELECT w, wry, r FROM ROVBlogBundle:Wine w
+                 JOIN w.winery wry
+                 JOIN wry.region r
+                 WHERE w.published = :published
+                 AND (w.brand LIKE :search
+                     OR w.varieties LIKE :search
+                     OR w.year = :search
+                     OR w.description LIKE :search
+                     OR wry.name LIKE :search
+                     OR wry.location LIKE :search
+                     OR wry.address LIKE :search
+                     OR r.name LIKE :search)
+                 ORDER BY w.updated DESC');
+            $querySearch->setParameter('published', true);
+            $querySearch->setParameter('search', '%'.$data['search'].'%');
+            $wineReviews = $querySearch->getResult();
+
+            $region = new Region();
+            $formNewRegion = $this->createForm(new RegionType(), $region);
+            $winery = new Winery();
+            $formNewWinery = $this->createForm(new WineryType(), $winery);
+            // Form declared to get the wine types labels
+            $formWine = $this->createForm(new WineType(), null);
+            $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+
+            // Get regions
+            $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
+                    array(),
+                    array('name' => 'ASC')
+                );
+
+            // Get wineries
+            $wineries = $em->getRepository('ROVBlogBundle:Winery')->findBy(
+                    array(),
+                    array('name' => 'ASC')
+                );
+
+            // Number of wine tasting reviews by month
+            $now = new \DateTime();
+            $year = $now->format('Y');
+            $queryByMonth = $em->createQuery(
+                'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+                 FROM ROVBlogBundle:Wine a
+                 WHERE SUBSTRING(a.updated, 1, 4) >= :year
+                 AND a.published = :published
+                 GROUP BY month');
+            $queryByMonth->setParameter('year', ($year - 1));
+            $queryByMonth->setParameter('published', true);
+            $wineReviewsByMonth = $queryByMonth->getResult();
+
+            return $this->render('ROVBlogBundle:Wines:wineSearch.html.twig', array(
+                'search_term'       => $data['search'],
+                'form_search'       => $formSearch->createView(),
+                'wineTypesLabels'   => $wineTypesLabels,
+                'wineReviews'       => $wineReviews,
+                'wineReviewsMonth'  => $wineReviewsByMonth,
+                'regions'           => $regions,
+                'wineries'          => $wineries,
+                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+                'new_region_form'   => $formNewRegion->createView(),
+                'new_winery_form'   => $formNewWinery->createView(),
+                'error'             => $error
+            ));
+        }
+        else
+        {
+            $this->get('session')->getFlashBag()->add('error',
+                'You have changed the language settings, so you must type a new search'
+            );
+
+            return $this->render('ROVBlogBundle:Wines:emptyWineSearch.html.twig', array(
+                'form_search'       => $formSearch->createView(),
+                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+                'error'             => $error
+            ));
+        }
+    }
+
+    /**
+     * Show a wine tasting review
+     * @param  Request $request
+     * @param  string  $slug 
+     * @return object           Twig template
+     */
+    public function wineAction(Request $request, $slug)
+    {
+        $session = $request->getSession();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        // Wine review
+        $query = $em->createQuery(
+            'SELECT w, wry, r FROM ROVBlogBundle:Wine w
+             JOIN w.winery wry
+             JOIN wry.region r
+             WHERE w.published = :published
+             AND w.slug = :slug'
+            );
+        $query->setParameter('published', true);
+        $query->setParameter('slug', $slug);
+        $wine = $query->getSingleResult();
+
+        // Check whether the wine tasting review exists and it is already published
+        if (!$wine)
+        {
+            $this->get('session')->getFlashBag()->add('error',
+                'The wine tasting review does not exist or is not published yet'
+            );
+
+            return $this->redirect($this->generateUrl('rov_blog_wine_homepage'));
+        }
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') ||
+           ($this->get('security.context')->isGranted('ROLE_ADMIN') && $wine->getAuthor() == $user))
+        {
+            $moderator = true;
+        } else {
+            $moderator = false;
+        }
+
+        // Lateral Wells info
+        $defaultData = array();
+        $formSearch = $this->createFormBuilder($defaultData)
+                ->add('search', 'text', array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Type your search'
+                    )
+                ))
+                ->getForm();
+
+        $region = new Region();
+        $formNewRegion = $this->createForm(new RegionType(), $region);
+        $winery = new Winery();
+        $formNewWinery = $this->createForm(new WineryType(), $winery);
+        // Form declared to get the wine types labels
+        $formWine = $this->createForm(new WineType(), null);
+        $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+
+        $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+        $wineries = $em->getRepository('ROVBlogBundle:Winery')->findBy(
+                array(),
+                array('name' => 'ASC')
+            );
+
+        // Number of wine tasting reviews by month
+        $now = new \DateTime();
+        $year = $now->format('Y');
+        $queryByMonth = $em->createQuery(
+            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+             FROM ROVBlogBundle:Wine a
+             WHERE SUBSTRING(a.updated, 1, 4) >= :year
+             AND a.published = :published
+             GROUP BY month');
+        $queryByMonth->setParameter('year', ($year - 1));
+        $queryByMonth->setParameter('published', true);
+        $wineReviewsByMonth = $queryByMonth->getResult();
+
+        return $this->render('ROVBlogBundle:Wines:wineReview.html.twig', array(
+            'wine'              => $wine,
+            'moderator'         => $moderator,
+            'form_search'       => $formSearch->createView(),
+            'wineTypesLabels'   => $wineTypesLabels,
+            'wineReviewsMonth'  => $wineReviewsByMonth,
+            'regions'           => $regions,
+            'wineries'          => $wineries,
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'new_region_form'   => $formNewRegion->createView(),
+            'new_winery_form'   => $formNewWinery->createView(),
+            'error'             => $error
+        ));
+    }
+
+    /**
+     * Preview a wine tasting review
+     * @param  Request $request [description]
+     * @param  [type]  $wine_id [description]
+     * @return object           Twig template
+     */
     public function previewWineAction(Request $request, $wine_id)
     {
-        # code...
+        $session = $request->getSession();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        // Wine review
+        $query = $em->createQuery(
+            'SELECT w, wry, r FROM ROVBlogBundle:Wine w
+             JOIN w.winery wry
+             JOIN wry.region r
+             WHERE w.id = :wine_id'
+            );
+        $query->setParameter('wine_id', $wine_id);
+        $wine = $query->getSingleResult();
+
+        // Check whether the wine tasting review exists and it is already published
+        if (!$wine)
+        {
+            $this->get('session')->getFlashBag()->add('error',
+                'The wine tasting review does not exist or is not published yet'
+            );
+
+            return $this->redirect($this->generateUrl('rov_blog_wine_homepage'));
+        }
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($wine->getAuthor() == $user))
+        {
+            // Super user and author
+            //////////////////////////////////////////////////////
+
+            // Lateral Wells info
+            $defaultData = array();
+            $formSearch = $this->createFormBuilder($defaultData)
+                    ->add('search', 'text', array(
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Type your search'
+                        )
+                    ))
+                    ->getForm();
+
+            $region = new Region();
+            $formNewRegion = $this->createForm(new RegionType(), $region);
+            $winery = new Winery();
+            $formNewWinery = $this->createForm(new WineryType(), $winery);
+            // Form declared to get the wine types labels
+            $formWine = $this->createForm(new WineType(), null);
+            $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+
+            $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
+                    array(),
+                    array('name' => 'ASC')
+                );
+            $wineries = $em->getRepository('ROVBlogBundle:Winery')->findBy(
+                    array(),
+                    array('name' => 'ASC')
+                );
+
+            // Number of wine tasting reviews by month
+            $now = new \DateTime();
+            $year = $now->format('Y');
+            $queryByMonth = $em->createQuery(
+                'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+                 FROM ROVBlogBundle:Wine a
+                 WHERE SUBSTRING(a.updated, 1, 4) >= :year
+                 AND a.published = :published
+                 GROUP BY month');
+            $queryByMonth->setParameter('year', ($year - 1));
+            $queryByMonth->setParameter('published', true);
+            $wineReviewsByMonth = $queryByMonth->getResult();
+
+            return $this->render('ROVBlogBundle:Wines:winePreview.html.twig', array(
+                'wine'              => $wine,
+                'form_search'       => $formSearch->createView(),
+                'wineTypesLabels'   => $wineTypesLabels,
+                'wineReviewsMonth'  => $wineReviewsByMonth,
+                'regions'           => $regions,
+                'wineries'          => $wineries,
+                'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+                'new_region_form'   => $formNewRegion->createView(),
+                'new_winery_form'   => $formNewWinery->createView(),
+                'error'             => $error
+            ));
+        } else {
+            // User is not the author
+            $this->get('session')->getFlashBag()->add('error',
+                'You are not allowed to preview the wine tasting review'
+            );
+
+            return $this->redirect($this->generateUrl('rov_blog_wine_homepage'));
+        }
     }
 
     /**
@@ -820,5 +1137,62 @@ class WineController extends Controller
             'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
             'error'             => $error
         ));
+    }
+
+    /**
+     * Delete wine tasting review
+     * @param  Request $request [description]
+     * @param  integer $wine_id [description]
+     * @return object           Twig template
+     */
+    public function deleteWineReviewAction(Request $request, $wine_id)
+    {
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        // Get the login error if there is any
+        $error = $request->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $session->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            $wine = $em->getRepository('ROVBlogBundle:Wine')->find($wine_id);
+            $em->remove($wine);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success',
+                'Wine tasting review deleted successfully'
+            );
+        }
+        elseif ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // Check whether the wine tasting review belongs to this user
+            $wine = $em->getRepository('ROVBlogBundle:Wine')->findBy(array(
+                'id' => $wine_id,
+                'author' => $user
+                ));
+
+            if ($wine) {
+                $em->remove($wine);
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add('success',
+                    'Wine tasting review deleted successfully'
+                );
+            } else {
+                $this->get('session')->getFlashBag()->add('error',
+                    'You cannot delete this wine tasting review'
+                );
+            }
+
+        } else {
+            // User has not an admin role
+            $this->get('session')->getFlashBag()->add('error',
+                'You do not have enough privileges to delete wine tasting reviews'
+            );
+            return $this->redirect($this->generateUrl('rov_blog_wine_homepage'));            
+        }
+
+        return $this->redirect($this->generateUrl('rov_blog_manage_wines'));
     }
 }

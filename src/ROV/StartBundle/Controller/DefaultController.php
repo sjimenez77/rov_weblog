@@ -27,8 +27,15 @@ class DefaultController extends Controller
         $lastArticles = $em->getRepository('ROVBlogBundle:Article')->findBy(
         	array('published' => true),
         	array('updated' => 'DESC'),
-        	6,
+        	4,
         	0
+        );
+
+        $lastWineReviews = $em->getRepository('ROVBlogBundle:Wine')->findBy(
+            array('published' => true),
+            array('updated' => 'DESC'),
+            5,
+            0
         );
 
         $defaultData = array();
@@ -42,11 +49,13 @@ class DefaultController extends Controller
                 ->getForm();
 
         return $this->render('ROVStartBundle:Default:home.html.twig', array(
-        	'articles'      => $lastArticles,
-            'page'          => 'home',
-            'form_search'   => $formSearch->createView(),
-            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error
+        	'articles'          => $lastArticles,
+            'wines'             => $lastWineReviews,
+            'page'              => 'home',
+            'form_search'       => $formSearch->createView(),
+            'form_search_wine'  => $formSearch->createView(),
+            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'error'             => $error
         ));
     }
 

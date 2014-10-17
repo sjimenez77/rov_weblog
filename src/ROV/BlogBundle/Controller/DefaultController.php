@@ -126,6 +126,23 @@ class DefaultController extends Controller
             $session->get(SecurityContext::AUTHENTICATION_ERROR)
         );
 
+        // Article and its comments
+        $article = $em->getRepository('ROVBlogBundle:Article')->findOneBy(
+            array(
+                'slug' => $slug,
+                'published' => true
+            )
+        );
+        // Check whether the article exists and it is already published
+        if (!$article)
+        {
+            $this->get('session')->getFlashBag()->add('error',
+                'The article does not exist or is not published yet'
+            );
+
+            return $this->redirect($this->generateUrl('rov_blog_homepage'));
+        }
+
         if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') ||
            ($this->get('security.context')->isGranted('ROLE_ADMIN') && $article->getAuthor() == $user))
         {
@@ -157,22 +174,6 @@ class DefaultController extends Controller
                 array(),
                 array('name' => 'ASC')
             );
-        // Article and its comments
-        $article = $em->getRepository('ROVBlogBundle:Article')->findOneBy(
-            array(
-                'slug' => $slug,
-                'published' => true
-            )
-        );
-        // Check whether the article exists and it is already published
-        if (!$article)
-        {
-            $this->get('session')->getFlashBag()->add('error',
-                'The article does not exist or is not published yet'
-            );
-
-            return $this->redirect($this->generateUrl('rov_blog_homepage'));
-        }
 
         // New comment
         $comment = new Comment();
@@ -905,10 +906,24 @@ class DefaultController extends Controller
                     array('name' => 'ASC')
                 );
 
+            // Number of articles by month
+            $now = new \DateTime();
+            $year = $now->format('Y');
+            $queryByMonth = $em->createQuery(
+                'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
+                 FROM ROVBlogBundle:Article a
+                 WHERE SUBSTRING(a.updated, 1, 4) >= :year
+                 AND a.published = :published
+                 GROUP BY month');
+            $queryByMonth->setParameter('year', ($year - 1));
+            $queryByMonth->setParameter('published', true);
+            $articlesByMonth = $queryByMonth->getResult();
+
             return $this->render('ROVBlogBundle:Default:search.html.twig', array(
                 'search_term'       => $data['search'],
                 'form_search'       => $formSearch->createView(),
                 'articles'          => $articlesSearch,
+                'articlesMonth'     => $articlesByMonth,
                 'categories'        => $categories,
                 'tags'              => $tags,
                 'last_username'     => $session->get(SecurityContext::LAST_USERNAME),

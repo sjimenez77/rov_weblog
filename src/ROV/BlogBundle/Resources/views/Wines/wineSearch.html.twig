@@ -1,6 +1,6 @@
 {% extends '::frontend_bootstrap.html.twig' %}
 
-{% block title %}Portada{% endblock %}
+{% block title %}{{ 'Wines'|trans }}{% endblock %}
 
 {% block body %}
 	{{ parent() }}
@@ -11,14 +11,14 @@
 				<h1 class="page-header">Blog <small>{{ 'Search'|trans }}</small></h1>
 				<ol class="breadcrumb">
 					<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
-					<li><a href="{{ path('rov_blog_homepage') }}">{{ 'Articles list'|trans }}</a></li>
+					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine tasting reviews list'|trans }}</a></li>
 					<li class="active">{{ 'Search'|trans }}</li>
 				</ol>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-lg-8">
 				{# Flashbag session success messages #}
 				{% for message in app.session.flashbag.get('error') %}
 				<div class="alert alert-danger alert-dismissable">
@@ -32,30 +32,34 @@
 					{{ message|trans }}
 				</div>
 				{% endfor %}
-				
+
 				{# Mostrar los artículos #}
-				<h3>{{ 'Articles search'|trans }}: <small>{{ search_term }}</small></h3>
+				<h3>{{ 'Wine tasting reviews search'|trans }}: <small>{{ search_term }}</small></h3>
 				<hr>
-				{% if articles|length > 0 %}
+				{% if wineReviews|length > 0 %}
 				<div class="table-responsive">
 					<table class="tablesorter">
 						<thead>
 							<tr>
-								<th>{{ 'Title'|trans }}</th>
-								<th>{{ 'Summary'|trans }}</th>
+								<th>{{ 'Brand'|trans }}</th>
+								<th>{{ 'Points'|trans }}</th>
+								<th>{{ 'Winery'|trans }}</th>
+								<th>{{ 'Region'|trans }}</th>
 								<th>{{ 'Last updated'|trans }}</th>
 								<th class="filter-false">{{ 'Options'|trans }}</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<th>{{ 'Title'|trans }}</th>
-								<th>{{ 'Summary'|trans }}</th>
+								<th>{{ 'Brand'|trans }}</th>
+								<th>{{ 'Points'|trans }}</th>
+								<th>{{ 'Winery'|trans }}</th>
+								<th>{{ 'Region'|trans }}</th>
 								<th>{{ 'Last updated'|trans }}</th>
 								<th>{{ 'Options'|trans }}</th>
 							</tr>
 							<tr>
-								<th colspan="5" class="ts-pager form-horizontal">
+								<th colspan="6" class="ts-pager form-horizontal">
 									<button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
 									<button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
 									<span class="pagedisplay"></span> <!-- this can be any element, including an input -->
@@ -71,15 +75,20 @@
 								</th>
 							</tr>
 						</tfoot>
+
 						<tbody>
-							{% for article in articles %}
+							{% for wine in wineReviews %}
 							<tr>
-								<td>{{ article.title[:50] }}{% if article.title|length > 50 %}...{% endif %}</td>
-								<td>{{ article.subtitle[:50] }}{% if article.subtitle|length > 50 %}...{% endif %}</td>
-								<td>{{ article.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</td>
+								<td>{{ wine.brand }}</td>
+								<td>{{ wine.points }}</td>
+								<td>{{ wine.winery.name }}</td>
+								<td>{{ wine.winery.region.name }}</td>
+								{# wine.updated|localizeddate('medium', 'medium', locale, "Europe/Madrid") #}
+								<td>{{ wine.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</td>
 								<td>
-									<a class="btn btn-primary btn-xs btn-block" href="{{ path('rov_blog_article', { 'slug': article.slug }) }}" role="button">{{ 'Read article'|trans }}</a>
-									{% if is_granted('ROLE_SUPER_ADMIN') or (is_granted('ROLE_ADMIN') and article.author == app.user) %}<a class="btn btn-default btn-xs btn-block" href="{{ path('rov_blog_edit_article', { 'article_id': article.id }) }}" role="button">{{ 'Edit'|trans }}</a>{% endif %}
+									<a href="{{ path('rov_blog_wine_review', { 'slug': wine.slug }) }}" class="btn btn-primary btn-xs btn-block">{{ 'View details'|trans }} <i class="fa fa-angle-right"></i></a>
+									{% if is_granted('ROLE_SUPER_ADMIN') or (is_granted('ROLE_ADMIN') and article.author == app.user) %}<a class="btn btn-default btn-xs btn-block" href="{{ path('rov_blog_edit_wine', { 'wine_id': wine.id }) }}" role="button">{{ 'Edit'|trans }}</a>{% endif %}
+									{# <a class="btn btn-default btn-xs" href="{{ path('rov_blog_delete_wine', { 'wine_id': wine.id }) }}" role="button">{{ 'Delete'|trans }}</a> #}
 								</td>
 							</tr>
 							{% endfor %}
@@ -87,13 +96,13 @@
 					</table>
 				</div>
 				{% else %}
-				<blockquote>
-					<p class="text-danger">{{ 'There are not any article with these search terms'|trans }}</p>
-				</blockquote>
+				<div class="alert alert-info">
+					<h4>{{ 'There are not any wine tasting review yet!'|trans }}</h4>
+				</div>
 				{% endif %}
+
 			</div>
-			<br class="visible-xs visible-sm">
-			{% include 'ROVBlogBundle:Default:rightPanelFull.html.twig' %}
+			{% include 'ROVBlogBundle:Wines:rightPanelWineReviews.html.twig' %}
 		</div>
 
 	</div><!-- container -->
@@ -101,7 +110,7 @@
 {% block js %}
 	{# TableSorter creation #}
 	{{ parent() }}
-	{% if articles|length > 0 %}
+	{% if wineReviews|length > 0 %}
     <script type="text/javascript" src="{{ asset('bundles/rovstart/js/jquery.tablesorter.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/rovstart/js/jquery.tablesorter.widgets.min.js') }}"></script>
     <!-- Tablesorter: optional -->
@@ -109,7 +118,6 @@
     <script type="text/javascript" src="{{ asset('bundles/rovstart/js/jquery.tablesorter.pager.js') }}"></script>
 	<script>
 	$(function() {
-
 		$.extend($.tablesorter.themes.bootstrap, {
 			// these classes are added to the table. To see other table classes available,
 			// look here: http://twitter.github.com/bootstrap/base-css.html#tables
@@ -175,7 +183,20 @@
 	    	// c.totalPages contains the total number of pages
 	    	amplia_footer();
 	    });
+
+	    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	    	// e.target // activated tab
+	    	// e.relatedTarget // previous tab
+	    	setTimeout(function(){amplia_footer()}, 50);
+	    })
 	});
 	</script>
 	{% endif %}
+	{% if locale == 'es' %}<script type="text/javascript" src="{{ asset('bundles/rovstart/js/select2/select2_locale_es.js') }}"></script>{% endif %}
+	<script>
+		$('#rov_blogbundle_regiontype_country').select2({
+			placeholder: "{{ 'Select a country'|trans }}"
+		});
+		$('#rov_blogbundle_winerytype_region').select2();
+	</script>
 {% endblock %}

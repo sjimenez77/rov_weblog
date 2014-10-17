@@ -1,0 +1,153 @@
+{% extends '::frontend_bootstrap.html.twig' %}
+
+{% block title %}{{ wine.brand }}{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Blog <small>{{ 'Preview'|trans }}</small></h1>
+				<ol class="breadcrumb">
+					<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
+					<li><a href="{{ path('rov_blog_manage_wines') }}">{{ 'Manage wine tasting reviews'|trans }}</a></li>
+					<li><a href="{{ path('rov_blog_edit_wine', { 'wine_id': wine.id })}}">{{ 'Edit wine tasting review'|trans }}</a></li>
+					<li>{{ 'Preview'|trans }}</li>
+					<li class="active">{{ wine.brand }}</li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="row">
+					<div class="col-md-2 col-xs-4">
+						<div class="well" style="width: 106px">
+							<p style="font-size: 4em; color: {% if wine.points >= 90 %}#32bf28{% elseif wine.points >= 70 %}#92b72f{% elseif wine.points >= 50 %}#d9991d{% else %}#d9371d{% endif %}">{{ wine.points }}</p>
+						</div>
+					</div>
+					<div class="col-md-7 col-xs-8">
+						<h2>
+							<a href="{{ path('rov_blog_wine_review', { 'slug': wine.slug })}}">{{ wine.brand }}</a>
+						</h2>
+						<p class="lead">
+							{{ 'from'|trans }} <a href="{{ path('rov_blog_wine_winery', { 'slug': wine.winery.slug })}}">{{ wine.winery.name }}</a><br>
+							<span class="label label-info"><a style="color: white" href="{{ path('rov_blog_wine_region', { 'slug': wine.winery.region.slug })}}">{{ wine.winery.region.name }}</a></span>
+							<span class="label label-default">{{ wineTypesLabels[wine.type]|trans|capitalize }}</span>
+							<span class="label label-warning">{{ wine.year }}</span>
+						</p>
+						<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ wine.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</p>
+					</div>
+					<div class="col-md-3 col-xs-12">
+						{# Share button #}
+						<div id="share-button" class='share-button share-button-top' style="padding-bottom: 2em"></div>
+						<br><br>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="img_wine" style="background-image:url('{{ vich_uploader_asset(wine, 'wine_image') }}');"></div>
+					</div>
+					<div class="col-md-8">
+						<h3>{{ 'Map location'|trans }}</h3>
+						<div class="map_canvas" id="map_canvas"></div>
+						<h3>{{ wine.winery.name }}</h3>
+						<div class="text-justify article">
+							<ul>
+								<li>{{ wine.winery.address}}</li>
+								<li>{{ wine.winery.postal }} {{ wine.winery.location }}</li>
+								{% if wine.winery.phone %}<li><i class="fa fa-phone-square"></i> <a href="tel:{{ wine.winery.phone }}" target="_blank">{{ wine.winery.phone }}</a></li>{% endif %}
+								{% if wine.winery.email %}<li><i class="fa fa-envelope"></i> <a href="mailto:{{ wine.winery.email }}" target="_blank">{{ wine.winery.email }}</a></li>{% endif %}
+								{% if wine.winery.web %}<li><i class="fa fa-cloud"></i> <a href="{{ wine.winery.web }}" target="_blank">{{ wine.winery.web }}</a></li>{% endif %}
+							</ul>
+							<h3>{{ 'Description'|trans }}</h3>
+							<p>
+								{{ wine.description|raw }}
+							</p>
+						</div>
+					</div>
+				</div>
+				{% if is_granted('ROLE_ADMIN') %}
+				<div class="row">
+					<div class="col-md-12">
+						<br>
+						<a href="{{ path('rov_blog_edit_wine', { 'wine_id': wine.id }) }}" class="btn btn-default btn-block"><i class="fa fa-pencil-square-o"></i> {{ 'Edit wine tasting review'|trans }}</a>
+						<br>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+			{% include 'ROVBlogBundle:Wines:rightPanelWineReviews.html.twig' %}
+		</div>
+	</div>
+{% endblock %}
+{% block js %}
+	{# Share button creation #}
+	{{ parent() }}
+	<script src="http://maps.google.com/maps?file=api&amp;v=3" type="text/javascript"></script>
+	<script>
+	var share = new Share('.share-button', {
+		title:	"{{ wine.brand }}",
+		text:	"{{ 'New wine tasting review'|trans }}: {{ wine.brand }} - {{ wine.winery.name }} - {{ wine.year }}",
+		image:	"{{ wine.imageName }}",
+		ui: {
+			flyout: "top center",
+			button_font: "Ubuntu",
+			button_text: "{{ 'Share'|trans }}",
+			button_background: "rgb(221, 72, 20)",
+			button_color: "#FFF"
+		},
+		networks: {
+			twitter: {
+				text: "{{ 'New wine tasting review'|trans }}: {{ wine.brand }} - {{ wine.winery.name }} - {{ wine.year }} @racheverdejo"
+			},
+			facebook: {
+				app_id: "231832550347543",
+			}
+		}
+	});
+
+	var map = null;
+    var geocoder = null;
+
+    function initialize() {
+    	if (GBrowserIsCompatible()) {
+    		map = new GMap2(document.getElementById("map_canvas"));
+    		map.setCenter(new GLatLng(37.4419, -122.1419), 1);
+    		map.setUIToDefault();
+    		geocoder = new GClientGeocoder();
+    	}
+    }
+
+    function showAddress(address) {
+    	if (geocoder) {
+    		geocoder.getLatLng(
+    			address,
+    			function(point) {
+    				if (!point) {
+    					alert(address + " not found");
+    				} else {
+    					map.setCenter(point, 15);
+    					var marker = new GMarker(point, {draggable: true});
+    					map.addOverlay(marker);
+    					GEvent.addListener(marker, "dragend", function() {
+    						marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(6));
+    					});
+    					GEvent.addListener(marker, "click", function() {
+    						marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(6));
+    					});
+						GEvent.trigger(marker, "click");
+    				}
+    			}
+    		);
+    	}
+    }
+
+    $(function () {
+        initialize();
+        showAddress('{{ wine.winery.address }}, {{ wine.winery.postal }}, {{ wine.winery.location }}, {{ wine.winery.region.country }}');
+    });
+
+	</script>
+{% endblock %}

@@ -66,7 +66,7 @@ class Wine
     /**
      * @var string $imageName
      *
-     * @ORM\Column(type="string", length=255, name="image_name")
+     * @ORM\Column(type="string", length=255, name="image_name", nullable=true)
      */
     private $imageName;
 

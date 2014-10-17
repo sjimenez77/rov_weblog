@@ -1048,7 +1048,7 @@
 			</trans-unit>
 			<trans-unit id="262">
 				<source>Type the winery location, city, town...</source>
-				<target>Escriba la localización, ciudad, pueblo, etc. de la bodega</target>
+				<target>Escriba la ubicación, ciudad, pueblo, etc. de la bodega</target>
 			</trans-unit>
 			<trans-unit id="263">
 				<source>Type the winery postal code</source>
@@ -1215,56 +1215,56 @@
 				<target>Ver detalles</target>
 			</trans-unit>
 			<trans-unit id="304">
-				<source></source>
-				<target></target>
+				<source>This action will delete this wine tasting review. This process cannot be reversed.</source>
+				<target>Esta acción borrará esta reseña de cata. Este proceso no se puede deshacer.</target>
 			</trans-unit>
 			<trans-unit id="305">
-				<source></source>
-				<target></target>
+				<source>Delete wine tasting review</source>
+				<target>Borrar reseña de cata</target>
 			</trans-unit>
 			<trans-unit id="306">
-				<source></source>
-				<target></target>
+				<source>Region and winery</source>
+				<target>Región y bodega</target>
 			</trans-unit>
 			<trans-unit id="307">
-				<source></source>
-				<target></target>
+				<source>You do not have enough privileges to delete wine tasting reviews</source>
+				<target>No tiene privilegios suficientes para borrar reseñas de cata</target>
 			</trans-unit>
 			<trans-unit id="308">
-				<source></source>
-				<target></target>
+				<source>You cannot delete this wine tasting review</source>
+				<target>Ustted no puede borrar esta reseña de cata</target>
 			</trans-unit>
 			<trans-unit id="309">
-				<source></source>
-				<target></target>
+				<source>Wine tasting review deleted successfully</source>
+				<target>Reseña de cata borrada con éxito</target>
 			</trans-unit>
 			<trans-unit id="310">
-				<source></source>
-				<target></target>
+				<source>Wine tasting review</source>
+				<target>Reseña de cata</target>
 			</trans-unit>
 			<trans-unit id="311">
-				<source></source>
-				<target></target>
+				<source>Map location</source>
+				<target>Ubicación en el mapa</target>
 			</trans-unit>
 			<trans-unit id="312">
-				<source></source>
-				<target></target>
+				<source>You are not allowed to preview the wine tasting review</source>
+				<target>A usted no le está permitido previsualizar esta reseña de cata</target>
 			</trans-unit>
 			<trans-unit id="313">
-				<source></source>
-				<target></target>
+				<source>Wine tasting reviews search</source>
+				<target>Búsqueda en reseñas de cata</target>
 			</trans-unit>
 			<trans-unit id="314">
-				<source></source>
-				<target></target>
+				<source>Do you want to know wines from the whole world?</source>
+				<target>¿Quiere conocer vinos de todo el mundo?</target>
 			</trans-unit>
 			<trans-unit id="315">
-				<source></source>
-				<target></target>
+				<source>wine tasting reviews</source>
+				<target>reseñas de catas de vinos</target>
 			</trans-unit>
 			<trans-unit id="316">
-				<source></source>
-				<target></target>
+				<source>Last wine tasting reviews</source>
+				<target>Últimas reseñas de cata</target>
 			</trans-unit>
 			<trans-unit id="317">
 				<source></source>

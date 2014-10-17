@@ -7,10 +7,26 @@
 	height:300px;
 }
 
+.img_wine {
+	border-radius: 4px;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height:480px;
+	width: 100%;
+}
+
 .article img {
 	width: 100%;
 }
 
 .share-button {
 	margin: auto; position: relative; top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.map_canvas {
+	border: 2px solid #dd4814;
+	border-radius: 4px;
+	height: 300px;
+	width: 100%;
 }

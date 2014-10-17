@@ -12,6 +12,7 @@
 				<ol class="breadcrumb">
 					<li><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
 					<li><a href="{{ path('rov_blog_manage_articles') }}">{{ 'Manage articles'|trans }}</a></li>
+					<li><a href="{{ path('rov_blog_edit_article', { 'article_id': article.id })}}">{{ 'Edit article'|trans }}</a></li>
 					<li>{{ 'Preview'|trans }}</li>
 					<li class="active">{{ article.title }}</li>
 				</ol>

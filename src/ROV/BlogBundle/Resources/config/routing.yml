@@ -42,7 +42,7 @@ rov_blog_preview_article:
 
 rov_blog_preview_wine:
     pattern:  /admin/preview/wine/{wine_id}
-    defaults: { _controller: ROVBlogBundle:Default:previewWine }
+    defaults: { _controller: ROVBlogBundle:Wine:previewWine }
 
 rov_blog_delete_article:
     pattern:  /admin/delete/article/{article_id}
@@ -115,6 +115,10 @@ rov_blog_wine_date:
     defaults: { _controller: ROVBlogBundle:Wine:wineReviewsDate, month: 0, page: 1 }
     requirements:
         page:  \d+
+
+rov_blog_delete_wine:
+    pattern:  /admin/delete/wine/{wine_id}
+    defaults: { _controller: ROVBlogBundle:Wine:deleteWineReview }
 
 rov_blog_homepage:
     pattern:  /{page}
