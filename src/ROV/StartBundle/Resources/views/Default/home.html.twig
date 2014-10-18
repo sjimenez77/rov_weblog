@@ -80,21 +80,27 @@
 					<div class="panel-heading">
 						<h4>{{ 'Last wine tasting reviews'|trans }}</h4>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" style="padding: 0 15px">
+						{% if wines|length > 0 %}
 						{% for wine in wines %}
-						<div class="row" style="background-image:url('{{ vich_uploader_asset(wine, 'wine_image') }}'); background-position: 50% 50%; background-size: cover; opacity: 0.5;">
-							<div class="col-md-2 col-xs-4" style="opacity: 1">
-								<p style="font-size: 3em; color: {% if wine.points >= 90 %}#32bf28{% elseif wine.points >= 70 %}#92b72f{% elseif wine.points >= 50 %}#d9991d{% else %}#d9371d{% endif %}">{{ wine.points }}</p>
+						<div class="row" style="background-image:url('{{ vich_uploader_asset(wine, 'wine_image') }}'); background-position: 50% 50%; background-size: cover;">
+							<div class="col-lg-3 col-md-2 col-xs-4" style="background:rgba(255,255,255,0.8); height: 115px">
+								<p style="font-size: 5em; color: {% if wine.points >= 90 %}#32bf28{% elseif wine.points >= 70 %}#92b72f{% elseif wine.points >= 50 %}#d9991d{% else %}#d9371d{% endif %}">{{ wine.points }}</p>
 							</div>
-							<div class="col-md-10 col-xs-8" style="opacity: 1">
+							<div class="col-lg-9 col-md-10 col-xs-8" style="background:rgba(255,255,255,0.8);">
 								<h3>
-									<a href="{{ path('rov_blog_wine_review', { 'slug': wine.slug })}}">{{ wine.brand }}</a>
+									<a href="{{ path('rov_blog_wine_review', { 'slug': wine.slug })}}">{{ wine.brand }} {{ wine.year }}</a>
 								</h3>
 								<h4>{{ wine.winery.name }}</h4>
 								<p>{{ wine.winery.region.name }}</p>
 							</div>
 						</div>
 						{% endfor %}
+						{% else %}
+						<blockquote style="margin-top: 15px">
+							<p>{{ 'There are not wine tasting reviews published yet'|trans }}</p>
+						</blockquote>
+						{% endif %}
 					</div>
 					<div class="panel-footer">
 						{{ form_start(form_search_wine, {'method': 'POST', 'action': path('rov_blog_wine_search') }) }}

@@ -904,11 +904,11 @@
 			</trans-unit>
 			<trans-unit id="226">
 				<source>Write a new wine tasting review</source>
-				<target>Escribir una nueva reseña de cata</target>
+				<target>Escribir una nueva nota de cata</target>
 			</trans-unit>
 			<trans-unit id="227">
 				<source>Manage wine tasting reviews</source>
-				<target>Gestionar reseñas de cata</target>
+				<target>Gestionar notas de cata</target>
 			</trans-unit>
 			<trans-unit id="228">
 				<source>Last wines</source>
@@ -916,7 +916,7 @@
 			</trans-unit>
 			<trans-unit id="229">
 				<source>Wine tasting reviews</source>
-				<target>Reseñas de catas</target>
+				<target>Notas de cata</target>
 			</trans-unit>
 			<trans-unit id="230">
 				<source>Wines</source>
@@ -980,7 +980,7 @@
 			</trans-unit>
 			<trans-unit id="245">
 				<source>Publish wine tasting review</source>
-				<target>Publicar reseña de cata</target>
+				<target>Publicar nota de cata</target>
 			</trans-unit>
 			<trans-unit id="246">
 				<source>Type the varieties</source>
@@ -1020,15 +1020,15 @@
 			</trans-unit>
 			<trans-unit id="255">
 				<source>Click in any month to see the wine tasting reviews published in that date</source>
-				<target>Haga clic en cualquier mes para ver las reseñas de cata publicadas en esa fecha</target>
+				<target>Haga clic en cualquier mes para ver las notas de cata publicadas en esa fecha</target>
 			</trans-unit>
 			<trans-unit id="256">
 				<source>For older wine tasting reviews you can use the search engine</source>
-				<target>Para las reseñas de cata más antiguas puede utilizar el buscador</target>
+				<target>Para las notas de cata más antiguas puede utilizar el buscador</target>
 			</trans-unit>
 			<trans-unit id="257">
 				<source>There are not wine tasting reviews published yet</source>
-				<target>No hay ninguna reseña de cata publicada todavía</target>
+				<target>No hay ninguna nota de cata publicada todavía</target>
 			</trans-unit>
 			<trans-unit id="258">
 				<source>Regions</source>
@@ -1072,7 +1072,7 @@
 			</trans-unit>
 			<trans-unit id="268">
 				<source>Wine tasting reviews in the last months</source>
-				<target>Reseñas de catas en los últimos meses</target>
+				<target>Notas de catas en los últimos meses</target>
 			</trans-unit>
 			<trans-unit id="269">
 				<source>New region added</source>
@@ -1084,15 +1084,15 @@
 			</trans-unit>
 			<trans-unit id="271">
 				<source>Manage wine tasting reviews</source>
-				<target>Gestionar reseñas de cata</target>
+				<target>Gestionar notas de cata</target>
 			</trans-unit>
 			<trans-unit id="272">
 				<source>There are not any wine tasting review yet!</source>
-				<target>¡No hay todavía ninguna reseña de cata!</target>
+				<target>¡No hay todavía ninguna nota de cata!</target>
 			</trans-unit>
 			<trans-unit id="273">
 				<source>Wine tasting reviews list</source>
-				<target>Lista de reseñas de cata</target>
+				<target>Lista de notas de cata</target>
 			</trans-unit>
 			<trans-unit id="274">
 				<source>Phone</source>
@@ -1168,7 +1168,7 @@
 			</trans-unit>
 			<trans-unit id="292">
 				<source>New wine tasting review saved successfully</source>
-				<target>Nueva reseña de cata guardada correctamente</target>
+				<target>Nueva nota de cata guardada correctamente</target>
 			</trans-unit>
 			<trans-unit id="293">
 				<source>Winery</source>
@@ -1184,7 +1184,7 @@
 			</trans-unit>
 			<trans-unit id="296">
 				<source>If you need a new region or winery for this wine tasting review, create them first</source>
-				<target>Si necesita una nueva región o bodega para esta reseña de cata, créalos antes</target>
+				<target>Si necesita una nueva región o bodega para esta nota de cata, créalos antes</target>
 			</trans-unit>
 			<trans-unit id="297">
 				<source>If you wish to attach an image choose a file from your disk</source>
@@ -1200,7 +1200,7 @@
 			</trans-unit>
 			<trans-unit id="300">
 				<source>Wine tasting review updated successfully</source>
-				<target>Reseña de cata actualizada correctamente</target>
+				<target>Nota de cata actualizada correctamente</target>
 			</trans-unit>
 			<trans-unit id="301">
 				<source>from</source>
@@ -1208,7 +1208,7 @@
 			</trans-unit>
 			<trans-unit id="302">
 				<source>Edit wine tasting review</source>
-				<target>Editar reseña de cata</target>
+				<target>Editar nota de cata</target>
 			</trans-unit>
 			<trans-unit id="303">
 				<source>View details</source>
@@ -1216,11 +1216,11 @@
 			</trans-unit>
 			<trans-unit id="304">
 				<source>This action will delete this wine tasting review. This process cannot be reversed.</source>
-				<target>Esta acción borrará esta reseña de cata. Este proceso no se puede deshacer.</target>
+				<target>Esta acción borrará esta nota de cata. Este proceso no se puede deshacer.</target>
 			</trans-unit>
 			<trans-unit id="305">
 				<source>Delete wine tasting review</source>
-				<target>Borrar reseña de cata</target>
+				<target>Borrar nota de cata</target>
 			</trans-unit>
 			<trans-unit id="306">
 				<source>Region and winery</source>
@@ -1228,19 +1228,19 @@
 			</trans-unit>
 			<trans-unit id="307">
 				<source>You do not have enough privileges to delete wine tasting reviews</source>
-				<target>No tiene privilegios suficientes para borrar reseñas de cata</target>
+				<target>No tiene privilegios suficientes para borrar notas de cata</target>
 			</trans-unit>
 			<trans-unit id="308">
 				<source>You cannot delete this wine tasting review</source>
-				<target>Ustted no puede borrar esta reseña de cata</target>
+				<target>Ustted no puede borrar esta nota de cata</target>
 			</trans-unit>
 			<trans-unit id="309">
 				<source>Wine tasting review deleted successfully</source>
-				<target>Reseña de cata borrada con éxito</target>
+				<target>Nota de cata borrada con éxito</target>
 			</trans-unit>
 			<trans-unit id="310">
 				<source>Wine tasting review</source>
-				<target>Reseña de cata</target>
+				<target>Nota de cata</target>
 			</trans-unit>
 			<trans-unit id="311">
 				<source>Map location</source>
@@ -1248,11 +1248,11 @@
 			</trans-unit>
 			<trans-unit id="312">
 				<source>You are not allowed to preview the wine tasting review</source>
-				<target>A usted no le está permitido previsualizar esta reseña de cata</target>
+				<target>A usted no le está permitido previsualizar esta nota de cata</target>
 			</trans-unit>
 			<trans-unit id="313">
 				<source>Wine tasting reviews search</source>
-				<target>Búsqueda en reseñas de cata</target>
+				<target>Búsqueda en notas de cata</target>
 			</trans-unit>
 			<trans-unit id="314">
 				<source>Do you want to know wines from the whole world?</source>
@@ -1260,19 +1260,19 @@
 			</trans-unit>
 			<trans-unit id="315">
 				<source>wine tasting reviews</source>
-				<target>reseñas de catas de vinos</target>
+				<target>notas de catas de vinos</target>
 			</trans-unit>
 			<trans-unit id="316">
 				<source>Last wine tasting reviews</source>
-				<target>Últimas reseñas de cata</target>
+				<target>Últimas notas de cata</target>
 			</trans-unit>
 			<trans-unit id="317">
-				<source></source>
-				<target></target>
+				<source>Location</source>
+				<target>Localización</target>
 			</trans-unit>
 			<trans-unit id="318">
-				<source></source>
-				<target></target>
+				<source>New wine tasting review</source>
+				<target>Nueva nota de cata</target>
 			</trans-unit>
 			<trans-unit id="319">
 				<source></source>
