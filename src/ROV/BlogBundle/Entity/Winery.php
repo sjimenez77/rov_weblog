@@ -35,7 +35,7 @@ class Winery
      * 
      * @ORM\ManyToOne(targetEntity="ROV\BlogBundle\Entity\Region", inversedBy="wineries")
      * @ORM\JoinColumn(name="region_id", referencedColumnName="id", onDelete="CASCADE")
-     * @Assert\NotBlank()
+     * @Assert\NotNull()
      */
     private $region;
 

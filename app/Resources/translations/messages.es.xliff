@@ -1275,20 +1275,20 @@
 				<target>Nueva nota de cata</target>
 			</trans-unit>
 			<trans-unit id="319">
-				<source></source>
-				<target></target>
+				<source>Wine-making</source>
+				<target>Elaboración</target>
 			</trans-unit>
 			<trans-unit id="320">
-				<source></source>
-				<target></target>
+				<source>Describe briefly the wine-making process</source>
+				<target>Describa brevemente el proceso de elaboración del vino</target>
 			</trans-unit>
 			<trans-unit id="321">
-				<source></source>
-				<target></target>
+				<source>Alcohol by volume</source>
+				<target>Graduación alcohólica</target>
 			</trans-unit>
 			<trans-unit id="322">
-				<source></source>
-				<target></target>
+				<source>Type the alcohol by volume</source>
+				<target>Escriba la graduación alcohólica</target>
 			</trans-unit>
 			<trans-unit id="323">
 				<source></source>

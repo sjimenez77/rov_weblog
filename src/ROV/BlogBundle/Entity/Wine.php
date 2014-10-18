@@ -46,7 +46,7 @@ class Wine
      * 
      * @ORM\ManyToOne(targetEntity="ROV\BlogBundle\Entity\Winery", inversedBy="wines")
      * @ORM\JoinColumn(name="winery_id", referencedColumnName="id", onDelete="CASCADE")
-     * @Assert\NotBlank()
+     * @Assert\NotNull()
      */
     private $winery;
 
@@ -86,10 +86,30 @@ class Wine
      *
      * @ORM\Column(name="points", type="smallint")
      * @Assert\NotBlank()
-     * @Assert\GreaterThanOrEqual(value=0)
-     * @Assert\LessThanOrEqual(value=100)
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 100
+     * )
      */
     private $points;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="alcohol", type="decimal", precision=3, scale=1, nullable=true)
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 100
+     * )
+     */
+    private $alcohol;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="wine_making", type="string", length=255, nullable=true)
+     */
+    private $wineMaking;
 
     /**
      * @var string
@@ -335,6 +355,52 @@ class Wine
     public function getPoints()
     {
         return $this->points;
+    }
+
+    /**
+     * Set alcohol
+     *
+     * @param string $alcohol
+     * @return Wine
+     */
+    public function setAlcohol($alcohol)
+    {
+        $this->alcohol = $alcohol;
+
+        return $this;
+    }
+
+    /**
+     * Get alcohol
+     *
+     * @return string 
+     */
+    public function getAlcohol()
+    {
+        return $this->alcohol;
+    }
+
+    /**
+     * Set wineMaking
+     *
+     * @param string $wineMaking
+     * @return Wine
+     */
+    public function setWineMaking($wineMaking)
+    {
+        $this->wineMaking = $wineMaking;
+
+        return $this;
+    }
+
+    /**
+     * Get wineMaking
+     *
+     * @return string 
+     */
+    public function getWineMaking()
+    {
+        return $this->wineMaking;
     }
 
     /**

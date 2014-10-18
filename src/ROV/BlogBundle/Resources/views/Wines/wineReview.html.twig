@@ -35,6 +35,7 @@
 							<span class="label label-info"><a style="color: white" href="{{ path('rov_blog_wine_region', { 'slug': wine.winery.region.slug })}}">{{ wine.winery.region.name }}</a></span>
 							<span class="label label-default">{{ wineTypesLabels[wine.type]|trans|capitalize }}</span>
 							<span class="label label-warning">{{ wine.year }}</span>
+							<span class="label label-primary">{{ wine.alcohol }}&deg;</span>
 						</p>
 						<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ wine.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</p>
 					</div>
@@ -60,6 +61,10 @@
 								{% if wine.winery.email %}<li><i class="fa fa-envelope"></i> <a href="mailto:{{ wine.winery.email }}" target="_blank">{{ wine.winery.email }}</a></li>{% endif %}
 								{% if wine.winery.web %}<li><i class="fa fa-cloud"></i> <a href="{{ wine.winery.web }}" target="_blank">{{ wine.winery.web }}</a></li>{% endif %}
 							</ul>
+							<h3>{{ 'Wine-making'|trans }}</h3>
+							<p>
+								{{ wine.wineMaking }}
+							</p>
 							<h3>{{ 'Description'|trans }}</h3>
 							<p>
 								{{ wine.description|raw }}

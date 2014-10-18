@@ -500,6 +500,7 @@ class WineController extends Controller
                  AND (w.brand LIKE :search
                      OR w.varieties LIKE :search
                      OR w.year LIKE :search
+                     OR w.wineMaking LIKE :search
                      OR w.description LIKE :search
                      OR wry.name LIKE :search
                      OR wry.location LIKE :search

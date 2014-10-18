@@ -84,10 +84,29 @@ class WineType extends AbstractType
                     'required'      => false
                     )
                 ))
+            ->add('alcohol', 'number', array(
+                'label'     => 'Alcohol by volume',
+                'precision' => 1,
+                'attr'      => array(
+                    'class'         => 'form-control',
+                    'placeholder'   => 'Type the alcohol by volume',
+                    'min'           => '0',
+                    'max'           => '100',
+                    'required'      => false
+                    )
+                ))
+            ->add('wineMaking', 'textarea', array(
+                'label' => 'Wine-making',
+                'attr'  => array(
+                    'class'         => 'form-control',
+                    'placeholder'   => 'Describe briefly the wine-making process',
+                    'required'      => false
+                    )
+                ))
             ->add('description', 'textarea', array(
                 'attr' => array(
                     'class'     => 'form-control',
-                    'rows'      => 20,
+                    'rows'      => 15,
                     'required'  => true
                     )
                 ))

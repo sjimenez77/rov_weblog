@@ -28,3 +28,11 @@ ALTER TABLE Wine CHANGE image_name image_name VARCHAR(255) DEFAULT NULL;
 
 ## 17/10/2014 11:41
 ALTER TABLE Winery CHANGE phone phone VARCHAR(25) DEFAULT NULL;
+
+###################################################################################################################################
+
+## 18/10/2014 22:44
+ALTER TABLE wine ADD alcohol NUMERIC(2, 1) DEFAULT NULL, ADD wine_making VARCHAR(255) DEFAULT NULL;
+
+## 18/10/2014 23:08
+ALTER TABLE wine CHANGE alcohol alcohol NUMERIC(3, 1) DEFAULT NULL;
