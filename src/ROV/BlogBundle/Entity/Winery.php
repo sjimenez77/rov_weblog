@@ -91,6 +91,7 @@ class Winery
      * @var string
      *
      * @ORM\Column(name="web", type="string", length=255, nullable=true)
+     * @Assert\Url()
      */
     private $web;
 
