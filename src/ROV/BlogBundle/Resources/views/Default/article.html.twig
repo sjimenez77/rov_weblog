@@ -133,7 +133,7 @@
 	var share = new Share('.share-button', {
 		title:	"{{ article.title }}",
 		text:	"{{ article.subtitle }}",
-		image:	"{{ article.image }}",
+		image:	"{{ app.request.getSchemeAndHttpHost() }}{{ article.image }}",
 		ui: {
 			flyout: "top center",
 			button_font: "Ubuntu",

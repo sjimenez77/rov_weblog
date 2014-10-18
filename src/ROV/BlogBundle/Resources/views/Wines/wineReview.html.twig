@@ -95,7 +95,7 @@
 	var share = new Share('.share-button', {
 		title:	"{{ wine.brand }}",
 		text:	"{{ 'New wine tasting review'|trans }}: {{ wine.brand }} - {{ wine.winery.name }} - {{ wine.year }}",
-		image:	"{{ vich_uploader_asset(wine, 'wine_image') }}",
+		image:	"{{ app.request.getSchemeAndHttpHost() }}{{ vich_uploader_asset(wine, 'wine_image') }}",
 		ui: {
 			flyout: "top center",
 			button_font: "Ubuntu",
