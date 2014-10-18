@@ -72,15 +72,14 @@ class WineController extends Controller
         	 JOIN w.winery wry
         	 JOIN wry.region r
         	 WHERE w.published = :published
-        	 ORDER BY w.updated DESC'
-        	);
+        	 ORDER BY w.updated DESC');
         $query->setParameter('published', true);
         $query->setMaxResults($numberReviews);
         $query->setFirstResult(($page-1) * $numberReviews);
         $lastWineReviews = $query->getResult();
 
         // Remaining wine tasting reviews
-        $queryCount = $em->createQuery('SELECT a FROM ROVBlogBundle:Wine a WHERE a.published = :published');
+        $queryCount = $em->createQuery('SELECT w FROM ROVBlogBundle:Wine w WHERE w.published = :published');
         $queryCount->setParameter('published', true);
         $queryCount->setFirstResult(($page) * $numberReviews);
         $wineReviewsLeft = $queryCount->getResult();
@@ -89,11 +88,12 @@ class WineController extends Controller
         $now = new \DateTime();
         $year = $now->format('Y');
         $queryByMonth = $em->createQuery(
-            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-             FROM ROVBlogBundle:Wine a
-             WHERE SUBSTRING(a.updated, 1, 4) >= :year
-             AND a.published = :published
-             GROUP BY month');
+            'SELECT COUNT(w.id) as total, SUBSTRING(w.updated, 6, 2) as month, SUBSTRING(w.updated, 1, 4) as year
+             FROM ROVBlogBundle:Wine w
+             WHERE SUBSTRING(w.updated, 1, 4) >= :year
+             AND w.published = :published
+             GROUP BY month
+             ORDER BY w.updated DESC');
         $queryByMonth->setParameter('year', ($year - 1));
         $queryByMonth->setParameter('published', true);
         $wineReviewsByMonth = $queryByMonth->getResult();
@@ -198,11 +198,12 @@ class WineController extends Controller
         $now = new \DateTime();
         $year = $now->format('Y');
         $queryByMonth = $em->createQuery(
-            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-             FROM ROVBlogBundle:Wine a
-             WHERE SUBSTRING(a.updated, 1, 4) >= :year
-             AND a.published = :published
-             GROUP BY month');
+            'SELECT COUNT(w.id) as total, SUBSTRING(w.updated, 6, 2) as month, SUBSTRING(w.updated, 1, 4) as year
+             FROM ROVBlogBundle:Wine w
+             WHERE SUBSTRING(w.updated, 1, 4) >= :year
+             AND w.published = :published
+             GROUP BY month
+             ORDER BY w.updated DESC');
         $queryByMonth->setParameter('year', ($year - 1));
         $queryByMonth->setParameter('published', true);
         $wineReviewsByMonth = $queryByMonth->getResult();
@@ -308,11 +309,12 @@ class WineController extends Controller
         $now = new \DateTime();
         $year = $now->format('Y');
         $queryByMonth = $em->createQuery(
-            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-             FROM ROVBlogBundle:Wine a
-             WHERE SUBSTRING(a.updated, 1, 4) >= :year
-             AND a.published = :published
-             GROUP BY month');
+            'SELECT COUNT(w.id) as total, SUBSTRING(w.updated, 6, 2) as month, SUBSTRING(w.updated, 1, 4) as year
+             FROM ROVBlogBundle:Wine w
+             WHERE SUBSTRING(w.updated, 1, 4) >= :year
+             AND w.published = :published
+             GROUP BY month
+             ORDER BY w.updated DESC');
         $queryByMonth->setParameter('year', ($year - 1));
         $queryByMonth->setParameter('published', true);
         $wineReviewsByMonth = $queryByMonth->getResult();
@@ -416,10 +418,10 @@ class WineController extends Controller
 
         // Remaining wine tasting reviews
         $queryCount = $em->createQuery(
-            'SELECT a FROM ROVBlogBundle:Wine a
-             WHERE a.published = :published
-             AND a.updated >= :start
-             AND a.updated < :end');
+            'SELECT w FROM ROVBlogBundle:Wine w
+             WHERE w.published = :published
+             AND w.updated >= :start
+             AND w.updated < :end');
         $queryCount->setParameter('published', true);
         $queryCount->setParameter('start', $startDate);
         $queryCount->setParameter('end', $endDate);
@@ -430,11 +432,12 @@ class WineController extends Controller
         $now = new \DateTime();
         $year = $now->format('Y');
         $queryByMonth = $em->createQuery(
-            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-             FROM ROVBlogBundle:Wine a
-             WHERE SUBSTRING(a.updated, 1, 4) >= :year
-             AND a.published = :published
-             GROUP BY month');
+            'SELECT COUNT(w.id) as total, SUBSTRING(w.updated, 6, 2) as month, SUBSTRING(w.updated, 1, 4) as year
+             FROM ROVBlogBundle:Wine w
+             WHERE SUBSTRING(w.updated, 1, 4) >= :year
+             AND w.published = :published
+             GROUP BY month
+             ORDER BY w.updated DESC');
         $queryByMonth->setParameter('year', ($year - 1));
         $queryByMonth->setParameter('published', true);
         $wineReviewsByMonth = $queryByMonth->getResult();
@@ -535,11 +538,12 @@ class WineController extends Controller
             $now = new \DateTime();
             $year = $now->format('Y');
             $queryByMonth = $em->createQuery(
-                'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-                 FROM ROVBlogBundle:Wine a
-                 WHERE SUBSTRING(a.updated, 1, 4) >= :year
-                 AND a.published = :published
-                 GROUP BY month');
+                'SELECT COUNT(w.id) as total, SUBSTRING(w.updated, 6, 2) as month, SUBSTRING(w.updated, 1, 4) as year
+                 FROM ROVBlogBundle:Wine w
+                 WHERE SUBSTRING(w.updated, 1, 4) >= :year
+                 AND w.published = :published
+                 GROUP BY month
+                 ORDER BY w.updated DESC');
             $queryByMonth->setParameter('year', ($year - 1));
             $queryByMonth->setParameter('published', true);
             $wineReviewsByMonth = $queryByMonth->getResult();
@@ -651,11 +655,12 @@ class WineController extends Controller
         $now = new \DateTime();
         $year = $now->format('Y');
         $queryByMonth = $em->createQuery(
-            'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-             FROM ROVBlogBundle:Wine a
-             WHERE SUBSTRING(a.updated, 1, 4) >= :year
-             AND a.published = :published
-             GROUP BY month');
+            'SELECT COUNT(w.id) as total, SUBSTRING(w.updated, 6, 2) as month, SUBSTRING(w.updated, 1, 4) as year
+             FROM ROVBlogBundle:Wine w
+             WHERE SUBSTRING(w.updated, 1, 4) >= :year
+             AND w.published = :published
+             GROUP BY month
+             ORDER BY w.updated DESC');
         $queryByMonth->setParameter('year', ($year - 1));
         $queryByMonth->setParameter('published', true);
         $wineReviewsByMonth = $queryByMonth->getResult();
@@ -749,11 +754,12 @@ class WineController extends Controller
             $now = new \DateTime();
             $year = $now->format('Y');
             $queryByMonth = $em->createQuery(
-                'SELECT COUNT(a.id) as total, SUBSTRING(a.updated, 6, 2) as month, SUBSTRING(a.updated, 1, 4) as year
-                 FROM ROVBlogBundle:Wine a
-                 WHERE SUBSTRING(a.updated, 1, 4) >= :year
-                 AND a.published = :published
-                 GROUP BY month');
+                'SELECT COUNT(w.id) as total, SUBSTRING(w.updated, 6, 2) as month, SUBSTRING(w.updated, 1, 4) as year
+                 FROM ROVBlogBundle:Wine w
+                 WHERE SUBSTRING(w.updated, 1, 4) >= :year
+                 AND w.published = :published
+                 GROUP BY month
+                 ORDER BY w.updated DESC');
             $queryByMonth->setParameter('year', ($year - 1));
             $queryByMonth->setParameter('published', true);
             $wineReviewsByMonth = $queryByMonth->getResult();
