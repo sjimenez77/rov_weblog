@@ -3,6 +3,7 @@
 namespace ROV\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Winery
@@ -25,6 +26,7 @@ class Winery
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -33,6 +35,7 @@ class Winery
      * 
      * @ORM\ManyToOne(targetEntity="ROV\BlogBundle\Entity\Region", inversedBy="wineries")
      * @ORM\JoinColumn(name="region_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotBlank()
      */
     private $region;
 
@@ -80,6 +83,7 @@ class Winery
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @Assert\Email(checkMX=true)
      */
     private $email;
 

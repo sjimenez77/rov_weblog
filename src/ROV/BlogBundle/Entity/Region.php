@@ -3,6 +3,7 @@
 namespace ROV\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Region
@@ -25,6 +26,7 @@ class Region
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -39,6 +41,7 @@ class Region
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=2)
+     * @Assert\NotBlank()
      */
     private $country;
 

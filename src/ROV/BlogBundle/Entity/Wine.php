@@ -4,6 +4,7 @@ namespace ROV\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -36,6 +37,7 @@ class Wine
      * @var string
      *
      * @ORM\Column(name="brand", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $brand;
 
@@ -44,6 +46,7 @@ class Wine
      * 
      * @ORM\ManyToOne(targetEntity="ROV\BlogBundle\Entity\Winery", inversedBy="wines")
      * @ORM\JoinColumn(name="winery_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotBlank()
      */
     private $winery;
 
@@ -51,6 +54,7 @@ class Wine
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=3)
+     * @Assert\NotBlank()
      */
     private $type;
 
@@ -81,6 +85,9 @@ class Wine
      * @var integer
      *
      * @ORM\Column(name="points", type="smallint")
+     * @Assert\NotBlank()
+     * @Assert\GreaterThanOrEqual(value=0)
+     * @Assert\LessThanOrEqual(value=100)
      */
     private $points;
 
@@ -95,6 +102,7 @@ class Wine
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -102,6 +110,7 @@ class Wine
      * @var integer
      *
      * @ORM\Column(name="year", type="smallint")
+     * @Assert\NotBlank()
      */
     private $year;
 
