@@ -35,3 +35,8 @@ nav {
 	height: 300px;
 	width: 100%;
 }
+
+.share-button.sharer-0 label {
+	color: #FFF !important;
+	background-color: rgb(221, 72, 20) !important;
+}

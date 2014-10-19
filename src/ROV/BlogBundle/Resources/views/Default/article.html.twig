@@ -131,22 +131,24 @@
 	{{ parent() }}
 	<script>
 	var share = new Share('.share-button', {
-		title:	"{{ article.title }}",
-		text:	"{{ article.subtitle }}",
-		image:	"{{ app.request.getSchemeAndHttpHost() }}{{ article.image }}",
+		url:			"{{ app.request.uri }}",
+		title:			"{{ article.title }}",
+		description:	"{{ article.subtitle }}",
+		image:			"{{ app.request.getSchemeAndHttpHost() }}{{ article.image }}",
 		ui: {
 			flyout: "top center",
 			button_font: "Ubuntu",
-			button_text: "{{ 'Share'|trans }}",
-			button_background: "rgb(221, 72, 20)",
-			button_color: "#FFF"
+			button_text: "{{ 'Share'|trans }}"
 		},
 		networks: {
 			twitter: {
-				text: "{{ article.title }} @racheverdejo"
+				description: "{{ article.title }} @racheverdejo"
 			},
 			facebook: {
 				app_id: "231832550347543",
+			},
+			pinterest: {
+				enabled: false
 			}
 		}
 	});

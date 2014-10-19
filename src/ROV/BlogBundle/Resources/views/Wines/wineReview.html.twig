@@ -93,22 +93,24 @@
 	<script src="http://maps.google.com/maps?file=api&amp;v=3" type="text/javascript"></script>
 	<script>
 	var share = new Share('.share-button', {
-		title:	"{{ wine.brand }}",
-		text:	"{{ 'New wine tasting review'|trans }}: {{ wine.brand }} - {{ wine.winery.name }} - {{ wine.year }}",
-		image:	"{{ app.request.getSchemeAndHttpHost() }}{{ vich_uploader_asset(wine, 'wine_image') }}",
+		url:			"{{ app.request.uri }}",
+		title:			"{{ wine.brand }}",
+		description:	"{{ 'New wine tasting review'|trans }}: {{ wine.brand }} - {{ wine.winery.name }} - {{ wine.year }}",
+		image:			"{{ app.request.getSchemeAndHttpHost() }}{{ vich_uploader_asset(wine, 'wine_image') }}",
 		ui: {
 			flyout: "top center",
 			button_font: "Ubuntu",
-			button_text: "{{ 'Share'|trans }}",
-			button_background: "rgb(221, 72, 20)",
-			button_color: "#FFF"
+			button_text: "{{ 'Share'|trans }}"
 		},
 		networks: {
 			twitter: {
-				text: "{{ 'New wine tasting review'|trans }}: {{ wine.brand }} - {{ wine.winery.name }} - {{ wine.year }} @racheverdejo"
+				description: "{{ 'New wine tasting review'|trans }}: {{ wine.brand }} - {{ wine.winery.name }} - {{ wine.year }} @racheverdejo"
 			},
 			facebook: {
 				app_id: "231832550347543",
+			},
+			pinterest: {
+				enabled: false
 			}
 		}
 	});
