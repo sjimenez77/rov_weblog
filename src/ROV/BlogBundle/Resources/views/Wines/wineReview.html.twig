@@ -111,6 +111,11 @@
 			},
 			pinterest: {
 				enabled: false
+			},
+			email: {
+				enabled: true,
+				title: "{{ 'New wine tasting review'|trans }}: {{ wine.brand }} - {{ wine.winery.name }} - {{ wine.year }}",
+				description: "{{ wine.description }} - {{ app.request.uri }}"
 			}
 		}
 	});
