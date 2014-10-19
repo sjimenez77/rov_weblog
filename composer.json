@@ -20,7 +20,8 @@
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
         "raulfraile/ladybug-bundle": "dev-master",
-        "vich/uploader-bundle": "~0.10.0"
+        "vich/uploader-bundle": "~0.10.0",
+        "gregwar/captcha-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

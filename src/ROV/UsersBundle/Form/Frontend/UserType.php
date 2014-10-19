@@ -323,6 +323,10 @@ class UserType extends AbstractType
                 'attr' => array('class' => 'form-control'),
                 'choices' => array('es' => 'Español', 'en' => 'English'),
                 ))
+            ->add('captcha', 'captcha', array(
+                'label' => 'Copy the text from the image',
+                'attr' => array('class' => 'form-control')
+                ));
         ;
     }
  

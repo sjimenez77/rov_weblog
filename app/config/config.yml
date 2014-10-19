@@ -93,3 +93,9 @@ vich_uploader:
             delete_on_update:   true
             delete_on_remove:   true
 
+# Gregwar Captcha Configuration
+gregwar_captcha:
+    width: 265
+    height: 100
+    length: 6
+    background_color: [255, 255, 255]

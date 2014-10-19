@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new ROV\BlogBundle\ROVBlogBundle(),
             new ROV\UsersBundle\ROVUsersBundle(),
             new ROV\StartBundle\ROVStartBundle(),
+            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

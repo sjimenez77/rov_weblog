@@ -35,24 +35,28 @@
 							<div class="col-md-4">
 								<fieldset>
 									<legend>{{ 'Access info'|trans }}</legend>
-									{{ form_row(settings_form.email) }}
-									{{ form_row(settings_form.password) }}
+									<div class="form-group">{{ form_row(settings_form.email) }}</div>
+									<div class="form-group">{{ form_row(settings_form.password) }}</div>
 									<br><div class="alert alert-info">{{ 'If you wish to change your password, write it twice. In other case left the fields empty.'|trans }}</div>
-									{{ form_row(settings_form.allowsEmail) }}
+									<div class="form-group">{{ form_row(settings_form.allowsEmail) }}</div>
+									<div class="form-group">
+										{{ form_row(settings_form.captcha) }}
+										<p class="help-block">{{ 'Are you a real person?'|trans }}</p>
+									</div>
 								</fieldset>
 							</div>
 							<br class="visible-xs visible-sm">
 							<div class="col-md-4">
 								<fieldset>
 									<legend>{{ 'Personal info'|trans }}</legend>
-									{{ form_row(settings_form.name) }}
-									{{ form_row(settings_form.surname) }}
-									{{ form_row(settings_form.address) }}
-									{{ form_row(settings_form.city) }}
-									{{ form_row(settings_form.country) }}
-									{{ form_row(settings_form.locale) }}
-									{{ form_row(settings_form.company) }}
-									{{ form_row(settings_form.job) }}
+									<div class="form-group">{{ form_row(settings_form.name) }}</div>
+									<div class="form-group">{{ form_row(settings_form.surname) }}</div>
+									<div class="form-group">{{ form_row(settings_form.address) }}</div>
+									<div class="form-group">{{ form_row(settings_form.city) }}</div>
+									<div class="form-group">{{ form_row(settings_form.country) }}</div>
+									<div class="form-group">{{ form_row(settings_form.locale) }}</div>
+									<div class="form-group">{{ form_row(settings_form.company) }}</div>
+									<div class="form-group">{{ form_row(settings_form.job) }}</div>
 								</fieldset>
 							</div>
 							<br class="visible-xs visible-sm">

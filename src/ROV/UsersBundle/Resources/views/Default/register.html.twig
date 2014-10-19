@@ -35,23 +35,27 @@
 							<div class="col-md-4">
 								<fieldset>
 									<legend>{{ 'Access info'|trans }}</legend>
-									{{ form_row(sign_up_form.email) }}
-									{{ form_row(sign_up_form.password) }}
-									{{ form_row(sign_up_form.allowsEmail) }}
+									<div class="form-group">{{ form_row(sign_up_form.email) }}</div>
+									<div class="form-group">{{ form_row(sign_up_form.password) }}</div>
+									<div class="form-group">{{ form_row(sign_up_form.allowsEmail) }}</div>
+									<div class="form-group">
+										{{ form_row(sign_up_form.captcha) }}
+										<p class="help-block">{{ 'Are you a real person?'|trans }}</p>
+									</div>
 								</fieldset>
 							</div>
 							<br class="visible-xs visible-sm">
 							<div class="col-md-4">
 								<fieldset>
 									<legend>{{ 'Personal info'|trans }}</legend>
-									{{ form_row(sign_up_form.name) }}
-									{{ form_row(sign_up_form.surname) }}
-									{{ form_row(sign_up_form.address) }}
-									{{ form_row(sign_up_form.city) }}
-									{{ form_row(sign_up_form.country) }}
-									{{ form_row(sign_up_form.locale) }}
-									{{ form_row(sign_up_form.company) }}
-									{{ form_row(sign_up_form.job) }}
+									<div class="form-group">{{ form_row(sign_up_form.name) }}</div>
+									<div class="form-group">{{ form_row(sign_up_form.surname) }}</div>
+									<div class="form-group">{{ form_row(sign_up_form.address) }}</div>
+									<div class="form-group">{{ form_row(sign_up_form.city) }}</div>
+									<div class="form-group">{{ form_row(sign_up_form.country) }}</div>
+									<div class="form-group">{{ form_row(sign_up_form.locale) }}</div>
+									<div class="form-group">{{ form_row(sign_up_form.company) }}</div>
+									<div class="form-group">{{ form_row(sign_up_form.job) }}</div>
 								</fieldset>
 							</div>
 							<br class="visible-xs visible-sm">
