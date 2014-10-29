@@ -95,7 +95,12 @@ vich_uploader:
 
 # Gregwar Captcha Configuration
 gregwar_captcha:
-    width: 265
+    width: 260
     height: 100
     length: 6
     background_color: [255, 255, 255]
+    max_front_lines: 15
+    max_behind_lines: 15
+    as_url: true
+    reload: true
+

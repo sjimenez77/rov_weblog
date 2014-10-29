@@ -325,7 +325,10 @@ class UserType extends AbstractType
                 ))
             ->add('captcha', 'captcha', array(
                 'label' => 'Copy the text from the image',
-                'attr' => array('class' => 'form-control')
+                'attr' => array(
+                    'class' => 'form-control',
+                    'style' => 'margin-top: 1em'
+                    )
                 ));
         ;
     }
