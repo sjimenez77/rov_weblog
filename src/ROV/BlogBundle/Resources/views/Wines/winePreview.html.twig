@@ -109,36 +109,36 @@
 	});
 
 	var map = null;
-        var geocoder = null;
-            
-        function initialize() {
-            	map = new google.maps.Map(document.getElementById("map_canvas"), {
-            	    	center: new google.maps.LatLng(37.4419, -122.1419),
-            	    	zoom: 16,
-            		mapTypeId: google.maps.MapTypeId.ROADMAP
-            	});
-            	geocoder = new google.maps.Geocoder();
+    var geocoder = null;
+        
+    function initialize() {
+        map = new google.maps.Map(document.getElementById("map_canvas"), {
+            center: new google.maps.LatLng(37.4419, -122.1419),
+            zoom: 16,
+        	mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        geocoder = new google.maps.Geocoder();
+    }
+        
+    function showAddress(address) {
+        if (geocoder) {
+        	geocoder.geocode( { 'address': address}, function(results, status) {
+	            if (status == google.maps.GeocoderStatus.OK) {
+	            	map.setCenter(results[0].geometry.location);
+	              	var marker = new google.maps.Marker({
+	                  	map: map,
+	                  	position: results[0].geometry.location
+	              	});
+	            } else {
+	              	alert('Geocode was not successful for the following reason: ' + status);
+	            }
+        	});
         }
-            
-        function showAddress(address) {
-            	if (geocoder) {
-            		geocoder.geocode( { 'address': address}, function(results, status) {
-	                        if (status == google.maps.GeocoderStatus.OK) {
-	                        	map.setCenter(results[0].geometry.location);
-	                          	var marker = new google.maps.Marker({
-	                              		map: map,
-	                              		position: results[0].geometry.location
-	                          	});
-	                        } else {
-	                          	alert('Geocode was not successful for the following reason: ' + status);
-	                        }
-                	});
-            	}
-        }
+    }
 
 	$(function () {
-	        initialize();
-	        showAddress('{{ wine.winery.address }}, {{ wine.winery.postal }}, {{ wine.winery.location }}, {{ wine.winery.region.country }}');
+	    initialize();
+	    showAddress('{{ wine.winery.address }}, {{ wine.winery.postal }}, {{ wine.winery.location }}, {{ wine.winery.region.country }}');
 	});
 
 	</script>
