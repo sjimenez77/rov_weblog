@@ -85,7 +85,7 @@
 {% block js %}
 	{# Share button creation #}
 	{{ parent() }}
-	<script src="http://maps.google.com/maps?file=api&amp;v=3" type="text/javascript"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places" type="text/javascript"></script>
 	<script>
 	var share = new Share('.share-button', {
 		title:	"{{ wine.brand }}",
@@ -109,45 +109,37 @@
 	});
 
 	var map = null;
-    var geocoder = null;
+        var geocoder = null;
+            
+        function initialize() {
+            	map = new google.maps.Map(document.getElementById("map_canvas"), {
+            	    	center: new google.maps.LatLng(37.4419, -122.1419),
+            	    	zoom: 16,
+            		mapTypeId: google.maps.MapTypeId.ROADMAP
+            	});
+            	geocoder = new google.maps.Geocoder();
+        }
+            
+        function showAddress(address) {
+            	if (geocoder) {
+            		geocoder.geocode( { 'address': address}, function(results, status) {
+	                        if (status == google.maps.GeocoderStatus.OK) {
+	                        	map.setCenter(results[0].geometry.location);
+	                          	var marker = new google.maps.Marker({
+	                              		map: map,
+	                              		position: results[0].geometry.location
+	                          	});
+	                        } else {
+	                          	alert('Geocode was not successful for the following reason: ' + status);
+	                        }
+                	});
+            	}
+        }
 
-    function initialize() {
-    	if (GBrowserIsCompatible()) {
-    		map = new GMap2(document.getElementById("map_canvas"));
-    		map.setCenter(new GLatLng(37.4419, -122.1419), 1);
-    		map.setUIToDefault();
-    		geocoder = new GClientGeocoder();
-    	}
-    }
-
-    function showAddress(address) {
-    	if (geocoder) {
-    		geocoder.getLatLng(
-    			address,
-    			function(point) {
-    				if (!point) {
-    					alert(address + " not found");
-    				} else {
-    					map.setCenter(point, 15);
-    					var marker = new GMarker(point, {draggable: true});
-    					map.addOverlay(marker);
-    					GEvent.addListener(marker, "dragend", function() {
-    						marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(6));
-    					});
-    					GEvent.addListener(marker, "click", function() {
-    						marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(6));
-    					});
-						GEvent.trigger(marker, "click");
-    				}
-    			}
-    		);
-    	}
-    }
-
-    $(function () {
-        initialize();
-        showAddress('{{ wine.winery.address }}, {{ wine.winery.postal }}, {{ wine.winery.location }}, {{ wine.winery.region.country }}');
-    });
+	$(function () {
+	        initialize();
+	        showAddress('{{ wine.winery.address }}, {{ wine.winery.postal }}, {{ wine.winery.location }}, {{ wine.winery.region.country }}');
+	});
 
 	</script>
 {% endblock %}
