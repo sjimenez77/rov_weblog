@@ -8,6 +8,7 @@
 /web/js/compiled/*
 /web/css/compiled/*
 /web/images/uploads/
+/web/video/
 /node_modules
 /build/
 /vendor/

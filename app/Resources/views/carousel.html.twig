@@ -1,35 +1,45 @@
 <!-- Carousel
     ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
+        <!-- Indicators 
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
             <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
+        </ol> -->
+        <div id="videoPortada" class="carousel-inner">
           <div class="item active">
-            <div class="fill" style="background-image:url('{{ asset("images/cepas_inv.jpg") }}');"></div>
+            <div class="fill" style=""></div>
             <div class="carousel-caption">
               <div class="row hidden-xs" style="padding-bottom: 4em">
                 <div class="col-sm-6 text-center">
-                  <img src="{{ asset('images/logo_mobile_exp.png') }}" alt="{{ appname }}">
+                  <img src="{{ asset('images/logo_mobile_exp_dark.png') }}" alt="{{ appname }}">
                 </div>
                 <div class="col-sm-6">
                   <h1>{{ 'The wine culture'|trans }}</h1>
-                  <h3>{{ 'Are you interested?'|trans }}</h3>
-                  <a class="btn btn-lg btn-primary" href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a>
+                  <h3>{{ 'Are you interested?'|trans }}</h3><br>
+                  <div class="btn-group" role="group">
+                    {% if not app.user %}<a class="btn btn-lg btn-default" href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a>{% endif %}
+                    <a class="btn btn-lg btn-primary" href="{{ path('rov_blog_homepage') }}">{{ 'Last articles'|trans }}</a>
+                    <a class="btn btn-lg btn-info" href="{{ path('rov_blog_wine_homepage') }}">{{ 'Last wines'|trans }}</a>
+                  </div>
                 </div>
               </div>
               <div class="row visible-xs">
                <div class="col-xs-12">
+                <img src="{{ asset('images/logo_exp.png') }}" alt="{{ appname }}" style="max-height: 5em;padding: 0 2em">
                   <h2>{{ 'The wine culture'|trans }}</h2>
                   <h4>{{ 'Are you interested?'|trans }}</h4>
-                  <a class="btn btn-primary" href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a><br>&nbsp;
+                  <div class="btn-group-vertical" role="group">
+                    {% if not app.user %}<a class="btn btn-default" href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a>{% endif %}
+                    <a class="btn btn-primary" href="{{ path('rov_blog_homepage') }}">{{ 'Last articles'|trans }}</a>
+                    <a class="btn btn-info" href="{{ path('rov_blog_wine_homepage') }}">{{ 'Last wines'|trans }}</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <!--
           <div class="item">
             <div class="fill" style="background-image:url('{{ asset("images/botellas.jpg") }}');"></div>
             <div class="carousel-caption">
@@ -77,4 +87,5 @@
         </div>
         <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
         <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        -->
     </div><!-- /.carousel -->

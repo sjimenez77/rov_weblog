@@ -60,6 +60,8 @@
         '@ROVStartBundle/Resources/public/js/wysihtml5-0.3.0.js' 
         '//code.jquery.com/jquery-1.11.0.min.js'
         '//code.jquery.com/jquery-migrate-1.2.1.min.js'
+        '@ROVStartBundle/Resources/public/js/jquery.videoBG.js'
+        '@ROVStartBundle/Resources/public/js/jquery.detect.browser.js'
         '@ROVStartBundle/Resources/public/js/bootstrap.js' 
         '@ROVStartBundle/Resources/public/js/modern-business.js' 
         '@ROVStartBundle/Resources/public/js/holder.js'
@@ -78,17 +80,43 @@
             var altura_footer = $('footer').height();
             var diferencia = $(window).height() - (altura_footer + $('footer').offset().top);
             $('footer').height(altura_footer + diferencia - 50);
-             
             return true;
         };
 
         $(function () {
-            $(window).on('resize', function() {amplia_footer()} );
+            $(window).on('resize', function() {
+                {# Reload only in home route #}
+                {% if app.request.get('_route') == 'home' %}
+                if (!jQuery.browser.mobile)
+                {
+                    setTimeout(function() {
+                        if($(document.activeElement).attr('type') !== 'text') {
+                            location.reload();
+                        }
+                    }, 1000);
+                }
+                {% endif %}
+                amplia_footer();
+            });
+
             $(window).on('ready', function() {
                 setTimeout(function(){amplia_footer()},100);
-                // FIX: Para qeu el Select2 en los diálogos pueda recibir el foco
+                // FIX: Para que el Select2 en los diálogos pueda recibir el foco
                 $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+                {% if app.request.get('_route') == 'home' %}
+                $('#videoPortada').videoBG({
+                    mp4:"{{ asset('/video/Grapes.mp4') }}",
+                    ogv:"{{ asset('/video/Grapes.ogv') }}",
+                    webm:"{{ asset('/video/Grapes.webm') }}",
+                    poster:"{{ asset('/video/Grapes.jpg') }}",
+                    scale:true,
+                    loop:true,
+                    height:$('#videoPortada').height(),
+                    zIndex:0
+                });
+                {% endif %}
             });
+
             $('button.close').on('click', function() {setTimeout(function(){amplia_footer()},50)} );
         });
     </script>
