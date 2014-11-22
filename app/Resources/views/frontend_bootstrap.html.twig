@@ -84,6 +84,11 @@
         };
 
         $(function () {
+            // Orientation change event
+            window.addEventListener("orientationchange", function() {
+                location.reload();
+            });
+
             $(window).on('resize', function() {
                 {# Reload only in home route #}
                 {% if app.request.get('_route') == 'home' %}
