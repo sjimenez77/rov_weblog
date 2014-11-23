@@ -11,11 +11,11 @@
           <div class="item active">
             <div class="fill" style=""></div>
             <div class="carousel-caption">
-              <div class="row hidden-xs" style="padding-bottom: 4em">
-                <div class="col-sm-6 text-center">
-                  <img src="{{ asset('images/logo_mobile_exp_dark.png') }}" alt="{{ appname }}">
+              <div class="row hidden-xs" style="margin: 8em -8em;">
+                <div class="col-sm-3 text-center" style="margin-top: -2em">
+                  <img src="{{ asset('images/logo_mobile_exp.png') }}" alt="{{ appname }}">
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-9">
                   <h1>{{ 'The wine culture'|trans }}</h1>
                   <h3>{{ 'Are you interested?'|trans }}</h3><br>
                   <div class="btn-group" role="group">
@@ -25,16 +25,16 @@
                   </div>
                 </div>
               </div>
-              <div class="row visible-xs">
+              <div class="row visible-xs" style="margin: 0 -4em">
                <div class="col-xs-12">
-                <img src="{{ asset('images/logo_exp.png') }}" alt="{{ appname }}" style="max-height: 5em;padding: 0 2em">
-                  <h2>{{ 'The wine culture'|trans }}</h2>
-                  <h4>{{ 'Are you interested?'|trans }}</h4>
-                  <div class="btn-group-vertical" role="group">
-                    {% if not app.user %}<a class="btn btn-default" href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a>{% endif %}
-                    <a class="btn btn-primary" href="{{ path('rov_blog_homepage') }}">{{ 'Last articles'|trans }}</a>
-                    <a class="btn btn-info" href="{{ path('rov_blog_wine_homepage') }}">{{ 'Last wines'|trans }}</a>
-                  </div>
+                <img src="{{ asset('images/logo_exp.png') }}" alt="{{ appname }}" style="max-height: 5em; padding: 0 3em">
+                <h2>{{ 'The wine culture'|trans }}</h2>
+                <h4>{{ 'Are you interested?'|trans }}</h4>
+                <div class="btn-group" role="group">
+                  {% if not app.user %}<a class="btn btn-default" href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a>{% endif %}
+                  <a class="btn btn-primary" href="{{ path('rov_blog_homepage') }}">{{ 'Last articles'|trans }}</a>
+                  <a class="btn btn-info" href="{{ path('rov_blog_wine_homepage') }}">{{ 'Last wines'|trans }}</a>
+                </div>
                 </div>
               </div>
             </div>
