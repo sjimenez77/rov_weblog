@@ -68,11 +68,16 @@
 							{{ 'from'|trans }} <a href="{{ path('rov_blog_wine_winery', { 'slug': wine.winery.slug })}}">{{ wine.winery.name }}</a><br>
 							<span class="label label-info"><a style="color: white" href="{{ path('rov_blog_wine_region', { 'slug': wine.winery.region.slug })}}">{{ wine.winery.region.name }}</a></span>
 							<span class="label label-default">{{ wineTypesLabels[wine.type]|trans|capitalize }}</span>
+							<span class="label label-success">{{ wine.varieties }}</span>
 							<span class="label label-warning">{{ wine.year }}</span>
 							<span class="label label-primary">{{ wine.alcohol }}&deg;</span>
 						</p>
 						<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ wine.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</p>
 						<hr>
+						<h4>{{ 'Wine-making'|trans }}</h4>
+						<p class="text-justify">
+							{{ wine.wineMaking }}
+						</p>
 						<p>
 							<div class="btn-group">
 								<a href="{{ path('rov_blog_wine_review', { 'slug': wine.slug }) }}" class="btn btn-primary">{{ 'View details'|trans }} <i class="fa fa-angle-right"></i></a>

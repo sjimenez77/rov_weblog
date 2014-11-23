@@ -34,6 +34,7 @@
 							{{ 'from'|trans }} <a href="{{ path('rov_blog_wine_winery', { 'slug': wine.winery.slug })}}">{{ wine.winery.name }}</a><br>
 							<span class="label label-info"><a style="color: white" href="{{ path('rov_blog_wine_region', { 'slug': wine.winery.region.slug })}}">{{ wine.winery.region.name }}</a></span>
 							<span class="label label-default">{{ wineTypesLabels[wine.type]|trans|capitalize }}</span>
+							<span class="label label-success">{{ wine.varieties }}</span>
 							<span class="label label-warning">{{ wine.year }}</span>
 							<span class="label label-primary">{{ wine.alcohol }}&deg;</span>
 						</p>
@@ -41,8 +42,9 @@
 					</div>
 					<div class="col-md-3 col-xs-12">
 						{# Share button #}
-						<div id="share-button" class='share-button share-button-top' style="padding-bottom: 2em"></div>
-						<br><br>
+						<div class="hidden-sm hidden-xs" style="height:2em"></div>
+						<div id="share-button" class='share-button share-button-top'></div>
+						<div class="visible-sm visible-xs" style="height:2em"></div>
 					</div>
 				</div>
 				<div class="row">
