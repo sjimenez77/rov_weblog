@@ -23,11 +23,11 @@
 					<li><a href="{{ path('rov_blog_wine_homepage') }}">{{ 'Wine tasting reviews'|trans }}</a></li>
 					{% if month_url != 0 %}
 					<li>{{ 'Year and month'|trans }}</li>
-					<li>{{ year_url }}</li>					
-					<li class="active">{{ (year_url ~ '-' ~ month_url ~ '-' ~ '01')|date('F')|trans }}</li>					
+					<li>{{ year_url }}</li>
+					<li class="active">{{ (year_url ~ '-' ~ month_url ~ '-' ~ '01')|date('F')|trans }}</li>
 					{% else %}
 					<li>{{ 'Year'|trans }}</li>
-					<li class="active">{{ year_url }}</li>					
+					<li class="active">{{ year_url }}</li>
 					{% endif %}
 					{% else %}
 					<li class="active">{{ 'Wine tasting reviews'|trans }}</li>
@@ -56,9 +56,8 @@
 				{% for wine in wineReviews %}
 				<div class="row">
 					<div class="col-md-2 col-xs-4">
-						<div class="well" style="width: 106px">
-							<p style="font-size: 4em; color: {% if wine.points >= 90 %}#32bf28{% elseif wine.points >= 70 %}#92b72f{% elseif wine.points >= 50 %}#d9991d{% else %}#d9371d{% endif %}">{{ wine.points }}</p>
-						</div>
+						<img class="img-rounded img-responsive" src="{{ vich_uploader_asset(wine, 'wine_label') }}" alt="" />
+						<p style="text-align:center;font-size: 4em; color: {% if wine.points >= 90 %}#32bf28{% elseif wine.points >= 70 %}#92b72f{% elseif wine.points >= 50 %}#d9991d{% else %}#d9371d{% endif %}">{{ wine.points }}</p>
 					</div>
 					<div class="col-md-10 col-xs-8">
 						<h2>
@@ -66,11 +65,12 @@
 						</h2>
 						<p class="lead">
 							{{ 'from'|trans }} <a href="{{ path('rov_blog_wine_winery', { 'slug': wine.winery.slug })}}">{{ wine.winery.name }}</a><br>
-							<span class="label label-info"><a style="color: white" href="{{ path('rov_blog_wine_region', { 'slug': wine.winery.region.slug })}}">{{ wine.winery.region.name }}</a></span>
-							<span class="label label-default">{{ wineTypesLabels[wine.type]|trans|capitalize }}</span>
 							<span class="label label-success">{{ wine.varieties }}</span>
 							<span class="label label-warning">{{ wine.year }}</span>
+							<span class="label label-default">{{ wineTypesLabels[wine.type]|trans|capitalize }}</span>
+							<span class="label label-info"><a style="color: white" href="{{ path('rov_blog_wine_region', { 'slug': wine.winery.region.slug })}}">{{ wine.winery.region.name }}</a></span>
 							<span class="label label-primary">{{ wine.alcohol }}&deg;</span>
+							<span class="label label-warning">{{ wine.pvp }} &euro;</span>
 						</p>
 						<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ wine.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</p>
 						<hr>
