@@ -92,6 +92,12 @@ vich_uploader:
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
+        wine_label:
+            uri_prefix:         /images/uploads/labels
+            upload_destination: %kernel.root_dir%/../web/images/uploads/labels
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
 
 # Gregwar Captcha Configuration
 gregwar_captcha:
@@ -103,4 +109,3 @@ gregwar_captcha:
     max_behind_lines: 15
     as_url: true
     reload: true
-

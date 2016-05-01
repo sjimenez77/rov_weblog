@@ -3,7 +3,6 @@
 namespace ROV\UsersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,15 +21,15 @@ class DefaultController extends Controller
     {
         $session = $request->getSession();
 
-        // get the login error if there is one
-        $error = $request->attributes->get(
-            SecurityContext::AUTHENTICATION_ERROR,
-            $session->get(SecurityContext::AUTHENTICATION_ERROR)
-        );
+        // Get authentication utils
+        $helper = $this->get('security.authentication_utils');
 
-        return $this->render('ROVUsersBundle:Default:login.html.twig', 
+        // Get the login error if there is any
+        $error = $helper->getLastAuthenticationError();
+
+        return $this->render('ROVUsersBundle:Default:login.html.twig',
             array(
-                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                'last_username' => $helper->getLastUsername(),
                 'error'         => $error
             )
         );
@@ -46,19 +45,19 @@ class DefaultController extends Controller
         $user = new User();
         $form = $this->createForm(new UserType(), $user);
 
-        // New in version 2.3: The handleRequest() method was added in Symfony 2.3. 
-        // Previously, the $request was passed to the submit method - a strategy which 
+        // New in version 2.3: The handleRequest() method was added in Symfony 2.3.
+        // Previously, the $request was passed to the submit method - a strategy which
         // is deprecated and will be removed in Symfony 3.0.
         $form->handleRequest($request);
-            
+
         if ($form->isValid()) {
-            // Complete the fields the user does not fill in the form 
+            // Complete the fields the user does not fill in the form
             // and store the data in database
             $encoder = $this->get('security.encoder_factory')
                             ->getEncoder($user);
-            
+
             $user->setSalt(md5(time()));
-            
+
             $passwordCiphered = $encoder->encodePassword(
                 $user->getPassword(),
                 $user->getSalt()
@@ -67,11 +66,11 @@ class DefaultController extends Controller
             $user->setPassword($passwordCiphered);
 
             $user->setRoles('ROLE_USER');
- 
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
- 
+
             $this->get('session')->getFlashBag()->add('success',
                 'Congratulations! You have been registered successfully'
             );
@@ -84,27 +83,27 @@ class DefaultController extends Controller
                 $user->getRoles()
             );
 
-            $this->container->get('security.context')->setToken($token);
+            $this->container->get('security.token_storage')->setToken($token);
 
             return $this->redirect($this->generateUrl('home'));
         }
 
         $session = $request->getSession();
 
-        // get the login error if there is one
-        $error = $request->attributes->get(
-            SecurityContext::AUTHENTICATION_ERROR,
-            $session->get(SecurityContext::AUTHENTICATION_ERROR)
-        );
+        // Get authentication utils
+        $helper = $this->get('security.authentication_utils');
 
-        if( $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ){
+        // Get the login error if there is any
+        $error = $helper->getLastAuthenticationError();
+
+        if( $this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') ){
             // authenticated FULLY
             return $this->redirect($this->generateUrl('home'));
-        }   
+        }
 
         return $this->render('ROVUsersBundle:Default:register.html.twig', array(
             'sign_up_form'  => $form->createView(),
-            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+            'last_username' => $helper->getLastUsername(),
             'error'         => $error
             )
         );
@@ -117,7 +116,7 @@ class DefaultController extends Controller
      */
     public function profileAction(Request $request)
     {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         // Form from UserSettingsType class in order to use a different validation
         $form = $this->createForm(new UserSettingsType(), $user);
         // Form to confirm when the user wants to delete its account
@@ -132,8 +131,8 @@ class DefaultController extends Controller
             ->getForm();
 
         $oldpassword = $form->getData()->getPassword();
-        // New in version 2.3: The handleRequest() method was added in Symfony 2.3. 
-        // Previously, the $request was passed to the submit method - a strategy which 
+        // New in version 2.3: The handleRequest() method was added in Symfony 2.3.
+        // Previously, the $request was passed to the submit method - a strategy which
         // is deprecated and will be removed in Symfony 3.0.
         $form->handleRequest($request);
 
@@ -141,12 +140,12 @@ class DefaultController extends Controller
             // Update user's profile
             $newLocale = $form->getData()->getLocale();
 
-            if (null == $user->getPassword()) 
+            if (null == $user->getPassword())
             {
                 // User have not changed the password
                 $user->setPassword($oldpassword);
             }
-            else 
+            else
             {
                 $encoder = $this->get('security.encoder_factory')
                                 ->getEncoder($user);
@@ -160,11 +159,11 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
- 
+
             $this->get('session')->getFlashBag()->add('success',
                 'Profile data has been updated successfully'
             );
- 
+
             return $this->redirect($this->generateUrl('rov_users_profile', array(
                 '_locale' => $newLocale
                 )
@@ -186,16 +185,16 @@ class DefaultController extends Controller
     public function deleteAction(Request $request)
     {
         if ($request->getMethod() == 'POST') {
-            
-            $user = $this->get('security.context')->getToken()->getUser();
+
+            $user = $this->get('security.token_storage')->getToken()->getUser();
             // *********** WHY????? **************************************/
             foreach($request->request->all() as $req){
                 $username_confirm = $req['username_confirm'];
             }
 
-            if ($username_confirm == $user->getEmail()) 
+            if ($username_confirm == $user->getEmail())
             {
-                if (null == $user || !$this->get('security.context')->isGranted('ROLE_USER')) {
+                if (null == $user || !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
                     $this->get('session')->getFlashBag()->add('info',
                         'In order to delete your account, you must sign in first'
                     );
@@ -207,10 +206,10 @@ class DefaultController extends Controller
                 $em->remove($user);
                 $em->flush();
                 // Automatic logout
+                $this->get('security.token_storage')->setToken(null);
                 $this->get('request')->getSession()->invalidate();
-                $this->get('security.context')->setToken(null);
-            } 
-            else 
+            }
+            else
             {
                 $this->get('session')->getFlashBag()->add('error',
                     'Email incorrect. Your account has not been deleted.'
@@ -232,13 +231,13 @@ class DefaultController extends Controller
     public function passwordAction(Request $request)
     {
         $session = $request->getSession();
-        // get the login error if there is one
-        $error = $request->attributes->get(
-            SecurityContext::AUTHENTICATION_ERROR,
-            $session->get(SecurityContext::AUTHENTICATION_ERROR)
-        );
+        // Get authentication utils
+        $helper = $this->get('security.authentication_utils');
 
-        $user = $this->get('security.context')->getToken()->getUser();
+        // Get the login error if there is any
+        $error = $helper->getLastAuthenticationError();
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
         $defaultData = array();
         $newPasswordForm = $this->createFormBuilder($defaultData)
@@ -250,13 +249,13 @@ class DefaultController extends Controller
                 ))
                 ->getForm();
 
-        if ($this->get('security.context')->isGranted('ROLE_USER')) 
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER'))
         {
             // User granted can change the password in the profile page
             $this->get('session')->getFlashBag()->add('error',
                 'You can change here your password'
             );
-            
+
             return $this->redirect($this->generateUrl('rov_users_profile'));
         }
         else
@@ -282,7 +281,7 @@ class DefaultController extends Controller
                     );
                     // Set the new encoded password
                     $userToFind->setPassword($newpassword);
-                    // Persist 
+                    // Persist
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($userToFind);
                     $em->flush();
@@ -317,7 +316,7 @@ class DefaultController extends Controller
                     $this->get('session')->getFlashBag()->add('success',
                         'Check your mailbox and sign in with the new password'
                     );
-                    
+
                     return $this->redirect($this->generateUrl('rov_users_login'));
                 }
                 else
@@ -328,20 +327,20 @@ class DefaultController extends Controller
                     );
 
                     return $this->render('ROVUsersBundle:Default:getPassword.html.twig', array(
-                        'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                        'last_username' => $helper->getLastUsername(),
                         'error'         => $error,
                         'new_password_form' => $newPasswordForm->createView(),
-                    ));                
+                    ));
                 }
             }
             else
             {
                 // Show the form
                 return $this->render('ROVUsersBundle:Default:getPassword.html.twig', array(
-                    'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                    'last_username' => $helper->getLastUsername(),
                     'error'         => $error,
                     'new_password_form' => $newPasswordForm->createView(),
-                ));                
+                ));
             }
         }
     }
@@ -354,21 +353,21 @@ class DefaultController extends Controller
     public function userListAction(Request $request)
     {
         $session = $request->getSession();
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
+        // Get authentication utils
+        $helper = $this->get('security.authentication_utils');
+
         // Get the login error if there is any
-        $error = $request->attributes->get(
-            SecurityContext::AUTHENTICATION_ERROR,
-            $session->get(SecurityContext::AUTHENTICATION_ERROR)
-        );
+        $error = $helper->getLastAuthenticationError();
 
         $users = $em->getRepository('ROVUsersBundle:User')->findBy(array(), array('registerDate'=>'desc'));;
 
-        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN'))
         {
             // Show the form
             return $this->render('ROVUsersBundle:Default:usersList.html.twig', array(
-                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                'last_username' => $helper->getLastUsername(),
                 'error'         => $error,
                 'users'         => $users,
             ));

@@ -1,38 +1,46 @@
 <?php
 // src/ROV/UsersBundle/Form/Frontend/UserType.php
 namespace ROV\UsersBundle\Form\Frontend;
- 
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
- 
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
+
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array(
+            ->add('name', TextType::class, array(
                 'required' => true,
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Type your name',
                     )
                 ))
-            ->add('surname', 'text', array(
+            ->add('surname', TextType::class, array(
                 'required' => true,
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Type your surname',
                     )
                 ))
-            ->add('email', 'email', array(
+            ->add('email', EmailType::class, array(
                 'required' => true,
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Type your email',
                     )
                 ))
-            ->add('password', 'repeated', array(
+            ->add('password', RepeatedType::class, array(
                 'type' => 'password',
                 'first_options'  => array(
                     'label' => 'Password',
@@ -50,7 +58,7 @@ class UserType extends AbstractType
                     ),
                 'required' => false
                 ))
-            ->add('city', 'text', array(
+            ->add('city', TextType::class, array(
                 'attr' => array('class' => 'form-control')
                 ))
             /* php_intl no soportado en Hostinger
@@ -59,7 +67,7 @@ class UserType extends AbstractType
                 'empty_value' => ''
                 ))
             */
-            ->add('country', 'choice', array(
+            ->add('country', ChoiceType::class, array(
                 'attr' => array('class' => 'form-control'),
                 'empty_value' => '',
                 'choices' => array(
@@ -304,26 +312,26 @@ class UserType extends AbstractType
                     'ZW' => 'Zimbabwe'
                     )
                 ))
-            ->add('address', 'textarea', array(
+            ->add('address', TextareaType::class, array(
                 'attr' => array('class' => 'form-control')
                 ))
-            ->add('company', 'text', array(
+            ->add('company', TextType::class, array(
                 'attr' => array('class' => 'form-control')
                 ))
-            ->add('job', 'text', array(
+            ->add('job', TextType::class, array(
                 'attr' => array('class' => 'form-control')
                 ))
-            ->add('allowsEmail', 'checkbox', array(
+            ->add('allowsEmail', CheckboxType::class, array(
                 'label' => 'Allows email',
                 'attr' => array('style' => 'margin-left: 5px'),
                 'required' => false
                 ))
-            ->add('locale', 'choice', array(
+            ->add('locale', ChoiceType::class, array(
                 'label' => 'Language',
                 'attr' => array('class' => 'form-control'),
                 'choices' => array('es' => 'Español', 'en' => 'English'),
                 ))
-            ->add('captcha', 'captcha', array(
+            ->add('captcha', CaptchaType::class, array(
                 'label' => 'Copy the text from the image',
                 'attr' => array(
                     'class' => 'form-control',
@@ -332,7 +340,7 @@ class UserType extends AbstractType
                 ));
         ;
     }
- 
+
     public function setDefaultOptions(OptionsResolverInterface $resolve)
     {
         $resolve->setDefaults(array(
@@ -345,7 +353,7 @@ class UserType extends AbstractType
             'translation_domain' => 'messages'
         ));
     }
- 
+
     public function getName()
     {
         return 'rov_usersbundle_usertype';

@@ -3,7 +3,6 @@
 namespace ROV\StartBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
@@ -16,13 +15,13 @@ class DefaultController extends Controller
     public function homeAction(Request $request)
     {
         $session = $request->getSession();
-    	$em = $this->getDoctrine()->getManager();
+    	  $em = $this->getDoctrine()->getManager();
+
+        // Get authentication utils
+        $helper = $this->get('security.authentication_utils');
 
         // Get the login error if there is any
-        $error = $request->attributes->get(
-            SecurityContext::AUTHENTICATION_ERROR,
-            $session->get(SecurityContext::AUTHENTICATION_ERROR)
-        );
+        $error = $helper->getLastAuthenticationError();
 
         $lastArticles = $em->getRepository('ROVBlogBundle:Article')->findBy(
         	array('published' => true),
@@ -54,7 +53,7 @@ class DefaultController extends Controller
             'page'              => 'home',
             'form_search'       => $formSearch->createView(),
             'form_search_wine'  => $formSearch->createView(),
-            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'last_username'     => $helper->getLastUsername(),
             'error'             => $error
         ));
     }
@@ -68,16 +67,16 @@ class DefaultController extends Controller
     {
         $session = $request->getSession();
 
-        // Get the login error if there is any
-        $error = $request->attributes->get(
-            SecurityContext::AUTHENTICATION_ERROR,
-            $session->get(SecurityContext::AUTHENTICATION_ERROR)
-        );
+        // Get authentication utils
+        $helper = $this->get('security.authentication_utils');
 
-        if ($this->get('security.context')->isGranted('ROLE_USER')) 
+        // Get the login error if there is any
+        $error = $helper->getLastAuthenticationError();
+
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER'))
         {
             // Load user name and surname into the form
-            $user = $this->get('security.context')->getToken()->getUser();
+            $user = $this->get('security.token_storage')->getToken()->getUser();
             $contact_form = $this->createFormBuilder()
                 ->add('Name', 'text', array(
                     'attr' => array(
@@ -113,8 +112,8 @@ class DefaultController extends Controller
                         )
                     ))
             ->getForm();
-        } 
-        elseif ($this->get('security.context')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) 
+        }
+        elseif ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY'))
         {
             $contact_form = $this->createFormBuilder()
                 ->add('Name', 'text', array(
@@ -153,7 +152,7 @@ class DefaultController extends Controller
         if ($request->getMethod() == 'POST') {
 
             $contact_form->bind($request);
-            
+
             if ($contact_form->isValid()) {
                 // Obtain data from the contact form and send the message
                 $data = $contact_form->getData();
@@ -189,11 +188,11 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->render('ROVStartBundle:Default:contact.html.twig', 
+        return $this->render('ROVStartBundle:Default:contact.html.twig',
             array(
                 'page' => 'contact',
                 'contact_form' => $contact_form->createView(),
-                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                'last_username' => $helper->getLastUsername(),
                 'error'         => $error
             )
         );

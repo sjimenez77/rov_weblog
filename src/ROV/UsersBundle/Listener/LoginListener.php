@@ -1,11 +1,11 @@
 <?php
 // src/ROV/UserBundle/Listener/LoginListener.php
 namespace ROV\UsersBundle\Listener;
- 
+
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -14,7 +14,7 @@ class LoginListener
 	// We can add more fields to this class ...
 	private $context, $router, $username, $locale = null;
 
-	public function __construct(SecurityContext $context, Router $router)
+	public function __construct(AuthorizationChecker $context, Router $router)
     {
         $this->context = $context;
         $this->router = $router;
@@ -32,9 +32,9 @@ class LoginListener
 	public function onKernelResponse(FilterResponseEvent $event)
     {
         // We can redirect the response where we wish depending of the user role
-        if (null != $this->username) 
+        if (null != $this->username)
         {
-            if ($this->context->isGranted('ROLE_ADMIN')) 
+            if ($this->context->isGranted('ROLE_ADMIN'))
             {
                 // Change this to admin home route if necessary
                 $route = $this->router->generate('home', array(
@@ -47,7 +47,7 @@ class LoginListener
                     '_locale' => $this->locale
                 ));
             }
- 
+
             $event->setResponse(new RedirectResponse($route));
             $event->stopPropagation();
         }

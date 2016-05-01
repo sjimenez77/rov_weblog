@@ -43,7 +43,7 @@ class Wine
 
     /**
      * @var integer
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="ROV\BlogBundle\Entity\Winery", inversedBy="wines")
      * @ORM\JoinColumn(name="winery_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
@@ -75,6 +75,22 @@ class Wine
     private $imageName;
 
     /**
+     * @var File $imageFile
+     *
+     * @Vich\UploadableField(mapping="wine_label", fileNameProperty="imageLabel")
+     *
+     * This is not a mapped field of entity metadata, just a simple property.
+     */
+    private $labelImageFile;
+
+    /**
+     * @var string $imageLabel
+     *
+     * @ORM\Column(type="string", length=255, name="image_label", nullable=true)
+     */
+    private $imageLabel;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="varieties", type="string", length=255, nullable=true)
@@ -92,6 +108,17 @@ class Wine
      * )
      */
     private $points;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pvp", type="decimal", precision=7, scale=2, nullable=true)
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 99999
+     * )
+     */
+    private $pvp;
 
     /**
      * @var integer
@@ -168,7 +195,7 @@ class Wine
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -191,7 +218,7 @@ class Wine
     /**
      * Get author
      *
-     * @return string 
+     * @return string
      */
     public function getAuthor()
     {
@@ -214,7 +241,7 @@ class Wine
     /**
      * Get brand
      *
-     * @return string 
+     * @return string
      */
     public function getBrand()
     {
@@ -237,7 +264,7 @@ class Wine
     /**
      * Get winery
      *
-     * @return \ROV\BlogBundle\Entity\Winery 
+     * @return \ROV\BlogBundle\Entity\Winery
      */
     public function getWinery()
     {
@@ -260,7 +287,7 @@ class Wine
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -327,7 +354,7 @@ class Wine
     /**
      * Get varieties
      *
-     * @return string 
+     * @return string
      */
     public function getVarieties()
     {
@@ -350,7 +377,7 @@ class Wine
     /**
      * Get points
      *
-     * @return integer 
+     * @return integer
      */
     public function getPoints()
     {
@@ -373,7 +400,7 @@ class Wine
     /**
      * Get alcohol
      *
-     * @return string 
+     * @return string
      */
     public function getAlcohol()
     {
@@ -396,7 +423,7 @@ class Wine
     /**
      * Get wineMaking
      *
-     * @return string 
+     * @return string
      */
     public function getWineMaking()
     {
@@ -419,7 +446,7 @@ class Wine
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -442,7 +469,7 @@ class Wine
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -465,7 +492,7 @@ class Wine
     /**
      * Get year
      *
-     * @return integer 
+     * @return integer
      */
     public function getYear()
     {
@@ -488,7 +515,7 @@ class Wine
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -511,7 +538,7 @@ class Wine
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -534,10 +561,86 @@ class Wine
     /**
      * Get published
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPublished()
     {
         return $this->published;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     */
+    public function setLabelImageFile(File $image)
+    {
+        $this->labelImageFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updated = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getLabelImageFile()
+    {
+        return $this->labelImageFile;
+    }
+
+    /**
+     * Set imageLabel
+     *
+     * @param string $imageLabel
+     *
+     * @return Wine
+     */
+    public function setImageLabel($imageLabel)
+    {
+        $this->imageLabel = $imageLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get imageLabel
+     *
+     * @return string
+     */
+    public function getImageLabel()
+    {
+        return $this->imageLabel;
+    }
+
+    /**
+     * Set pvp
+     *
+     * @param string $pvp
+     *
+     * @return Wine
+     */
+    public function setPvp($pvp)
+    {
+        $this->pvp = $pvp;
+
+        return $this;
+    }
+
+    /**
+     * Get pvp
+     *
+     * @return string
+     */
+    public function getPvp()
+    {
+        return $this->pvp;
     }
 }

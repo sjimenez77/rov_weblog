@@ -4,7 +4,14 @@ namespace ROV\UsersBundle\Form\Frontend;
 
 use ROV\UsersBundle\Form\Frontend\UserType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Edit user profile form
@@ -12,30 +19,30 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class UserSettingsType extends UserType {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {   
+    {
         $builder
-            ->add('name', 'text', array(
+            ->add('name', TextType::class, array(
                 'required' => true,
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Type your name',
                     )
                 ))
-            ->add('surname', 'text', array(
+            ->add('surname', TextType::class, array(
                 'required' => true,
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Type your surname',
                     )
                 ))
-            ->add('email', 'email', array(
+            ->add('email', EmailType::class, array(
                 'required' => true,
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Type your email',
                     )
                 ))
-            ->add('password', 'repeated', array(
+            ->add('password', RepeatedType::class, array(
                 'type' => 'password',
                 'first_options'  => array(
                     'label' => 'Password',
@@ -53,7 +60,7 @@ class UserSettingsType extends UserType {
                     ),
                 'required' => false
                 ))
-            ->add('city', 'text', array(
+            ->add('city', TextType::class, array(
                 'attr' => array('class' => 'form-control')
                 ))
             /* php_intl no soportado en Hostinger
@@ -62,7 +69,7 @@ class UserSettingsType extends UserType {
                 'empty_value' => ''
                 ))
             */
-            ->add('country', 'choice', array(
+            ->add('country', ChoiceType::class, array(
                 'attr' => array('class' => 'form-control'),
                 'empty_value' => '',
                 'choices' => array(
@@ -307,34 +314,34 @@ class UserSettingsType extends UserType {
                     'ZW' => 'Zimbabwe'
                     )
                 ))
-            ->add('address', 'textarea', array(
+            ->add('address', TextareaType::class, array(
                 'attr' => array('class' => 'form-control')
                 ))
-            ->add('company', 'text', array(
+            ->add('company', TextType::class, array(
                 'attr' => array('class' => 'form-control')
                 ))
-            ->add('job', 'text', array(
+            ->add('job', TextType::class, array(
                 'attr' => array('class' => 'form-control')
                 ))
-            ->add('allowsEmail', 'checkbox', array(
+            ->add('allowsEmail', CheckboxType::class, array(
                 'label' => 'Allows email',
                 'attr' => array('style' => 'margin-left: 5px'),
                 'required' => false
                 ))
-            ->add('locale', 'choice', array(
+            ->add('locale', ChoiceType::class, array(
                 'label' => 'Language',
                 'attr' => array('class' => 'form-control'),
                 'choices' => array('es' => 'Español', 'en' => 'English'),
                 ))
         ;
     }
-    
+
 	/**
-	 * Edit user profile uses a different validation 
+	 * Edit user profile uses a different validation
 	 */
-    public function setDefaultOptions(OptionsResolverInterface $resolve)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolve->setDefaults(array(
+        $resolver->setDefaults(array(
             'data_class' => 'ROV\UsersBundle\Entity\User',
             'validation_groups' => array('Default')
         ));

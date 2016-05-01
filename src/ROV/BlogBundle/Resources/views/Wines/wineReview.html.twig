@@ -48,30 +48,39 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-12">
 						<div class="img_wine" style="background-image:url('{{ vich_uploader_asset(wine, 'wine_image') }}');"></div>
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-12">
 						<h3>{{ 'Map location'|trans }}</h3>
 						<div class="map_canvas" id="map_canvas"></div>
-						<h3>{{ wine.winery.name }}</h3>
-						<div class="text-justify article">
-							<ul>
-								<li>{{ wine.winery.address}}</li>
-								<li>{{ wine.winery.postal }} {{ wine.winery.location }}</li>
-								{% if wine.winery.phone %}<li><i class="fa fa-phone-square"></i> <a href="tel:{{ wine.winery.phone }}" target="_blank">{{ wine.winery.phone }}</a></li>{% endif %}
-								{% if wine.winery.email %}<li><i class="fa fa-envelope"></i> <a href="mailto:{{ wine.winery.email }}" target="_blank">{{ wine.winery.email }}</a></li>{% endif %}
-								{% if wine.winery.web %}<li><i class="fa fa-cloud"></i> <a href="{{ wine.winery.web }}" target="_blank">{{ wine.winery.web }}</a></li>{% endif %}
-							</ul>
-							<h3>{{ 'Wine-making'|trans }}</h3>
-							<p>
-								{{ wine.wineMaking }}
-							</p>
-							<h3>{{ 'Description'|trans }}</h3>
-							<p>
-								{{ wine.description|raw }}
-							</p>
-							<br>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="text-justify article">
+									<h3>{{ wine.winery.name }}</h3>
+									<ul>
+										<li>{{ wine.winery.address}}</li>
+										<li>{{ wine.winery.postal }} {{ wine.winery.location }}</li>
+										{% if wine.winery.phone %}<li><i class="fa fa-phone-square"></i> <a href="tel:{{ wine.winery.phone }}" target="_blank">{{ wine.winery.phone }}</a></li>{% endif %}
+										{% if wine.winery.email %}<li><i class="fa fa-envelope"></i> <a href="mailto:{{ wine.winery.email }}" target="_blank">{{ wine.winery.email }}</a></li>{% endif %}
+										{% if wine.winery.web %}<li><i class="fa fa-cloud"></i> <a href="{{ wine.winery.web }}" target="_blank">{{ wine.winery.web }}</a></li>{% endif %}
+									</ul>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="text-justify article">
+									<h3>{{ 'Wine-making'|trans }}</h3>
+									<p>
+										{{ wine.wineMaking }}
+									</p>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<h3>{{ 'Description'|trans }}</h3>
+								<p>
+									{{ wine.description|raw }}
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -121,10 +130,10 @@
 			}
 		}
 	});
-	
+
 	var map = null;
     var geocoder = null;
-        
+
     function initialize() {
         map = new google.maps.Map(document.getElementById("map_canvas"), {
             center: new google.maps.LatLng(37.4419, -122.1419),
@@ -133,7 +142,7 @@
         });
         geocoder = new google.maps.Geocoder();
     }
-        
+
     function showAddress(address) {
         if (geocoder) {
         	geocoder.geocode( { 'address': address}, function(results, status) {

@@ -3,7 +3,6 @@
 namespace ROV\StartBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\SecurityContext;
 
 class SiteController extends Controller
 {
@@ -12,17 +11,17 @@ class SiteController extends Controller
         $request = $this->getRequest();
         $session = $request->getSession();
 
+        // Get authentication utils
+        $helper = $this->get('security.authentication_utils');
+
         // Get the login error if there is any
-        $error = $request->attributes->get(
-            SecurityContext::AUTHENTICATION_ERROR,
-            $session->get(SecurityContext::AUTHENTICATION_ERROR)
-        );
+        $error = $helper->getLastAuthenticationError();
 
         return $this->render('ROVStartBundle:Site:'.$page.'.html.twig',
         	array(
         		'page' => $page,
-        		'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-                'error'         => $error
+        		'last_username' => $helper->getLastUsername(),
+            'error'         => $error
         	)
         );
     }

@@ -3,8 +3,9 @@
 namespace ROV\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use ROV\BlogBundle\Entity\Article;
 use ROV\BlogBundle\Entity\Comment;
@@ -31,15 +32,16 @@ class DefaultController extends Controller
 
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
+
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $defaultData = array();
     $formSearch = $this->createFormBuilder($defaultData)
-            ->add('search', 'text', array(
+            ->add('search', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
                 'placeholder' => 'Type your search'
@@ -98,12 +100,12 @@ class DefaultController extends Controller
     return $this->render('ROVBlogBundle:Default:blog.html.twig', array(
         'page'              => $page,
         'form_search'       => $formSearch->createView(),
-    	'articles'          => $lastArticles,
+    	  'articles'          => $lastArticles,
         'articlesLeft'      => $articlesLeft,
         'articlesMonth'     => $articlesByMonth,
         'categories'        => $categories,
         'tags'              => $tags,
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'new_category_form' => $formNewCategory->createView(),
         'new_tag_form'      => $formNewTag->createView(),
         'error'             => $error
@@ -119,13 +121,13 @@ class DefaultController extends Controller
   public function articleAction(Request $request, $slug)
   {
     $session = $request->getSession();
-    $user = $this->get('security.context')->getToken()->getUser();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
     $em = $this->getDoctrine()->getManager();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     // Article and its comments
     $article = $em->getRepository('ROVBlogBundle:Article')->findOneBy(
@@ -144,8 +146,8 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('rov_blog_homepage'));
     }
 
-    if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') ||
-       ($this->get('security.context')->isGranted('ROLE_ADMIN') && $article->getAuthor() == $user))
+    if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') ||
+       ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') && $article->getAuthor() == $user))
     {
         $moderator = true;
     } else {
@@ -155,7 +157,7 @@ class DefaultController extends Controller
     // Lateral Wells info
     $defaultData = array();
     $formSearch = $this->createFormBuilder($defaultData)
-            ->add('search', 'text', array(
+            ->add('search', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
                 'placeholder' => 'Type your search'
@@ -293,7 +295,7 @@ class DefaultController extends Controller
         'categories'        => $categories,
         'tags'              => $tags,
         'articlesMonth'     => $articlesByMonth,
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'new_category_form' => $formNewCategory->createView(),
         'new_tag_form'      => $formNewTag->createView(),
         'error'             => $error
@@ -309,22 +311,22 @@ class DefaultController extends Controller
   public function previewArticleAction(Request $request, $article_id)
   {
     $session = $request->getSession();
-    $user = $this->get('security.context')->getToken()->getUser();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
     $em = $this->getDoctrine()->getManager();
-    // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    // Get authentication utils
+    $helper = $this->get('security.authentication_utils');
 
-    if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($article->getAuthor() == $user))
+    // Get the login error if there is any
+    $error = $helper->getLastAuthenticationError();
+
+    if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || ($article->getAuthor() == $user))
     {
         // Super user and author
         //////////////////////////////////////////////////////
         // Lateral Wells info
         $defaultData = array();
         $formSearch = $this->createFormBuilder($defaultData)
-                ->add('search', 'text', array(
+                ->add('search', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Type your search'
@@ -373,7 +375,7 @@ class DefaultController extends Controller
             'categories'        => $categories,
             'tags'              => $tags,
             'articlesMonth'     => $articlesByMonth,
-            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'last_username'     => $helper->getLastUsername(),
             'form_search'       => $formSearch->createView(),
             'new_category_form' => $formNewCategory->createView(),
             'new_tag_form'      => $formNewTag->createView(),
@@ -399,13 +401,13 @@ class DefaultController extends Controller
   public function acceptCommentAction(Request $request, $article_id, $comment_id)
   {
     $session = $request->getSession();
-    $user = $this->get('security.context')->getToken()->getUser();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
     $em = $this->getDoctrine()->getManager();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $comment = $em->getRepository('ROVBlogBundle:Comment')->findOneBy(
         array(
@@ -417,7 +419,7 @@ class DefaultController extends Controller
 
     $article = $em->getRepository('ROVBlogBundle:Article')->findOneBy(array('id' => $article_id));
 
-    if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+    if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN'))
     {
         // Accept comment anyway
         $comment->setAccepted(true);
@@ -486,13 +488,13 @@ class DefaultController extends Controller
   public function deleteCommentAction(Request $request, $article_id, $comment_id)
   {
     $session = $request->getSession();
-    $user = $this->get('security.context')->getToken()->getUser();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
     $em = $this->getDoctrine()->getManager();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $comment = $em->getRepository('ROVBlogBundle:Comment')->findOneBy(
         array(
@@ -504,7 +506,7 @@ class DefaultController extends Controller
 
     $article = $em->getRepository('ROVBlogBundle:Article')->findOneBy(array('id' => $article_id));
 
-    if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+    if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN'))
     {
         // Remove comment
         $article->removeComment($comment);
@@ -545,15 +547,15 @@ class DefaultController extends Controller
 
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $defaultData = array();
     $formSearch = $this->createFormBuilder($defaultData)
-            ->add('search', 'text', array(
+            ->add('search', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
                 'placeholder' => 'Type your search'
@@ -623,7 +625,7 @@ class DefaultController extends Controller
         'articlesMonth'     => $articlesByMonth,
         'categories'        => $categories,
         'tags'              => $tags,
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'new_category_form' => $formNewCategory->createView(),
         'new_tag_form'      => $formNewTag->createView(),
         'error'             => $error
@@ -643,15 +645,15 @@ class DefaultController extends Controller
 
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $defaultData = array();
     $formSearch = $this->createFormBuilder($defaultData)
-            ->add('search', 'text', array(
+            ->add('search', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
                 'placeholder' => 'Type your search'
@@ -721,7 +723,7 @@ class DefaultController extends Controller
         'articlesMonth'     => $articlesByMonth,
         'categories'        => $categories,
         'tags'              => $tags,
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'new_category_form' => $formNewCategory->createView(),
         'new_tag_form'      => $formNewTag->createView(),
         'error'             => $error
@@ -742,15 +744,15 @@ class DefaultController extends Controller
 
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $defaultData = array();
     $formSearch = $this->createFormBuilder($defaultData)
-            ->add('search', 'text', array(
+            ->add('search', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
                 'placeholder' => 'Type your search'
@@ -833,7 +835,7 @@ class DefaultController extends Controller
         'articlesMonth'     => $articlesByMonth,
         'categories'        => $categories,
         'tags'              => $tags,
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'new_category_form' => $formNewCategory->createView(),
         'new_tag_form'      => $formNewTag->createView(),
         'error'             => $error
@@ -849,15 +851,15 @@ class DefaultController extends Controller
   {
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $defaultData = array();
     $formSearch = $this->createFormBuilder($defaultData)
-            ->add('search', 'text', array(
+            ->add('search', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
                 'placeholder' => 'Type your search'
@@ -888,7 +890,7 @@ class DefaultController extends Controller
 
         $defaultData = array();
         $formSearch = $this->createFormBuilder($defaultData)
-                ->add('search', 'text', array(
+                ->add('search', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Type your search'
@@ -931,7 +933,7 @@ class DefaultController extends Controller
             'articlesMonth'     => $articlesByMonth,
             'categories'        => $categories,
             'tags'              => $tags,
-            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'last_username'     => $helper->getLastUsername(),
             'new_category_form' => $formNewCategory->createView(),
             'new_tag_form'      => $formNewTag->createView(),
             'error'             => $error
@@ -945,7 +947,7 @@ class DefaultController extends Controller
 
         return $this->render('ROVBlogBundle:Default:emptySearch.html.twig', array(
             'form_search'       => $formSearch->createView(),
-            'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+            'last_username'     => $helper->getLastUsername(),
             'error'             => $error
         ));
     }
@@ -960,12 +962,12 @@ class DefaultController extends Controller
   {
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
-    $user = $this->get('security.context')->getToken()->getUser();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $article = new Article();
     $formNewArticle = $this->createForm(new ArticleType(), $article);
@@ -1027,7 +1029,7 @@ class DefaultController extends Controller
         'new_article_form'      => $formNewArticle->createView(),
         'new_category_form'     => $formNewCategory->createView(),
         'new_tag_form'          => $formNewTag->createView(),
-        'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'         => $helper->getLastUsername(),
         'error'                 => $error
     ));
   }
@@ -1042,12 +1044,12 @@ class DefaultController extends Controller
   {
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
-    $user = $this->get('security.context')->getToken()->getUser();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $article = $em->getRepository('ROVBlogBundle:Article')->find($article_id);
     $formEditArticle = $this->createForm(new ArticleType(), $article);
@@ -1108,7 +1110,7 @@ class DefaultController extends Controller
         'article_id'            => $article_id,
         'new_category_form'     => $formNewCategory->createView(),
         'new_tag_form'          => $formNewTag->createView(),
-        'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'         => $helper->getLastUsername(),
         'error'                 => $error
     ));
   }
@@ -1123,14 +1125,14 @@ class DefaultController extends Controller
   {
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
-    $user = $this->get('security.context')->getToken()->getUser();
-    // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
 
-    if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+    // Get the login error if there is any
+    $error = $helper->getLastAuthenticationError();
+
+    if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
         $article = $em->getRepository('ROVBlogBundle:Article')->find($article_id);
         $em->remove($article);
         $em->flush();
@@ -1139,7 +1141,7 @@ class DefaultController extends Controller
             'Article deleted successfully'
         );
     }
-    elseif ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+    elseif ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
         // Check whether the article belongs to this user
         $article = $em->getRepository('ROVBlogBundle:Article')->findBy(array(
             'id' => $article_id,
@@ -1179,18 +1181,18 @@ class DefaultController extends Controller
   {
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $category = new Category();
     $formNewCategory = $this->createForm(new CategoryType(), $category);
     $tag = new Tag();
     $formNewTag = $this->createForm(new TagType(), $tag);
 
-    if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+    if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN'))
     {
         // Get all the articles
         $articles = $em->getRepository('ROVBlogBundle:Article')->findBy(
@@ -1201,7 +1203,7 @@ class DefaultController extends Controller
     else
     {
         // Get the articles from the author $user
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $articles = $em->getRepository('ROVBlogBundle:Article')->findBy(
             array('author' => $user),
             array('updated' => 'DESC')
@@ -1251,7 +1253,7 @@ class DefaultController extends Controller
         'tags'                  => $tags,
         'new_category_form'     => $formNewCategory->createView(),
         'new_tag_form'          => $formNewTag->createView(),
-        'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'         => $helper->getLastUsername(),
         'error'                 => $error
     ));
   }
@@ -1265,12 +1267,12 @@ class DefaultController extends Controller
   {
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
-    $user = $this->get('security.context')->getToken()->getUser();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $category = $em->getRepository('ROVBlogBundle:Category')->findOneBy(array('slug' => $slug));
     $formEditCategory = $this->createForm(new CategoryType(), $category);
@@ -1292,7 +1294,7 @@ class DefaultController extends Controller
     return $this->render('ROVBlogBundle:Default:manageCategory.html.twig', array(
         'category'              => $category,
         'edit_category_form'    => $formEditCategory->createView(),
-        'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'         => $helper->getLastUsername(),
         'error'                 => $error
     ));
   }
@@ -1306,12 +1308,12 @@ class DefaultController extends Controller
   {
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
-    $user = $this->get('security.context')->getToken()->getUser();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+    // Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $tag = $em->getRepository('ROVBlogBundle:Tag')->findOneBy(array('slug' => $slug));
     $formEditTag = $this->createForm(new TagType(), $tag);
@@ -1333,7 +1335,7 @@ class DefaultController extends Controller
     return $this->render('ROVBlogBundle:Default:manageTag.html.twig', array(
         'tag'               => $tag,
         'edit_tag_form'     => $formEditTag->createView(),
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'error'             => $error
     ));
   }

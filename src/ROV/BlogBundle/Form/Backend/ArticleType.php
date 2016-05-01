@@ -1,54 +1,60 @@
 <?php
 // src/ROV/BlogBundle/Form/Backend/ArticleType.php
 namespace ROV\BlogBundle\Form\Backend;
- 
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use ROV\BlogBundle\Form\Backend\CategoryType;
 use ROV\BlogBundle\Form\Backend\TagType;
- 
+
 class ArticleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', array(
+            ->add('title', TextType::class, array(
                 'attr' => array(
                     'class'         => 'form-control',
                     'placeholder'   => 'Type the title',
                     'required'      => true
                     )
                 ))
-            ->add('subtitle', 'text', array(
+            ->add('subtitle', TextType::class, array(
                 'attr' => array(
                     'class'         => 'form-control',
                     'placeholder'   => 'Type the subtitle or summary',
                     'required'      => false
                     )
                 ))
-            ->add('image', 'url', array(
+            ->add('image', UrlType::class, array(
                 'attr' => array(
                     'class'         => 'form-control',
                     'placeholder'   => 'Type the image url',
                     'required'      => false
                     )
                 ))
-            ->add('content', 'textarea', array(
+            ->add('content', TextareaType::class, array(
                 'attr' => array(
                     'class'     => 'form-control',
                     'rows'      => 20,
                     'required'  => true
                     )
                 ))
-            ->add('published', 'checkbox', array(
+            ->add('published', CheckboxType::class, array(
                 'label'     => 'Publish article',
                 'attr'      => array('style' => 'margin-left: 5px'),
                 'required'  => false
                 ))
-            ->add('category', 'entity', array(
+            ->add('category', EntityType::class, array(
                 'attr' => array('class' => 'form-control'),
                 'label'     => 'Choose a category',
                 'class'     => 'ROVBlogBundle:Category',
@@ -59,7 +65,7 @@ class ArticleType extends AbstractType
                 },
                 'empty_value' => ''
                 ))
-            ->add('tags', 'entity', array(
+            ->add('tags', EntityType::class, array(
                 'attr'      => array('class' => 'form-control'),
                 // 'type'         => new TagType(),
                 'class'     => 'ROVBlogBundle:Tag',
@@ -73,20 +79,20 @@ class ArticleType extends AbstractType
                 ))
         ;
     }
- 
-    public function setDefaultOptions(OptionsResolverInterface $resolve)
+
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolve->setDefaults(array(
+        $resolver->setDefaults(array(
             'data_class' => 'ROV\BlogBundle\Entity\Article',
             'validation_groups' => array('Default'),
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             // a unique key to help generate the secret token
-            'intention'       => 'article_item',
+            'csrf_token_id'       => 'article_item',
         ));
     }
- 
-    public function getName()
+
+    public function getBlockPrefix()
     {
         return 'rov_blogbundle_articletype';
     }

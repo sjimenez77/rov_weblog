@@ -3,8 +3,9 @@
 namespace ROV\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use ROV\BlogBundle\Entity\Region;
 use ROV\BlogBundle\Entity\Winery;
@@ -29,16 +30,16 @@ class WineController extends Controller
 
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
+		// Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     // Search form
     $defaultData = array();
     $formSearch = $this->createFormBuilder($defaultData)
-            ->add('search', 'text', array(
+            ->add('search', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
                 'placeholder' => 'Type your search'
@@ -107,7 +108,7 @@ class WineController extends Controller
       'wineReviewsMonth'  => $wineReviewsByMonth,
       'regions'        		=> $regions,
       'wineries'          => $wineries,
-      'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+      'last_username'     => $helper->getLastUsername(),
       'new_region_form'		=> $formNewRegion->createView(),
       'new_winery_form'   => $formNewWinery->createView(),
       'error'             => $error
@@ -127,16 +128,16 @@ class WineController extends Controller
 
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
+		// Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     // Search form
     $defaultData = array();
     $formSearch = $this->createFormBuilder($defaultData)
-            ->add('search', 'text', array(
+            ->add('search', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
                 'placeholder' => 'Type your search'
@@ -218,7 +219,7 @@ class WineController extends Controller
         'wineReviewsMonth'  => $wineReviewsByMonth,
         'regions'           => $regions,
         'wineries'          => $wineries,
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'new_region_form'   => $formNewRegion->createView(),
         'new_winery_form'   => $formNewWinery->createView(),
         'error'             => $error
@@ -238,16 +239,16 @@ class WineController extends Controller
 
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
+		// Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     // Search form
     $defaultData = array();
     $formSearch = $this->createFormBuilder($defaultData)
-            ->add('search', 'text', array(
+            ->add('search', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
                 'placeholder' => 'Type your search'
@@ -329,7 +330,7 @@ class WineController extends Controller
         'wineReviewsMonth'  => $wineReviewsByMonth,
         'regions'           => $regions,
         'wineries'          => $wineries,
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'new_region_form'   => $formNewRegion->createView(),
         'new_winery_form'   => $formNewWinery->createView(),
         'error'             => $error
@@ -350,16 +351,16 @@ class WineController extends Controller
 
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
+		// Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     // Search form
     $defaultData = array();
     $formSearch = $this->createFormBuilder($defaultData)
-            ->add('search', 'text', array(
+            ->add('search', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
                 'placeholder' => 'Type your search'
@@ -453,7 +454,7 @@ class WineController extends Controller
         'wineReviewsMonth'  => $wineReviewsByMonth,
         'regions'           => $regions,
         'wineries'          => $wineries,
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'new_region_form'   => $formNewRegion->createView(),
         'new_winery_form'   => $formNewWinery->createView(),
         'error'             => $error
@@ -472,16 +473,16 @@ class WineController extends Controller
 
       $session = $request->getSession();
       $em = $this->getDoctrine()->getManager();
-      // Get the login error if there is any
-      $error = $request->attributes->get(
-          SecurityContext::AUTHENTICATION_ERROR,
-          $session->get(SecurityContext::AUTHENTICATION_ERROR)
-      );
+			// Get authentication utils
+	  	$helper = $this->get('security.authentication_utils');
+
+	    // Get the login error if there is any
+	    $error = $helper->getLastAuthenticationError();
 
       // Search form
       $defaultData = array();
       $formSearch = $this->createFormBuilder($defaultData)
-              ->add('search', 'text', array(
+              ->add('search', TextType::class, array(
               'attr' => array(
                   'class' => 'form-control',
                   'placeholder' => 'Type your search'
@@ -556,7 +557,7 @@ class WineController extends Controller
               'wineReviewsMonth'  => $wineReviewsByMonth,
               'regions'           => $regions,
               'wineries'          => $wineries,
-              'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+              'last_username'     => $helper->getLastUsername(),
               'new_region_form'   => $formNewRegion->createView(),
               'new_winery_form'   => $formNewWinery->createView(),
               'error'             => $error
@@ -570,7 +571,7 @@ class WineController extends Controller
 
           return $this->render('ROVBlogBundle:Wines:emptyWineSearch.html.twig', array(
               'form_search'       => $formSearch->createView(),
-              'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+              'last_username'     => $helper->getLastUsername(),
               'error'             => $error
           ));
       }
@@ -585,13 +586,13 @@ class WineController extends Controller
   public function wineAction(Request $request, $slug)
   {
       $session = $request->getSession();
-      $user = $this->get('security.context')->getToken()->getUser();
+      $user = $this->get('security.token_storage')->getToken()->getUser();
       $em = $this->getDoctrine()->getManager();
-      // Get the login error if there is any
-      $error = $request->attributes->get(
-          SecurityContext::AUTHENTICATION_ERROR,
-          $session->get(SecurityContext::AUTHENTICATION_ERROR)
-      );
+			// Get authentication utils
+	  	$helper = $this->get('security.authentication_utils');
+
+	    // Get the login error if there is any
+	    $error = $helper->getLastAuthenticationError();
 
       // Wine review
       $query = $em->createQuery(
@@ -615,8 +616,8 @@ class WineController extends Controller
           return $this->redirect($this->generateUrl('rov_blog_wine_homepage'));
       }
 
-      if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') ||
-         ($this->get('security.context')->isGranted('ROLE_ADMIN') && $wine->getAuthor() == $user))
+      if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') ||
+         ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') && $wine->getAuthor() == $user))
       {
           $moderator = true;
       } else {
@@ -626,7 +627,7 @@ class WineController extends Controller
       // Lateral Wells info
       $defaultData = array();
       $formSearch = $this->createFormBuilder($defaultData)
-              ->add('search', 'text', array(
+              ->add('search', TextType::class, array(
               'attr' => array(
                   'class' => 'form-control',
                   'placeholder' => 'Type your search'
@@ -673,7 +674,7 @@ class WineController extends Controller
           'wineReviewsMonth'  => $wineReviewsByMonth,
           'regions'           => $regions,
           'wineries'          => $wineries,
-          'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+          'last_username'     => $helper->getLastUsername(),
           'new_region_form'   => $formNewRegion->createView(),
           'new_winery_form'   => $formNewWinery->createView(),
           'error'             => $error
@@ -689,13 +690,13 @@ class WineController extends Controller
   public function previewWineAction(Request $request, $wine_id)
   {
       $session = $request->getSession();
-      $user = $this->get('security.context')->getToken()->getUser();
+      $user = $this->get('security.token_storage')->getToken()->getUser();
       $em = $this->getDoctrine()->getManager();
-      // Get the login error if there is any
-      $error = $request->attributes->get(
-          SecurityContext::AUTHENTICATION_ERROR,
-          $session->get(SecurityContext::AUTHENTICATION_ERROR)
-      );
+			// Get authentication utils
+	  	$helper = $this->get('security.authentication_utils');
+
+	    // Get the login error if there is any
+	    $error = $helper->getLastAuthenticationError();
 
       // Wine review
       $query = $em->createQuery(
@@ -717,7 +718,7 @@ class WineController extends Controller
           return $this->redirect($this->generateUrl('rov_blog_wine_homepage'));
       }
 
-      if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($wine->getAuthor() == $user))
+      if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || ($wine->getAuthor() == $user))
       {
           // Super user and author
           //////////////////////////////////////////////////////
@@ -725,7 +726,7 @@ class WineController extends Controller
           // Lateral Wells info
           $defaultData = array();
           $formSearch = $this->createFormBuilder($defaultData)
-                  ->add('search', 'text', array(
+                  ->add('search', TextType::class, array(
                   'attr' => array(
                       'class' => 'form-control',
                       'placeholder' => 'Type your search'
@@ -771,7 +772,7 @@ class WineController extends Controller
               'wineReviewsMonth'  => $wineReviewsByMonth,
               'regions'           => $regions,
               'wineries'          => $wineries,
-              'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+              'last_username'     => $helper->getLastUsername(),
               'new_region_form'   => $formNewRegion->createView(),
               'new_winery_form'   => $formNewWinery->createView(),
               'error'             => $error
@@ -795,12 +796,12 @@ class WineController extends Controller
 	{
 		$session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
-    $user = $this->get('security.context')->getToken()->getUser();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+		// Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $wine = new Wine();
     $formNewWine = $this->createForm(new WineType(), $wine);
@@ -871,7 +872,7 @@ class WineController extends Controller
         'new_wine_form'     => $formNewWine->createView(),
         'new_region_form'   => $formNewRegion->createView(),
         'new_winery_form'   => $formNewWinery->createView(),
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'error'             => $error
     ));
 	}
@@ -886,12 +887,12 @@ class WineController extends Controller
 	{
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
-    $user = $this->get('security.context')->getToken()->getUser();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+		// Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $wine = $em->getRepository('ROVBlogBundle:Wine')->find($wine_id);
     $formEditWine = $this->createForm(new WineType(), $wine);
@@ -963,7 +964,7 @@ class WineController extends Controller
         'wine_id'           => $wine_id,
         'new_region_form'   => $formNewRegion->createView(),
         'new_winery_form'   => $formNewWinery->createView(),
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'error'             => $error
     ));
 	}
@@ -977,18 +978,18 @@ class WineController extends Controller
 	{
 		$session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
+		// Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $region = new Region();
     $formNewRegion = $this->createForm(new RegionType(), $region);
     $winery = new Winery();
     $formNewWinery = $this->createForm(new WineryType(), $winery);
 
-    if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+    if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN'))
     {
         // Get all the wine tasting reviews
         $query = $em->createQuery(
@@ -1002,7 +1003,7 @@ class WineController extends Controller
     else
     {
         // Get the wine tasting reviews from the author $user
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $query = $em->createQuery(
             'SELECT w, wry, r FROM ROVBlogBundle:Wine w
              JOIN w.winery wry
@@ -1057,7 +1058,7 @@ class WineController extends Controller
         'wineries'              => $wineries,
         'new_region_form'       => $formNewRegion->createView(),
         'new_winery_form'       => $formNewWinery->createView(),
-        'last_username'         => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'         => $helper->getLastUsername(),
         'error'                 => $error
     ));
 	}
@@ -1071,12 +1072,12 @@ class WineController extends Controller
   {
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
-    $user = $this->get('security.context')->getToken()->getUser();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+		// Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $region = $em->getRepository('ROVBlogBundle:Region')->findOneBy(array('slug' => $slug));
     $formEditRegion = $this->createForm(new RegionType(), $region);
@@ -1099,7 +1100,7 @@ class WineController extends Controller
     return $this->render('ROVBlogBundle:Wines:manageRegion.html.twig', array(
         'region'            => $region,
         'edit_region_form'  => $formEditRegion->createView(),
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'error'             => $error
     ));
   }
@@ -1113,12 +1114,12 @@ class WineController extends Controller
   {
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
-    $user = $this->get('security.context')->getToken()->getUser();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+		// Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
+
     // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $error = $helper->getLastAuthenticationError();
 
     $winery = $em->getRepository('ROVBlogBundle:Winery')->findOneBy(array('slug' => $slug));
     $formEditWinery = $this->createForm(new WineryType(), $winery);
@@ -1141,7 +1142,7 @@ class WineController extends Controller
     return $this->render('ROVBlogBundle:Wines:manageWinery.html.twig', array(
         'winery'            => $winery,
         'edit_winery_form'  => $formEditWinery->createView(),
-        'last_username'     => $session->get(SecurityContext::LAST_USERNAME),
+        'last_username'     => $helper->getLastUsername(),
         'error'             => $error
     ));
   }
@@ -1156,14 +1157,14 @@ class WineController extends Controller
   {
     $session = $request->getSession();
     $em = $this->getDoctrine()->getManager();
-    $user = $this->get('security.context')->getToken()->getUser();
-    // Get the login error if there is any
-    $error = $request->attributes->get(
-        SecurityContext::AUTHENTICATION_ERROR,
-        $session->get(SecurityContext::AUTHENTICATION_ERROR)
-    );
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+		// Get authentication utils
+  	$helper = $this->get('security.authentication_utils');
 
-    if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+    // Get the login error if there is any
+    $error = $helper->getLastAuthenticationError();
+
+    if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
         $wine = $em->getRepository('ROVBlogBundle:Wine')->find($wine_id);
         $em->remove($wine);
         $em->flush();
@@ -1172,7 +1173,7 @@ class WineController extends Controller
             'Wine tasting review deleted successfully'
         );
     }
-    elseif ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+    elseif ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
         // Check whether the wine tasting review belongs to this user
         $wine = $em->getRepository('ROVBlogBundle:Wine')->findBy(array(
             'id' => $wine_id,

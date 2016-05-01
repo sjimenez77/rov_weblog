@@ -1311,16 +1311,16 @@
 				<target>Región actualizada</target>
 			</trans-unit>
 			<trans-unit id="328">
-				<source></source>
-				<target></target>
+				<source>Type the recommended retail price</source>
+				<target>Escriba el precio de venta recomendado</target>
 			</trans-unit>
 			<trans-unit id="329">
-				<source></source>
-				<target></target>
+				<source>Price</source>
+				<target>Precio</target>
 			</trans-unit>
 			<trans-unit id="330">
-				<source></source>
-				<target></target>
+				<source>Label image file</source>
+				<target>Archivo de imagen de la etiqueta</target>
 			</trans-unit>
 			<trans-unit id="331">
 				<source></source>

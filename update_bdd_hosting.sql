@@ -5,7 +5,7 @@ CREATE TABLE Winery (id INT AUTO_INCREMENT NOT NULL, region_id INT DEFAULT NULL,
 ALTER TABLE Wine ADD CONSTRAINT FK_F63ECB5632FAE8E8 FOREIGN KEY (winery_id) REFERENCES Winery (id) ON DELETE CASCADE;
 ALTER TABLE Winery ADD CONSTRAINT FK_955ED7C798260155 FOREIGN KEY (region_id) REFERENCES Region (id) ON DELETE CASCADE;
 
-## 27/09/2014 19:05 
+## 27/09/2014 19:05
 ALTER TABLE Wine ADD created DATETIME NOT NULL, ADD updated DATETIME NOT NULL;
 
 ## 27/09/2014 19:34
@@ -36,3 +36,8 @@ ALTER TABLE wine ADD alcohol NUMERIC(2, 1) DEFAULT NULL, ADD wine_making VARCHAR
 
 ## 18/10/2014 23:08
 ALTER TABLE wine CHANGE alcohol alcohol NUMERIC(3, 1) DEFAULT NULL;
+
+###################################################################################################################################
+
+## TODO
+ALTER TABLE wine ADD image_label VARCHAR(255) DEFAULT NULL, ADD pvp NUMERIC(7, 2) DEFAULT NULL;

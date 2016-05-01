@@ -1,17 +1,19 @@
 <?php
 // src/ROV/BlogBundle/Form/Frontend/CommentType.php
 namespace ROV\BlogBundle\Form\Frontend;
- 
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
- 
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 class CommentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', 'textarea', array(
+            ->add('content', TextareaType::class, array(
                 'attr' => array(
                     'class' => 'form-control',
                     'rows' => 6,
@@ -20,20 +22,20 @@ class CommentType extends AbstractType
                 ))
         ;
     }
- 
-    public function setDefaultOptions(OptionsResolverInterface $resolve)
+
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolve->setDefaults(array(
+        $resolver->setDefaults(array(
             'data_class' => 'ROV\BlogBundle\Entity\Comment',
             'validation_groups' => array('Default'),
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             // a unique key to help generate the secret token
-            'intention'       => 'comment_item',
+            'csrf_token_id'       => 'comment_item',
         ));
     }
- 
-    public function getName()
+
+    public function getBlockPrefix()
     {
         return 'rov_blogbundle_commenttype';
     }
