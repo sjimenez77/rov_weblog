@@ -39,5 +39,5 @@ ALTER TABLE wine CHANGE alcohol alcohol NUMERIC(3, 1) DEFAULT NULL;
 
 ###################################################################################################################################
 
-## TODO
+## 06/05/2016 10:46
 ALTER TABLE wine ADD image_label VARCHAR(255) DEFAULT NULL, ADD pvp NUMERIC(7, 2) DEFAULT NULL;

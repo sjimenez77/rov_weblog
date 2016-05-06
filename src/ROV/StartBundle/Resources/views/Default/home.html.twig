@@ -42,8 +42,8 @@
 					<div class="panel-body" style="padding: 0 15px">
 						{% if wines|length > 0 %}
 						{% for wine in wines %}
-						<div class="row" style="">
-							<div class="col-lg-3 col-md-2 col-xs-4" style="background-image:url('{{ vich_uploader_asset(wine, 'wine_label') }}'); background-position: 50% 50%; background-size: cover; border-right: 1px solid #ddd;height: 141px">
+						<div class="row" style="{% if loop.index % 2 == 0 %}background:#fafafa;{% endif %}{% if not loop.last %}border-bottom: 1px solid #ddd;{% endif %}">
+							<div class="col-lg-3 col-md-2 col-xs-4" style="background-image:url('{% if wine.imageLabel %}{{ vich_uploader_asset(wine, 'wine_label') }}{% else %}/images/botella_gen.jpg{% endif %}'); background-position: 50% 50%; background-size: cover; border-right: 1px solid #ddd;height: 141px">
 							</div>
 							<div class="col-lg-9 col-md-10 col-xs-8" style="height: 141px">
 								<h3>
@@ -51,9 +51,9 @@
 								</h3>
 								<h4>{{ wine.winery.name }}</h4>
 								<p>{{ wine.winery.region.name }}</p>
-							</div>
-							<div class="puntos">
-								<p style="font-size: 3em; color: {% if wine.points >= 90 %}#32bf28{% elseif wine.points >= 70 %}#92b72f{% elseif wine.points >= 50 %}#d9991d{% else %}#d9371d{% endif %}">{{ wine.points }}</p>
+								<div class="puntos">
+									<p style="font-size: 3em; color: {% if wine.points >= 90 %}#32bf28{% elseif wine.points >= 70 %}#92b72f{% elseif wine.points >= 50 %}#d9991d{% else %}#d9371d{% endif %}">{{ wine.points }}</p>
+								</div>
 							</div>
 						</div>
 						{% endfor %}
