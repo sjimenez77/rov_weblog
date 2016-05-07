@@ -82,3 +82,9 @@ nav {
 	border-color: #a5360f;
 	text-decoration: none;
 }
+
+@media only screen and (max-device-width: 768px) {
+	.carousel {
+		height: 100%;
+	}
+}

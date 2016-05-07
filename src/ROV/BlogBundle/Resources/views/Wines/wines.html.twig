@@ -73,6 +73,23 @@
 							{% if wine.pvp %}<span class="label label-warning">{{ wine.pvp }} &euro;</span>{% endif %}
 						</p>
 						<p><strong><i class="fa fa-clock-o"></i> {{ 'Last updated'|trans }}:</strong> {{ wine.updated|date('d/m/Y H:i:s', 'Europe/Madrid') }}</p>
+						<div class="hidden-xs">
+							<hr>
+							<h4>{{ 'Wine-making'|trans }}</h4>
+							<p class="text-justify">
+								{{ wine.wineMaking }}
+							</p>
+							<p>
+								<div class="btn-group">
+									<a href="{{ path('rov_blog_wine_review', { 'slug': wine.slug }) }}" class="btn btn-primary">{{ 'View details'|trans }} <i class="fa fa-angle-right"></i></a>
+									{% if is_granted('ROLE_ADMIN') %}
+									<a href="{{ path('rov_blog_edit_wine', { 'wine_id': wine.id }) }}" class="btn btn-default"><i class="fa fa-pencil-square-o"></i> {{ 'Edit wine tasting review'|trans }}</a>
+									{% endif %}
+								</div>
+							</p>
+						</div>
+					</div>
+					<div class="col-xs-12 visible-xs">
 						<hr>
 						<h4>{{ 'Wine-making'|trans }}</h4>
 						<p class="text-justify">

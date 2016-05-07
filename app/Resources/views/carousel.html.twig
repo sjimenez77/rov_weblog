@@ -1,7 +1,7 @@
 <!-- Carousel
     ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators 
+        <!-- Indicators
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -31,7 +31,6 @@
                 <h2>{{ 'The wine culture'|trans }}</h2>
                 <h4>{{ 'Are you interested?'|trans }}</h4>
                 <div class="btn-group" role="group">
-                  {% if not app.user %}<a class="btn btn-default" href="{{ path('rov_users_register') }}">{{ 'Sign up now'|trans }}</a>{% endif %}
                   <a class="btn btn-primary" href="{{ path('rov_blog_homepage') }}">{{ 'Last articles'|trans }}</a>
                   <a class="btn btn-info" href="{{ path('rov_blog_wine_homepage') }}">{{ 'Last wines'|trans }}</a>
                 </div>
