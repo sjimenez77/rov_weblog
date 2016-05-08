@@ -53,7 +53,7 @@ class WineController extends Controller
     $formNewWinery = $this->createForm(new WineryType(), $winery);
     // Form declared to get the wine types labels
     $formWine = $this->createForm(new WineType(), null);
-    $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+    $wineTypesLabels = array_flip($formWine->get('type')->getConfig()->getOption('choices'));
 
     // Get regions
     $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
@@ -151,7 +151,7 @@ class WineController extends Controller
     $formNewWinery = $this->createForm(new WineryType(), $winery);
     // Form declared to get the wine types labels
     $formWine = $this->createForm(new WineType(), null);
-    $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+		$wineTypesLabels = array_flip($formWine->get('type')->getConfig()->getOption('choices'));
 
     // Get regions
     $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
@@ -262,7 +262,7 @@ class WineController extends Controller
     $formNewWinery = $this->createForm(new WineryType(), $winery);
     // Form declared to get the wine types labels
     $formWine = $this->createForm(new WineType(), null);
-    $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+		$wineTypesLabels = array_flip($formWine->get('type')->getConfig()->getOption('choices'));
 
     // Get regions
     $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
@@ -374,7 +374,7 @@ class WineController extends Controller
     $formNewWinery = $this->createForm(new WineryType(), $winery);
     // Form declared to get the wine types labels
     $formWine = $this->createForm(new WineType(), null);
-    $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+		$wineTypesLabels = array_flip($formWine->get('type')->getConfig()->getOption('choices'));
 
     // Get regions
     $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
@@ -521,7 +521,7 @@ class WineController extends Controller
           $formNewWinery = $this->createForm(new WineryType(), $winery);
           // Form declared to get the wine types labels
           $formWine = $this->createForm(new WineType(), null);
-          $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+					$wineTypesLabels = array_flip($formWine->get('type')->getConfig()->getOption('choices'));
 
           // Get regions
           $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
@@ -641,7 +641,7 @@ class WineController extends Controller
       $formNewWinery = $this->createForm(new WineryType(), $winery);
       // Form declared to get the wine types labels
       $formWine = $this->createForm(new WineType(), null);
-      $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+			$wineTypesLabels = array_flip($formWine->get('type')->getConfig()->getOption('choices'));
 
       $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
               array(),
@@ -740,7 +740,7 @@ class WineController extends Controller
           $formNewWinery = $this->createForm(new WineryType(), $winery);
           // Form declared to get the wine types labels
           $formWine = $this->createForm(new WineType(), null);
-          $wineTypesLabels = $formWine->get('type')->getConfig()->getOption('choices');
+					$wineTypesLabels = array_flip($formWine->get('type')->getConfig()->getOption('choices'));
 
           $regions = $em->getRepository('ROVBlogBundle:Region')->findBy(
                   array(),

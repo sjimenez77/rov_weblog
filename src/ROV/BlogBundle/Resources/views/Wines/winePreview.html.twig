@@ -44,50 +44,81 @@
 					</div>
 					<div class="col-md-3 col-xs-12">
 						{# Share button #}
-						<div id="share-button" class='share-button share-button-top' style="padding-bottom: 2em"></div>
-						<br><br>
+						<div class="hidden-sm hidden-xs" style="height:1.5em"></div>
+						<div id="share-button" class='share-button share-button-top'></div>
+						<div class="visible-sm visible-xs" style="height:2em"></div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<div class="img_wine" style="background-image:url('{{ vich_uploader_asset(wine, 'wine_image') }}');"></div>
-					</div>
-					<div class="col-md-12">
-						<h3>{{ 'Map location'|trans }}</h3>
-						<div class="map_canvas" id="map_canvas"></div>
 						<div class="row">
-							<div class="col-md-6">
-								<div class="text-justify article">
-									<h3>{{ wine.winery.name }}</h3>
-									<ul>
-										<li>{{ wine.winery.address}}</li>
-										<li>{{ wine.winery.postal }} {{ wine.winery.location }}</li>
-										{% if wine.winery.phone %}<li><i class="fa fa-phone-square"></i> <a href="tel:{{ wine.winery.phone }}" target="_blank">{{ wine.winery.phone }}</a></li>{% endif %}
-										{% if wine.winery.email %}<li><i class="fa fa-envelope"></i> <a href="mailto:{{ wine.winery.email }}" target="_blank">{{ wine.winery.email }}</a></li>{% endif %}
-										{% if wine.winery.web %}<li><i class="fa fa-cloud"></i> <a href="{{ wine.winery.web }}" target="_blank">{{ wine.winery.web }}</a></li>{% endif %}
-									</ul>
-								</div>
+							<div class="col-sm-4">
+								<h3>&nbsp;</h3>
+								<!-- <div class="img_wine" style="background-image:url('{{ vich_uploader_asset(wine, 'wine_image') }}');"></div> -->
+								<img src="{{ vich_uploader_asset(wine, 'wine_image') }}" alt="UP4WINE - {{ wine.brand }}" class="img-rounded img-responsive">
 							</div>
-							<div class="col-md-6">
-								<div class="text-justify article">
-									<h3>{{ 'Wine-making'|trans }}</h3>
-									<p>
-										{{ wine.wineMaking }}
-									</p>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<h3>{{ 'Description'|trans }}</h3>
-								<p>
-									{{ wine.description|raw }}
-								</p>
+							<div class="col-sm-8">
+								<h3>{{ 'Map location'|trans }}</h3>
+								<div class="map_canvas" id="map_canvas"></div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="row hidden-xs">
+					<div class="col-sm-4">
+						<div class="text-justify article">
+							<h3>{{ 'Wine-making'|trans }}</h3>
+							<p>
+								{{ wine.wineMaking }}
+							</p>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="text-justify article">
+							<h3>{{ wine.winery.name }}</h3>
+							<ul>
+								<li>{{ wine.winery.address}}</li>
+								<li>{{ wine.winery.postal }} {{ wine.winery.location }}</li>
+								{% if wine.winery.phone %}<li><i class="fa fa-phone-square"></i> <a href="tel:{{ wine.winery.phone }}" target="_blank">{{ wine.winery.phone }}</a></li>{% endif %}
+								{% if wine.winery.email %}<li><i class="fa fa-envelope"></i> <a href="mailto:{{ wine.winery.email }}" target="_blank">{{ wine.winery.email }}</a></li>{% endif %}
+								{% if wine.winery.web %}<li><i class="fa fa-cloud"></i> <a href="{{ wine.winery.web }}" target="_blank">{{ wine.winery.web }}</a></li>{% endif %}
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="row visible-xs">
+					<div class="col-sm-8">
+						<div class="text-justify article">
+							<h3>{{ wine.winery.name }}</h3>
+							<ul>
+								<li>{{ wine.winery.address}}</li>
+								<li>{{ wine.winery.postal }} {{ wine.winery.location }}</li>
+								{% if wine.winery.phone %}<li><i class="fa fa-phone-square"></i> <a href="tel:{{ wine.winery.phone }}" target="_blank">{{ wine.winery.phone }}</a></li>{% endif %}
+								{% if wine.winery.email %}<li><i class="fa fa-envelope"></i> <a href="mailto:{{ wine.winery.email }}" target="_blank">{{ wine.winery.email }}</a></li>{% endif %}
+								{% if wine.winery.web %}<li><i class="fa fa-cloud"></i> <a href="{{ wine.winery.web }}" target="_blank">{{ wine.winery.web }}</a></li>{% endif %}
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="text-justify article">
+							<h3>{{ 'Wine-making'|trans }}</h3>
+							<p>
+								{{ wine.wineMaking }}
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<h3>{{ 'Description'|trans }}</h3>
+						<p>
+							{{ wine.description|raw }}
+						</p>
+					</div>
+				</div>
 				{% if is_granted('ROLE_ADMIN') %}
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-sm-12">
 						<br>
 						<a href="{{ path('rov_blog_edit_wine', { 'wine_id': wine.id }) }}" class="btn btn-default btn-block"><i class="fa fa-pencil-square-o"></i> {{ 'Edit wine tasting review'|trans }}</a>
 						<br>
