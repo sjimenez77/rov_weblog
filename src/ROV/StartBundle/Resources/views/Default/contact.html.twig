@@ -4,7 +4,7 @@
 
 {% block body %}
 	{{ parent() }}
-	
+
 	<div class="container">
     	<div class="row">
 			<div class="col-lg-12">
@@ -30,11 +30,11 @@
 						{% for message in app.session.flashbag.get('success') %}
 						<div class="alert alert-success">{{ message|trans }}.</div>
 						{% endfor %}
-						{{ form_row(contact_form.Name) }}
-						{{ form_row(contact_form.Surname) }}
-						{{ form_row(contact_form.Email) }}
-						{{ form_row(contact_form.Subject) }}
-						{{ form_row(contact_form.Message) }}
+						<div class="form-group">{{ form_row(contact_form.Name) }}</div>
+						<div class="form-group">{{ form_row(contact_form.Surname) }}</div>
+						<div class="form-group">{{ form_row(contact_form.Email) }}</div>
+						<div class="form-group">{{ form_row(contact_form.Subject) }}</div>
+						<div class="form-group">{{ form_row(contact_form.Message) }}</div>
 						<hr>
 						<button class="btn btn-primary" type="submit"/><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;{{ 'Send'|trans }}</button>
 						<button type="button" class="btn">{{ 'Cancel'|trans }}</button>
