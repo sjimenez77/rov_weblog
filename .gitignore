@@ -7,7 +7,7 @@
 /web/bundles/
 /web/js/compiled/*
 /web/css/compiled/*
-/web/images/uploads/
+/web/images/*
 /web/video/
 /node_modules
 /build/
